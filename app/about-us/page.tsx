@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Box, Typography, Container, Button, Grid, Card, TextField, InputAdornment } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Image from 'next/image';
+import AboutCircle from '../assets/images/about-us.png';
 
 const GradientText = styled(Typography)({
   background: 'linear-gradient(249deg, #FFF 0%, #9573DE 53%, #FFF 100%)',
@@ -19,28 +20,6 @@ const HeroBadge = styled(Box)({
   background: 'rgba(37, 26, 73, 0.50)',
   marginBottom: '32px',
   width: 'fit-content',
-});
-
-const StakeholderCard = styled(Box)<{
-  cardPosition: { top: string; left: string; transform?: string };
-}>(({ cardPosition }) => ({
-  position: 'absolute',
-  top: cardPosition.top,
-  left: cardPosition.left,
-  transform: cardPosition.transform || 'none',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  gap: '8px',
-}));
-
-const StakeholderLabel = styled(Typography)({
-  color: '#E2E1E4',
-  fontSize: '14px',
-  fontWeight: 500,
-  lineHeight: '24px',
-  textAlign: 'center',
-  width: '125px',
 });
 
 const StatsCard = styled(Box)({
@@ -384,274 +363,13 @@ const AboutUsPage: React.FC = () => {
           </Box>
 
           {/* Right Side - Stakeholder Diagram */}
-          <Box
-            sx={{
-              flex: 1,
-              position: 'relative',
-              height: '593px',
-              display: { xs: 'none', md: 'block' },
-            }}>
-            {/* Gradient Blur Background */}
-            <Box
-              sx={{
-                position: 'absolute',
-                top: '-78px',
-                left: '-95px',
-                width: '610px',
-                height: '329px',
-                transform: 'rotate(135.758deg)',
-                borderRadius: '702px',
-                opacity: 0.75,
-                background: 'linear-gradient(180deg, #601EF9 0%, rgba(96, 30, 249, 0.00) 100%)',
-                filter: 'blur(100px)',
-              }}
-            />
-
-            {/* Main Circle */}
-            <svg
-              style={{
-                position: 'absolute',
-                top: '29px',
-                left: '23px',
-                width: '513px',
-                height: '475px',
-                borderRadius: '513px',
-                background: 'rgba(37, 26, 73, 0.50)',
-              }}
-              width='514'
-              height='477'
-              viewBox='0 0 514 477'
-              fill='none'>
-              <path
-                d='M513.632 238.557C513.632 369.767 398.751 476.134 257.037 476.134C115.324 476.134 0.442383 369.767 0.442383 238.557C0.442383 107.347 115.324 0.980156 257.037 0.980156C398.751 0.980156 513.632 107.347 513.632 238.557ZM86.5014 238.557C86.5014 325.76 162.853 396.453 257.037 396.453C351.222 396.453 427.573 325.76 427.573 238.557C427.573 151.353 351.222 80.6607 257.037 80.6607C162.853 80.6607 86.5014 151.353 86.5014 238.557Z'
-                fill='#251A49'
-                fillOpacity='0.5'
-                stroke='url(#paint0_linear)'
-                strokeWidth='1.20751'
-              />
-              <defs>
-                <linearGradient
-                  id='paint0_linear'
-                  x1='34.6949'
-                  y1='482.262'
-                  x2='132.992'
-                  y2='-67.1245'
-                  gradientUnits='userSpaceOnUse'>
-                  <stop stopColor='white' />
-                  <stop
-                    offset='0.53'
-                    stopColor='#9573DE'
-                  />
-                  <stop
-                    offset='1'
-                    stopColor='white'
-                  />
-                </linearGradient>
-              </defs>
-            </svg>
-
-            <Box
-              sx={{
-                position: 'absolute',
-                top: '103px',
-                left: '116px',
-                width: '107px',
-                height: '110px',
-              }}>
-              <Image
-                src='https://cdn.builder.io/api/v1/image/assets/TEMP/559e40e0f2d93212208b6c29d32eb7890a90f382?width=305'
-                alt='Background'
-                width={152}
-                height={167}
-                style={{
-                  position: 'absolute',
-                  left: '-25px',
-                  top: '-29px',
-                }}
-              />
-              <Box sx={{ position: 'absolute', left: '22px', top: '70px' }}>
-                <svg
-                  width='111'
-                  height='31'
-                  viewBox='0 0 111 31'
-                  fill='none'>
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M17.6922 11.1205L6.94814 0.651611H4.22449H0.65625V30.2857H6.91541V15.4059V9.85075L17.3255 20.5114L25.9678 12.2514V7.79394V6.85488V3.34984L17.6922 11.1205Z'
-                    fill='#F1EEFB'
-                  />
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M49.0838 18.7914H35.3871V12.198H49.0838V7.29095H33.7633V30.2854H27.5894V6.85452C27.5894 5.14161 28.0214 3.52138 29.1934 2.30453C30.3326 1.12075 31.7861 0.644592 33.3575 0.644592H47.1656L55.3037 10.1678V30.2787H49.0838V18.7782V18.7914Z'
-                    fill='#8F75DD'
-                  />
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M104.211 23.6923V18.7852H90.3316C88.7864 18.7852 87.333 18.3554 86.1741 17.2312C84.9498 16.0407 84.5635 14.3411 84.5635 12.6283V6.85488C84.5635 5.14862 84.9694 3.50195 86.1479 2.2851C87.2937 1.10132 88.7668 0.651611 90.3382 0.651611H109.149V7.2914H90.744V12.1984H104.625C106.222 12.1984 107.715 12.6614 108.88 13.8782C110.032 15.0885 110.484 16.6558 110.484 18.3554V24.1288C110.484 25.8152 110.111 27.495 108.945 28.6986C107.78 29.9022 106.208 30.2857 104.631 30.2857H84.9629V23.6923H104.225H104.211Z'
-                    fill='#F9FAFC'
-                  />
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M76.7632 19.7707V0.651611H82.9373V27.3495L76.7632 19.7707Z'
-                    fill='#8F75DD'
-                  />
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M71.5126 15.968L83.1864 30.2857H74.6946L67.0278 21.3182L71.5126 15.968ZM67.3551 8.68674L74.6161 0.651611H75.1464V9.38782L71.5781 13.3822L67.3551 8.68674Z'
-                    fill='#F1EEFB'
-                  />
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M61.6483 15.0289L49.3657 0.651611H57.8771L70.4412 14.6321L57.3271 30.2857H56.9278V20.7626L61.6483 15.0289Z'
-                    fill='#F1EEFB'
-                  />
-                </svg>
-              </Box>
-            </Box>
-
-            {/* Stakeholder Cards */}
-            <StakeholderCard cardPosition={{ top: '383px', left: '0px' }}>
-              <Image
-                src='https://cdn.builder.io/api/v1/image/assets/TEMP/94fee423a5efeeb7159ccf9ee830cc0bf7b72904?width=140'
-                alt='AI Researchers'
-                width={140}
-                height={140}
-                style={{ borderRadius: '32px' }}
-              />
-              <StakeholderLabel>
-                AI Researchers
-                <br />& LLM Scientists
-              </StakeholderLabel>
-            </StakeholderCard>
-
-            <StakeholderCard
-              cardPosition={{
-                top: '180px',
-                left: '18px',
-                transform: 'rotate(3.948deg)',
-              }}>
-              <Image
-                src='https://cdn.builder.io/api/v1/image/assets/TEMP/9c7b389e5eec3715e7ca8ca40644e4915ae684a1?width=140'
-                alt='Pharma Leaders'
-                width={140}
-                height={140}
-                style={{ borderRadius: '32px' }}
-              />
-              <StakeholderLabel>
-                Pharma
-                <br />
-                Leaders
-              </StakeholderLabel>
-            </StakeholderCard>
-
-            <StakeholderCard cardPosition={{ top: '62px', left: '232px' }}>
-              <Image
-                src='https://cdn.builder.io/api/v1/image/assets/TEMP/44650fd3298d273b56d7d0a354855378f9389e08?width=145'
-                alt='Biotech Innovators'
-                width={145}
-                height={145}
-                style={{ borderRadius: '32px' }}
-              />
-              <StakeholderLabel>
-                Biotech
-                <br />
-                Innovators
-              </StakeholderLabel>
-            </StakeholderCard>
-
-            <StakeholderCard
-              cardPosition={{
-                top: '178px',
-                left: '474px',
-                transform: 'rotate(-0.499deg)',
-              }}>
-              <div
-                style={{
-                  width: '70px',
-                  height: '63px',
-                  borderRadius: '32px',
-                  background: '#110136',
-                  border: '1px solid #5317C9',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <svg
-                  width='27'
-                  height='27'
-                  viewBox='0 0 27 27'
-                  fill='none'>
-                  <path
-                    d='M13.5 13.5L21 8V19L13.5 13.5Z'
-                    fill='#6824B3'
-                  />
-                </svg>
-              </div>
-              <StakeholderLabel>
-                Healthcare
-                <br />
-                Networks
-              </StakeholderLabel>
-            </StakeholderCard>
-
-            <StakeholderCard
-              cardPosition={{
-                top: '387px',
-                left: '470px',
-                transform: 'rotate(-1.267deg)',
-              }}>
-              <Image
-                src='https://cdn.builder.io/api/v1/image/assets/TEMP/da5ea99e722bda68c06c0596440f1828b36a42ad?width=141'
-                alt='Enterprise AI Services'
-                width={141}
-                height={141}
-                style={{ borderRadius: '32px' }}
-              />
-              <StakeholderLabel>
-                Enterprise
-                <br />
-                AI Services
-              </StakeholderLabel>
-            </StakeholderCard>
-
-            <StakeholderCard cardPosition={{ top: '544px', left: '228px' }}>
-              <div
-                style={{
-                  width: '70px',
-                  height: '63px',
-                  borderRadius: '32px',
-                  background: '#110136',
-                  border: '1px solid #5317C9',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <svg
-                  width='27'
-                  height='27'
-                  viewBox='0 0 27 27'
-                  fill='none'>
-                  <path
-                    d='M13.5 6.75V20.25M6.75 13.5H20.25'
-                    stroke='#9E39FF'
-                    strokeWidth='2'
-                    strokeLinecap='round'
-                  />
-                </svg>
-              </div>
-              <StakeholderLabel>
-                Researchbound
-                <br />
-                Ecosystem
-              </StakeholderLabel>
-            </StakeholderCard>
-          </Box>
+          <Image
+            src={AboutCircle}
+            alt='About'
+            width={550} // required unless layout='fill'
+            height={550} // required unless layout='fill'
+            priority // optional: preload on first load
+          />
         </Box>
       </Container>
 
@@ -842,13 +560,13 @@ const AboutUsPage: React.FC = () => {
                 border: '1px solid #7352D5',
                 borderRadius: '12px',
                 py: 2,
+                width: 'fit-content',
                 px: 4,
                 color: 'white',
                 fontSize: '15px',
                 fontWeight: 500,
                 textTransform: 'none',
                 maxWidth: '896px',
-                width: '100%',
                 mb: 9,
                 '&:hover': {
                   background: '#5A2FA8',
