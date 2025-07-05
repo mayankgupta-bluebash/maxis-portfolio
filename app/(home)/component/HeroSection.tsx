@@ -1,0 +1,152 @@
+'use client';
+import React, { useEffect, useRef } from 'react';
+import { Box, Typography, Button, Container } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import { styled } from '@mui/material/styles';
+import gsap from 'gsap';
+
+const GradientText = styled(Typography)({
+  background: 'linear-gradient(to right, white, #9573DE, white)',
+  WebkitBackgroundClip: 'text',
+  backgroundClip: 'text',
+  color: 'transparent',
+});
+
+const HeroSection: React.FC = () => {
+  const heroHeadingRef = useRef<HTMLDivElement>(null);
+  const heroDescRef = useRef<HTMLParagraphElement>(null);
+  const heroBtnRef = useRef<HTMLButtonElement>(null);
+  const heroImgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.fromTo(heroHeadingRef.current, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: 'power3.out' });
+    gsap.fromTo(heroDescRef.current, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 0.5, ease: 'power3.out' });
+    gsap.fromTo(heroBtnRef.current, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, delay: 1, ease: 'back.out(1.7)' });
+    gsap.fromTo(heroImgRef.current, { x: 80, opacity: 0 }, { x: 0, opacity: 1, duration: 1, delay: 0.7, ease: 'power3.out' });
+  }, []);
+
+  return (
+    <Box
+      component='section'
+      sx={{
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '120px',
+      }}>
+      <Container
+        maxWidth='xl'
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: { xs: '40px', md: '60px' },
+          px: { xs: 4, md: 10 },
+          pt: { xs: '64px', md: '96px' },
+        }}>
+        <Grid
+          container
+          spacing={5}
+          alignItems='center'
+          justifyContent='center'>
+          <Grid size={{ xs: 12, md: 6 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {/* Badge */}
+              <Box
+                sx={{
+                  display: 'inline-flex',
+                  borderRadius: '99px',
+                  border: '1px solid #DAD9DB',
+                  backgroundColor: 'rgba(37,26,73,0.5)',
+                  px: 2.5,
+                  py: 0.6,
+                  mb: 2,
+                }}>
+                <GradientText variant='body2'>Meet the Future: AI Agents</GradientText>
+              </Box>
+              {/* Hero Heading */}
+              <Box
+                sx={{ mb: 5 }}
+                ref={heroHeadingRef}>
+                <Typography
+                  variant='h1'
+                  sx={{
+                    fontSize: { xs: '48px', md: '76px' },
+                    fontWeight: 500,
+                    lineHeight: { xs: '56px', md: '88px' },
+                    color: '#F9FAFC',
+                  }}>
+                  Build the Next
+                </Typography>
+                <GradientText
+                  variant='h1'
+                  sx={{
+                    fontSize: { xs: '48px', md: '76px' },
+                    fontWeight: 500,
+                    lineHeight: { xs: '56px', md: '88px' },
+                  }}>
+                  Generation of AI Agents
+                </GradientText>
+              </Box>
+              {/* Description */}
+              <Typography
+                ref={heroDescRef}
+                variant='body1'
+                sx={{
+                  fontSize: { xs: '16px', md: '20px' },
+                  lineHeight: { xs: '24px', md: '30px' },
+                  color: '#DEDEDE',
+                  pb: 4,
+                }}>
+                Empower your business with intelligent automation. Create, deploy, and manage AI agents with ease.
+              </Typography>
+              {/* CTA Button */}
+              <Button
+                ref={heroBtnRef}
+                variant='outlined'
+                sx={{
+                  maxWidth: '620px',
+                  borderRadius: '12px',
+                  borderColor: '#7352D5',
+                  backgroundColor: '#080411',
+                  px: 4,
+                  py: 2,
+                  color: 'white',
+                  alignSelf: 'flex-start',
+                }}>
+                Get started
+              </Button>
+            </Box>
+          </Grid>
+          {/* Hero Image */}
+          <Grid size={{ xs: 12, md: 6 }}>
+            <Box
+              ref={heroImgRef}
+              sx={{
+                position: 'relative',
+                height: { xs: '300px', md: '512px' },
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Box
+                component='img'
+                src='https://cdn.builder.io/api/v1/image/assets/TEMP/1882a2c8b470b315a56d40d0f414a5eb55a2f286?width=1085'
+                alt='AI Brain Visualization'
+                sx={{
+                  height: { xs: '260px', md: '448px' },
+                  width: { xs: '300px', md: '543px' },
+                  objectFit: 'cover',
+                }}
+              />
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
+  );
+};
+
+export default HeroSection;
