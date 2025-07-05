@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import MaxisCore from '../../assets/images/maxisCore.png';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -17,6 +18,7 @@ const GradientText = styled(Typography)(() => ({
 }));
 
 export default function WhyChooseUsSection() {
+  const router = useRouter();
   const whyChooseTitleRef = useRef(null);
   const whyChooseDiffRef = useRef(null);
   const floatingCardsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -135,8 +137,16 @@ export default function WhyChooseUsSection() {
         <Image
           src={MaxisCore}
           alt='maxis Core image'
-          width={116}
-          style={{ width: '100%', height: 'auto', marginBottom: '120px' }}
+          width={800}
+          height={600}
+          style={{
+            width: '100%',
+            height: 'auto',
+            marginBottom: '120px',
+            imageRendering: 'crisp-edges',
+            objectFit: 'contain',
+          }}
+          priority
         />
         <Box
           ref={whyChooseDiffRef}
@@ -177,6 +187,7 @@ export default function WhyChooseUsSection() {
           </Typography>
           <Button
             variant='contained'
+            onClick={() => router.push('/about-us')}
             sx={{
               borderRadius: '12px',
               backgroundColor: '#694BC2',

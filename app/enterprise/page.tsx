@@ -18,6 +18,7 @@ const HeroBadge = styled(Box)({
   border: '1px solid #DAD9DB',
   background: 'rgba(37, 26, 73, 0.50)',
   marginBottom: '24px',
+  width: 'fit-content',
 });
 
 const FeatureCard = styled(Card)({

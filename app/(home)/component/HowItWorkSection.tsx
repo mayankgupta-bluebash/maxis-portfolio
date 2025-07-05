@@ -106,21 +106,30 @@ export default function HowItWorkSection() {
         const endEl = howItWorksStepsRef.current[3];
         const progressEl = timelineProgressRef.current;
         if (!startEl || !endEl || !progressEl) return;
+
         const startRect = startEl.getBoundingClientRect();
         const endRect = endEl.getBoundingClientRect();
         const containerRect = progressEl.parentElement?.getBoundingClientRect();
         if (!containerRect) return;
-        // Calculate the distance between the first and last step
+
+        // Calculate the full height from start to end
         const startY = startRect.top + window.scrollY - containerRect.top - window.scrollY;
-        const endY = endRect.top + window.scrollY - containerRect.top - window.scrollY;
-        const fullHeight = endY - startY + endRect.height / 2;
-        if (progressEl.style) progressEl.style.height = `${fullHeight}px`;
+        const endY = endRect.bottom + window.scrollY - containerRect.top - window.scrollY;
+        // Add extra padding to ensure the line reaches the bottom of the 4th step
+        const fullHeight = endY - startY + 50;
+
+        if (progressEl.style) {
+          progressEl.style.height = `${fullHeight}px`;
+        }
       };
+
       // Initial update
       updateProgressLine();
+
       // Update on resize for responsiveness
       window.addEventListener('resize', updateProgressLine);
-      // GSAP scroll animation
+
+      // GSAP scroll animation with better trigger points
       gsap.fromTo(
         timelineProgressRef.current,
         { scaleY: 0 },
@@ -130,16 +139,17 @@ export default function HowItWorkSection() {
           ease: 'none',
           scrollTrigger: {
             trigger: howItWorksStepsRef.current[0],
-            start: 'top center',
+            start: 'top 80%',
             endTrigger: howItWorksStepsRef.current[3],
-            end: 'bottom center',
-            scrub: true,
+            end: 'bottom 0%',
+            scrub: 1,
             onUpdate: () => {
               updateProgressLine();
             },
           },
         }
       );
+
       // Cleanup
       return () => {
         window.removeEventListener('resize', updateProgressLine);
@@ -198,9 +208,16 @@ export default function HowItWorkSection() {
             <Image
               src={BlackHole}
               alt='Logo'
-              width={116}
-              height={40}
-              style={{ width: '100%', height: 'auto' }}
+              width={800}
+              height={600}
+              style={{
+                width: '100%',
+                height: 'auto',
+                marginBottom: '120px',
+                imageRendering: 'crisp-edges',
+                objectFit: 'contain',
+              }}
+              priority
             />
           </Box>
         </Box>
@@ -221,7 +238,7 @@ export default function HowItWorkSection() {
           <TimelineLine ref={timelineLineRef} />
           <TimelineProgressLine
             ref={timelineProgressRef}
-            style={{ height: '80px' }}
+            style={{ height: '0px' }}
           />
           {/* Step 1 */}
           <Box

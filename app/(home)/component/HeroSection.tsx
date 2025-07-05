@@ -54,7 +54,7 @@ const HeroSection: React.FC = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               {/* Badge */}
               <Box
-                width='fit'
+                width='fit-content'
                 display='inline-flex'
                 borderRadius='99px'
                 border='1px solid #DAD9DB'

@@ -18,7 +18,7 @@ const HeroBadge = styled(Box)({
   border: '1px solid rgba(248, 246, 254, 0.20)',
   background: 'rgba(37, 26, 73, 0.50)',
   marginBottom: '32px',
-  width: 'fit',
+  width: 'fit-content',
 });
 
 const ContactForm = styled(Card)({
