@@ -4,8 +4,6 @@ import { Box, Container, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import BlackHole from '../../assets/images/blackhole.png';
-import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,7 +42,6 @@ const TimelineProgressLine = styled(Box)(() => ({
 
 export default function HowItWorkSection() {
   const howItWorksTitleRef = useRef(null);
-  const howItWorksImgRef = useRef(null);
   const howItWorksStepsRef = useRef<(HTMLDivElement | null)[]>([]);
   const timelineLineRef = useRef(null);
   const timelineProgressRef = useRef<HTMLDivElement | null>(null);
@@ -62,22 +59,6 @@ export default function HowItWorkSection() {
         scrollTrigger: {
           trigger: howItWorksTitleRef.current,
           start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-      }
-    );
-    gsap.fromTo(
-      howItWorksImgRef.current,
-      { y: 80, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.6,
-        delay: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: howItWorksImgRef.current,
-          start: 'top 85%',
           toggleActions: 'play none none reverse',
         },
       }
@@ -201,25 +182,6 @@ export default function HowItWorkSection() {
             }}>
             Bring Your Ideas to Life— No Code Required
           </Typography>
-
-          <Box
-            ref={howItWorksImgRef}
-            sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-            <Image
-              src={BlackHole}
-              alt='Logo'
-              width={800}
-              height={600}
-              style={{
-                width: '100%',
-                height: 'auto',
-                marginBottom: '120px',
-                imageRendering: 'crisp-edges',
-                objectFit: 'contain',
-              }}
-              priority
-            />
-          </Box>
         </Box>
 
         <Box

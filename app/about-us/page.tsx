@@ -1,9 +1,13 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Box, Typography, Container, Button, Grid, Card, TextField, InputAdornment } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import AboutCircle from '../assets/images/about-us.png';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const GradientText = styled(Typography)({
   background: 'linear-gradient(249deg, #FFF 0%, #9573DE 53%, #FFF 100%)',
@@ -256,6 +260,284 @@ const AboutUsPage: React.FC = () => {
     message: '',
   });
 
+  // Animation refs
+  const heroBadgeRef = useRef<HTMLDivElement>(null);
+  const heroTitleRef = useRef<HTMLHeadingElement>(null);
+  const heroSubtitleRef = useRef<HTMLDivElement>(null);
+  const heroButtonRef = useRef<HTMLButtonElement>(null);
+  const aboutCircleRef = useRef<HTMLDivElement>(null);
+  const statsSectionRef = useRef<HTMLDivElement>(null);
+  const statsCardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const platformSectionRef = useRef<HTMLDivElement>(null);
+  const platformImageRef = useRef<HTMLDivElement>(null);
+  const visionMissionRef = useRef<HTMLDivElement>(null);
+  const visionCardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const contactSectionRef = useRef<HTMLDivElement>(null);
+  const contactFormRef = useRef<HTMLDivElement>(null);
+  const formFieldsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    // Hero section animations
+    gsap.fromTo(
+      heroBadgeRef.current,
+      { y: 40, opacity: 0, scale: 0.9 },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: heroBadgeRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    gsap.fromTo(
+      heroTitleRef.current,
+      { y: 60, opacity: 0, scale: 0.95 },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 1,
+        delay: 0.2,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: heroTitleRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    gsap.fromTo(
+      heroSubtitleRef.current,
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        delay: 0.4,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: heroSubtitleRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    gsap.fromTo(
+      heroButtonRef.current,
+      { y: 30, opacity: 0, scale: 0.9 },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        delay: 0.6,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: heroButtonRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    // About circle animation
+    gsap.fromTo(
+      aboutCircleRef.current,
+      { x: 100, opacity: 0, scale: 0.9, rotationY: 15 },
+      {
+        x: 0,
+        opacity: 1,
+        scale: 1,
+        rotationY: 0,
+        duration: 1.2,
+        delay: 0.3,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: aboutCircleRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    // Stats section animations
+    gsap.fromTo(
+      statsSectionRef.current,
+      { y: 60, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: statsSectionRef.current,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    // Stats cards staggered animation
+    gsap.fromTo(
+      statsCardsRef.current,
+      { y: 80, opacity: 0, scale: 0.9, rotationY: 15 },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        rotationY: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: statsCardsRef.current[0],
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    // Platform section animations
+    gsap.fromTo(
+      platformSectionRef.current,
+      { y: 60, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: platformSectionRef.current,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    gsap.fromTo(
+      platformImageRef.current,
+      { x: -100, opacity: 0, scale: 0.95, rotationY: -10 },
+      {
+        x: 0,
+        opacity: 1,
+        scale: 1,
+        rotationY: 0,
+        duration: 1.2,
+        delay: 0.3,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: platformImageRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    // Vision & Mission section animations
+    gsap.fromTo(
+      visionMissionRef.current,
+      { y: 60, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: visionMissionRef.current,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    // Vision cards staggered animation
+    gsap.fromTo(
+      visionCardsRef.current,
+      { y: 80, opacity: 0, scale: 0.9, rotationY: 15 },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        rotationY: 0,
+        duration: 1,
+        stagger: 0.3,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: visionCardsRef.current[0],
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    // Contact section animations
+    gsap.fromTo(
+      contactSectionRef.current,
+      { y: 60, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: contactSectionRef.current,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    gsap.fromTo(
+      contactFormRef.current,
+      { x: 100, opacity: 0, scale: 0.95, rotationY: 10 },
+      {
+        x: 0,
+        opacity: 1,
+        scale: 1,
+        rotationY: 0,
+        duration: 1.2,
+        delay: 0.3,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: contactFormRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    // Form fields staggered animation
+    gsap.fromTo(
+      formFieldsRef.current,
+      { y: 30, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        delay: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: contactFormRef.current,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   const handleInputChange = (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
@@ -304,7 +586,7 @@ const AboutUsPage: React.FC = () => {
           }}>
           {/* Left Side - Content */}
           <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <HeroBadge>
+            <HeroBadge ref={heroBadgeRef}>
               <GradientText
                 variant='body2'
                 sx={{ fontSize: '15px', fontWeight: 400 }}>
@@ -314,6 +596,7 @@ const AboutUsPage: React.FC = () => {
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
               <GradientText
+                ref={heroTitleRef}
                 variant='h1'
                 sx={{
                   fontSize: '64px',
@@ -330,6 +613,7 @@ const AboutUsPage: React.FC = () => {
             </Box>
 
             <Typography
+              ref={heroSubtitleRef}
               variant='h5'
               sx={{
                 color: 'rgba(255, 255, 255, 0.7)',
@@ -342,6 +626,7 @@ const AboutUsPage: React.FC = () => {
             </Typography>
 
             <Button
+              ref={heroButtonRef}
               variant='contained'
               sx={{
                 background: '#6F41D2',
@@ -363,13 +648,15 @@ const AboutUsPage: React.FC = () => {
           </Box>
 
           {/* Right Side - Stakeholder Diagram */}
-          <Image
-            src={AboutCircle}
-            alt='About'
-            width={550} // required unless layout='fill'
-            height={550} // required unless layout='fill'
-            priority // optional: preload on first load
-          />
+          <Box ref={aboutCircleRef}>
+            <Image
+              src={AboutCircle}
+              alt='About'
+              width={550}
+              height={550}
+              priority
+            />
+          </Box>
         </Box>
       </Container>
 
@@ -377,7 +664,7 @@ const AboutUsPage: React.FC = () => {
       <Container
         maxWidth='xl'
         sx={{ py: 8 }}>
-        <Box sx={{ maxWidth: '1280px', mx: 'auto' }}>
+        <Box ref={statsSectionRef} sx={{ maxWidth: '1280px', mx: 'auto' }}>
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <HeroBadge sx={{ mb: 2 }}>
               <Typography
@@ -413,7 +700,10 @@ const AboutUsPage: React.FC = () => {
               <Grid
                 size='auto'
                 key={index}>
-                <StatsCard>
+                <StatsCard
+                  ref={(el: HTMLDivElement | null) => {
+                    statsCardsRef.current[index] = el;
+                  }}>
                   <StatNumber>{stat.number}</StatNumber>
                   <Typography
                     sx={{
@@ -438,6 +728,7 @@ const AboutUsPage: React.FC = () => {
         maxWidth='xl'
         sx={{ py: 8 }}>
         <Box
+          ref={platformSectionRef}
           sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -502,7 +793,7 @@ const AboutUsPage: React.FC = () => {
             </Button>
           </Box>
 
-          <Box sx={{ flex: 1, display: { xs: 'none', md: 'block' } }}>
+          <Box ref={platformImageRef} sx={{ flex: 1, display: { xs: 'none', md: 'block' } }}>
             <Image
               src='https://cdn.builder.io/api/v1/image/assets/TEMP/df23cacbfe6144d4fa23e3b658d0050f7554345c?width=1294'
               alt='Platform visualization'
@@ -522,7 +813,7 @@ const AboutUsPage: React.FC = () => {
       <Container
         maxWidth='xl'
         sx={{ py: 8 }}>
-        <Box sx={{ maxWidth: '1280px', mx: 'auto' }}>
+        <Box ref={visionMissionRef} sx={{ maxWidth: '1280px', mx: 'auto' }}>
           <Box sx={{ textAlign: 'center', mb: 6 }}>
             <HeroBadge sx={{ mb: 6 }}>
               <Typography
@@ -654,6 +945,7 @@ const AboutUsPage: React.FC = () => {
         maxWidth='xl'
         sx={{ py: 8 }}>
         <Box
+          ref={contactSectionRef}
           sx={{
             display: 'flex',
             justifyContent: 'center',
