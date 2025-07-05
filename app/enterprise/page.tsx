@@ -1,9 +1,11 @@
 'use client';
 import React, { useState } from 'react';
-import { Box, Typography, Container, Button, Grid, Card, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import { Box, Typography, Container, Button, Card, Accordion, AccordionSummary, AccordionDetails, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import Image from 'next/image';
+import Interprice from '../assets/images/enterprice.png';
+import ResearchWithAi from '../assets/images/enterprice-research-with-ai.png';
 const GradientText = styled(Typography)({
   background: 'linear-gradient(249deg, #FFF 0%, #9573DE 53%, #FFF 100%)',
   WebkitBackgroundClip: 'text',
@@ -317,7 +319,7 @@ const EnterprisePage: React.FC = () => {
   ];
 
   return (
-    <Box sx={{ background: '#080411', minHeight: '100vh', pt: '72px' }}>
+    <Box sx={{ background: '#080411', minHeight: '100vh' }}>
       {/* Hero Section */}
       <Container
         maxWidth='xl'
@@ -330,59 +332,77 @@ const EnterprisePage: React.FC = () => {
             maxWidth: '1280px',
             mx: 'auto',
           }}>
-          <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <HeroBadge>
+          <Grid
+            container
+            spacing={5}>
+            <Grid
+              size={6}
+              sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <HeroBadge>
+                <GradientText
+                  variant='body2'
+                  sx={{ fontSize: '15px', fontWeight: 400 }}>
+                  AI Driven Enterprise Results
+                </GradientText>
+              </HeroBadge>
+
               <GradientText
-                variant='body2'
-                sx={{ fontSize: '15px', fontWeight: 400 }}>
-                AI Driven Enterprise Results
+                variant='h1'
+                sx={{
+                  fontSize: { xs: '48px', md: '64px' },
+                  fontWeight: 500,
+                  lineHeight: 1.1,
+                }}>
+                Scale AI Automation Across
+                <br />
+                Your Enterprise
               </GradientText>
-            </HeroBadge>
 
-            <GradientText
-              variant='h1'
-              sx={{
-                fontSize: { xs: '48px', md: '64px' },
-                fontWeight: 500,
-                lineHeight: 1.1,
-              }}>
-              Scale AI Automation Across
-              <br />
-              Your Enterprise
-            </GradientText>
+              <Typography
+                variant='h5'
+                sx={{
+                  color: 'rgba(255, 255, 255, 0.7)',
+                  fontSize: '20px',
+                  fontWeight: 400,
+                  lineHeight: 1.5,
+                  maxWidth: '602px',
+                }}>
+                Purpose-built for large organizations requiring enterprise-grade security, compliance, and scalability in their AI automation initiatives.
+              </Typography>
 
-            <Typography
-              variant='h5'
-              sx={{
-                color: 'rgba(255, 255, 255, 0.7)',
-                fontSize: '20px',
-                fontWeight: 400,
-                lineHeight: 1.5,
-                maxWidth: '602px',
-              }}>
-              Purpose-built for large organizations requiring enterprise-grade security, compliance, and scalability in their AI automation initiatives.
-            </Typography>
-
-            <Button
-              variant='contained'
-              sx={{
-                background: '#6F41D2',
-                border: '1px solid #7352D5',
-                borderRadius: '12px',
-                py: 2,
-                px: 4,
-                color: 'white',
-                fontSize: '15px',
-                fontWeight: 500,
-                textTransform: 'none',
-                maxWidth: 'fit-content',
-                '&:hover': {
-                  background: '#5A2FA8',
-                },
-              }}>
-              Request Demo
-            </Button>
-          </Box>
+              <Button
+                variant='contained'
+                sx={{
+                  background: '#6F41D2',
+                  border: '1px solid #7352D5',
+                  borderRadius: '12px',
+                  py: 2,
+                  px: 4,
+                  color: 'white',
+                  fontSize: '15px',
+                  fontWeight: 500,
+                  textTransform: 'none',
+                  maxWidth: 'fit-content',
+                  '&:hover': {
+                    background: '#5A2FA8',
+                  },
+                }}>
+                Request Demo
+              </Button>
+            </Grid>
+            <Grid
+              size={6}
+              display='flex'
+              justifyContent='end'>
+              <Image
+                src={Interprice}
+                alt='ai-expert'
+                width={500}
+                height={500}
+                style={{ imageRendering: 'crisp-edges', objectFit: 'contain' }}
+              />
+            </Grid>
+          </Grid>
 
           <Box sx={{ flex: 1, display: { xs: 'none', md: 'block' } }}>
             {/* AI Expertise Visualization */}
@@ -686,9 +706,8 @@ const EnterprisePage: React.FC = () => {
             spacing={3}>
             {features.map((feature, index) => (
               <Grid
-                item
-                xs={12}
-                md={index === 0 || index === 1 ? 6 : 4}
+                // size={6}
+                size={index === 0 || index === 1 ? 6 : 4}
                 key={index}>
                 <FeatureCard>
                   <IconContainer>{feature.icon}</IconContainer>
@@ -724,12 +743,13 @@ const EnterprisePage: React.FC = () => {
       <Container
         maxWidth='xl'
         sx={{ py: 8 }}>
-        <CTASection sx={{ maxWidth: '1280px', mx: 'auto', p: 6 }}>
+        <CTASection sx={{ maxWidth: '1280px', mx: 'auto', px: 6 }}>
           <Box
             sx={{
               width: '548px',
               display: 'flex',
               flexDirection: 'column',
+              justifyContent: 'center',
               gap: 3,
             }}>
             <GradientText
@@ -742,7 +762,7 @@ const EnterprisePage: React.FC = () => {
             <Typography
               variant='body1'
               sx={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '16px' }}>
-              Let's bring intelligent automation to your team, without the complexity.
+              Let`&apos;`s bring intelligent automation to your team, without the complexity.
             </Typography>
             <Button
               variant='contained'
@@ -763,6 +783,17 @@ const EnterprisePage: React.FC = () => {
               }}>
               Book Consultation
             </Button>
+          </Box>
+          <Box
+            display='flex'
+            justifyContent='end'>
+            <Image
+              src={ResearchWithAi}
+              alt='ai-expert'
+              width={800}
+              height={300}
+              style={{ imageRendering: 'crisp-edges', objectFit: 'contain' }}
+            />
           </Box>
         </CTASection>
       </Container>
