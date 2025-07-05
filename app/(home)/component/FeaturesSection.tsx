@@ -85,7 +85,7 @@ export default function FeaturesSection() {
           sx={{
             fontSize: { xs: '32px', md: '40px' },
             fontWeight: 500,
-            color: '#525252',
+            color: '#ffffff',
             mb: 4,
           }}>
           Build Powerful AI Agents—Your Way, Without the Complexity

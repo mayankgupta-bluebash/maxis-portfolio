@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
-import MaxisCore from '../../assets/images/maxisCore.png';
+import MaxisCore from '../../assets/images/flowChart.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
