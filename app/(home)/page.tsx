@@ -8,7 +8,7 @@ import BuilderConsumerSection from './component/BuilderConsumerSection';
 
 export default function Home() {
   return (
-    <Box component='main'>
+    <Box component='main' sx={{ background: '#080411', minHeight: '100vh' }}>
       <HeroSection />
       <Box
         sx={{
