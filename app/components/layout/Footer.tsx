@@ -1,21 +1,29 @@
-import { Box, Container, Divider, Link, Typography } from '@mui/material';
+import { Box, Container, Divider, IconButton, Link, Typography } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
 import Logo from '../../assets/images/logo.png';
+import FooterBlur from '../../assets/images/footer-blur.png';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 
 export default function Footer() {
   return (
     <Box
       component='footer'
       sx={{
+        position: 'relative',
         width: '100%',
+        borderTopLeftRadius: '24px',
+        borderTopRightRadius: '24px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(to top, #8F75DD, #4C3D77, #080411)',
+        bgcolor: '#FFFFFF14',
         px: { xs: 4, md: 10 },
-        py: 8,
+        py: 6,
+        mt: 5,
         boxShadow: '0px 10px 15px -3px rgba(0,41,41,0.32), 0px 4px 6px -4px rgba(0,41,41,0.32)',
       }}>
       <Container
@@ -57,15 +65,37 @@ export default function Footer() {
                 sx={{ color: 'white', textDecoration: 'none' }}>
                 <Typography variant='body2'>About Us</Typography>
               </Link>
+              <Box
+                component='span'
+                sx={{ borderRight: '1px solid #ffffff' }}></Box>
               <Link
                 href='#'
                 sx={{ color: 'white', textDecoration: 'none' }}>
                 <Typography variant='body2'>Pricing</Typography>
               </Link>
+              <Box
+                component='span'
+                sx={{ borderRight: '1px solid #ffffff' }}></Box>
               <Link
                 href='#'
                 sx={{ color: 'white', textDecoration: 'none' }}>
                 <Typography variant='body2'>Enterprise</Typography>
+              </Link>
+              <Box
+                component='span'
+                sx={{ borderRight: '1px solid #ffffff' }}></Box>
+              <Link
+                href='#'
+                sx={{ color: 'white', textDecoration: 'none' }}>
+                <Typography variant='body2'>Resources</Typography>
+              </Link>
+              <Box
+                component='span'
+                sx={{ borderRight: '1px solid #ffffff' }}></Box>
+              <Link
+                href='#'
+                sx={{ color: 'white', textDecoration: 'none' }}>
+                <Typography variant='body2'>ContactUs</Typography>
               </Link>
             </Box>
           </Box>
@@ -78,22 +108,50 @@ export default function Footer() {
               alignItems: 'center',
               gap: 2,
             }}>
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              <IconButton
+                href='https://twitter.com'
+                target='_blank'
+                sx={{ color: '#F9FAFC' }}>
+                <TwitterIcon />
+              </IconButton>
+              <IconButton
+                href='https://linkedin.com'
+                target='_blank'
+                sx={{ color: '#F9FAFC' }}>
+                <LinkedInIcon />
+              </IconButton>
+              <IconButton
+                href='https://youtube.com'
+                target='_blank'
+                sx={{ color: '#F9FAFC' }}>
+                <YouTubeIcon />
+              </IconButton>
+            </Box>
             <Typography
               variant='body2'
               sx={{ color: '#F9FAFC' }}>
               © 2025 Maxis. All rights reserved.
             </Typography>
-            {/* <Box sx={{ display: "flex", gap: 2 }}>
-                <IconButton sx={{ color: "#F9FAFC" }}>
-                  <TwitterIcon />
-                </IconButton>
-                <IconButton sx={{ color: "#F9FAFC" }}>
-                  <LinkedInIcon />
-                </IconButton>
-              </Box> */}
           </Box>
         </Box>
       </Container>
+      <Box
+        position='absolute'
+        sx={{
+          transform: 'translateX(-50%)',
+          left: '50%',
+          bottom: 0,
+          zIndex: -1,
+        }}>
+        <Image
+          src={FooterBlur}
+          alt='footer-blur-design'
+          width={1000}
+          height={220}
+          style={{ objectFit: 'cover' }}
+        />
+      </Box>
     </Box>
   );
 }

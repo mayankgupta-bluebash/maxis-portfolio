@@ -288,7 +288,7 @@ const AboutUsPage: React.FC = () => {
   ];
 
   return (
-    <Box sx={{ background: '#080411', minHeight: '100vh', pt: '72px' }}>
+    <Box sx={{ background: '#080411', minHeight: '100vh' }}>
       {/* Hero Section */}
       <Container
         maxWidth='xl'
