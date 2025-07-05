@@ -22,7 +22,7 @@ const TimelineLine = styled(Box)(() => ({
   position: 'absolute',
   left: '50%',
   top: 0,
-  height: '800px',
+  height: '85%',
   width: '1px',
   borderLeft: '1px dashed rgba(255,255,255,0.2)',
   transform: 'translateX(-1px)',
@@ -42,6 +42,7 @@ const TimelineProgressLine = styled(Box)(() => ({
 
 export default function HowItWorkSection() {
   const howItWorksTitleRef = useRef(null);
+  const howItWorksImgRef = useRef(null);
   const howItWorksStepsRef = useRef<(HTMLDivElement | null)[]>([]);
   const timelineLineRef = useRef(null);
   const timelineProgressRef = useRef<HTMLDivElement | null>(null);
@@ -59,6 +60,22 @@ export default function HowItWorkSection() {
         scrollTrigger: {
           trigger: howItWorksTitleRef.current,
           start: 'top 80%',
+          toggleActions: 'play none none reverse',
+        },
+      }
+    );
+    gsap.fromTo(
+      howItWorksImgRef.current,
+      { y: 80, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        delay: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: howItWorksImgRef.current,
+          start: 'top 85%',
           toggleActions: 'play none none reverse',
         },
       }

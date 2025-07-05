@@ -69,7 +69,7 @@ export default function FeaturesSection() {
             borderRadius: '99px',
             border: '1px solid #DAD9DB',
             backgroundColor: 'rgba(37,26,73,0.5)',
-            px: 2.5,
+            px: 2,
             py: 0.6,
             mb: 4,
           }}>
@@ -110,7 +110,7 @@ export default function FeaturesSection() {
         <Grid
           container
           spacing={2}>
-          <Grid size={6}>
+          <Grid size={{md: 6}}>
             <FeatureCard ref={(el: any) => (featuresRef.current[0] = el)}>
               <IconWrapper>
                 <svg
@@ -157,7 +157,7 @@ export default function FeaturesSection() {
             </FeatureCard>
           </Grid>
 
-          <Grid size={6}>
+          <Grid size={{md: 6}}>
             <FeatureCard
               ref={(el) => {
                 featuresRef.current[1] = el;
@@ -207,7 +207,7 @@ export default function FeaturesSection() {
             </FeatureCard>
           </Grid>
 
-          <Grid size={4}>
+          <Grid size={{md: 4, xs: 6}}>
             <FeatureCard ref={(el: any) => (featuresRef.current[2] = el)}>
               <IconWrapper>
                 <svg
@@ -254,7 +254,7 @@ export default function FeaturesSection() {
             </FeatureCard>
           </Grid>
 
-          <Grid size={4}>
+          <Grid size={{md: 4, xs: 6}}>
             <FeatureCard ref={(el: any) => (featuresRef.current[3] = el)}>
               <IconWrapper>
                 <svg
@@ -301,7 +301,7 @@ export default function FeaturesSection() {
             </FeatureCard>
           </Grid>
 
-          <Grid size={4}>
+          <Grid size={{md: 4, xs: 6}}>
             <FeatureCard ref={(el: any) => (featuresRef.current[4] = el)}>
               <IconWrapper>
                 <svg

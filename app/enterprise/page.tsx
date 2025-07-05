@@ -762,7 +762,7 @@ const EnterprisePage: React.FC = () => {
             <Typography
               variant='body1'
               sx={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '16px' }}>
-              Let`&apos;`s bring intelligent automation to your team, without the complexity.
+              Let&apos;s bring intelligent automation to your team, without the complexity.
             </Typography>
             <Button
               variant='contained'

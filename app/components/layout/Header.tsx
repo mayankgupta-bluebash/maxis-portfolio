@@ -135,6 +135,7 @@ const Header: React.FC = () => {
             </Button>
             <Button
               variant='outlined'
+              onClick={() => window.open('https://www.maxis-ai.com/', '_blank')}
               sx={{
                 borderRadius: '12px',
                 backgroundColor: '#6F41D2',

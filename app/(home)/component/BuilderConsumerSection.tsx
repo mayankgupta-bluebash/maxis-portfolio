@@ -154,7 +154,7 @@ export default function BuilderConsumerSection() {
           container
           spacing={4}
           sx={{ mt: 4 }}>
-          <Grid size={6}>
+          <Grid size={{md: 6}}>
             <FeatureCard
               ref={(el) => {
                 cardsRef.current[0] = el as HTMLDivElement | null;
@@ -264,7 +264,7 @@ export default function BuilderConsumerSection() {
               </Box>
             </FeatureCard>
           </Grid>
-          <Grid size={6}>
+          <Grid size={{md: 6}}>
             <FeatureCard
               ref={(el) => {
                 cardsRef.current[1] = el as HTMLDivElement | null;

@@ -397,8 +397,8 @@ const ContactUsPage: React.FC = () => {
         maxWidth='xl'
         sx={{ py: 10 }}>
         <Box
+        display={{md:'flex'}}
           sx={{
-            display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             gap: 4,
@@ -633,7 +633,7 @@ const ContactUsPage: React.FC = () => {
           </Box>
 
           {/* Office Cards */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
+          <Box display={{ md: 'flex' }} flexDirection={{md: 'row', xs:'column'}} gap={3} sx={{  justifyContent: 'center', gap: 3 }}>
             {/* USA Office */}
             <OfficeCard
               ref={(el: HTMLDivElement | null) => {
