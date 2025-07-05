@@ -54,15 +54,14 @@ const HeroSection: React.FC = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               {/* Badge */}
               <Box
-                sx={{
-                  display: 'inline-flex',
-                  borderRadius: '99px',
-                  border: '1px solid #DAD9DB',
-                  backgroundColor: 'rgba(37,26,73,0.5)',
-                  px: 2.5,
-                  py: 0.6,
-                  mb: 2,
-                }}>
+                width='fit'
+                display='inline-flex'
+                borderRadius='99px'
+                border='1px solid #DAD9DB'
+                bgcolor='rgba(37,26,73,0.5)'
+                px={2.5}
+                py={0.6}
+                mb={2}>
                 <GradientText variant='body2'>Meet the Future: AI Agents</GradientText>
               </Box>
               {/* Hero Heading */}
