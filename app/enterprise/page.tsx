@@ -1,11 +1,15 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Box, Typography, Container, Button, Card, Accordion, AccordionSummary, AccordionDetails, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Image from 'next/image';
 import Interprice from '../assets/images/enterprice.png';
 import ResearchWithAi from '../assets/images/enterprice-research-with-ai.png';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+
 const GradientText = styled(Typography)({
   background: 'linear-gradient(249deg, #FFF 0%, #9573DE 53%, #FFF 100%)',
   WebkitBackgroundClip: 'text',
@@ -243,6 +247,142 @@ const MonitoringIcon = () => (
 const EnterprisePage: React.FC = () => {
   const [expandedFAQ, setExpandedFAQ] = useState<string | false>(false);
 
+  // GSAP refs for hero section
+  const heroHeadingRef = useRef<HTMLDivElement>(null);
+  const heroDescRef = useRef<HTMLParagraphElement>(null);
+  const heroBtnRef = useRef<HTMLButtonElement>(null);
+  const heroImgRef = useRef<HTMLDivElement>(null);
+
+  // Refs for other sections
+  const featuresSectionRef = useRef<HTMLDivElement>(null);
+  const featureCardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const ctaSectionRef = useRef<HTMLDivElement>(null);
+  const capabilitiesSectionRef = useRef<HTMLDivElement>(null);
+  const capabilityCardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const faqSectionRef = useRef<HTMLDivElement>(null);
+  const faqAccordionRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    // Hero section animation (on mount)
+    gsap.fromTo(heroHeadingRef.current, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: 'power3.out' });
+    gsap.fromTo(heroDescRef.current, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 0.5, ease: 'power3.out' });
+    gsap.fromTo(heroBtnRef.current, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, delay: 1, ease: 'back.out(1.7)' });
+    gsap.fromTo(heroImgRef.current, { x: 80, opacity: 0 }, { x: 0, opacity: 1, duration: 1, delay: 0.7, ease: 'power3.out' });
+
+    // Features section animation
+    if (featuresSectionRef.current) {
+      gsap.fromTo(
+        featuresSectionRef.current,
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          scrollTrigger: {
+            trigger: featuresSectionRef.current,
+            start: 'top 80%',
+          },
+        }
+      );
+    }
+    if (featureCardRefs.current.length) {
+      gsap.fromTo(
+        featureCardRefs.current,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: featuresSectionRef.current,
+            start: 'top 80%',
+          },
+        }
+      );
+    }
+    // CTA section animation
+    if (ctaSectionRef.current) {
+      gsap.fromTo(
+        ctaSectionRef.current,
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          scrollTrigger: {
+            trigger: ctaSectionRef.current,
+            start: 'top 80%',
+          },
+        }
+      );
+    }
+    // Capabilities section animation
+    if (capabilitiesSectionRef.current) {
+      gsap.fromTo(
+        capabilitiesSectionRef.current,
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          scrollTrigger: {
+            trigger: capabilitiesSectionRef.current,
+            start: 'top 80%',
+          },
+        }
+      );
+    }
+    if (capabilityCardRefs.current.length) {
+      gsap.fromTo(
+        capabilityCardRefs.current,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: capabilitiesSectionRef.current,
+            start: 'top 80%',
+          },
+        }
+      );
+    }
+    // FAQ section animation
+    if (faqSectionRef.current) {
+      gsap.fromTo(
+        faqSectionRef.current,
+        { y: 60, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          scrollTrigger: {
+            trigger: faqSectionRef.current,
+            start: 'top 80%',
+          },
+        }
+      );
+    }
+    if (faqAccordionRefs.current.length) {
+      gsap.fromTo(
+        faqAccordionRefs.current,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: faqSectionRef.current,
+            start: 'top 80%',
+          },
+        }
+      );
+    }
+  }, []);
+
   const handleFAQChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpandedFAQ(isExpanded ? panel : false);
   };
@@ -346,19 +486,24 @@ const EnterprisePage: React.FC = () => {
                 </GradientText>
               </HeroBadge>
 
-              <GradientText
-                variant='h1'
-                sx={{
-                  fontSize: { xs: '48px', md: '64px' },
-                  fontWeight: 500,
-                  lineHeight: 1.1,
-                }}>
-                Scale AI Automation Across
-                <br />
-                Your Enterprise
-              </GradientText>
+              {/* Hero Heading with ref */}
+              <div ref={heroHeadingRef}>
+                <GradientText
+                  variant='h1'
+                  sx={{
+                    fontSize: { xs: '48px', md: '64px' },
+                    fontWeight: 500,
+                    lineHeight: 1.1,
+                  }}>
+                  Scale AI Automation Across
+                  <br />
+                  Your Enterprise
+                </GradientText>
+              </div>
 
+              {/* Description with ref */}
               <Typography
+                ref={heroDescRef}
                 variant='h5'
                 sx={{
                   color: 'rgba(255, 255, 255, 0.7)',
@@ -370,7 +515,9 @@ const EnterprisePage: React.FC = () => {
                 Purpose-built for large organizations requiring enterprise-grade security, compliance, and scalability in their AI automation initiatives.
               </Typography>
 
+              {/* Button with ref */}
               <Button
+                ref={heroBtnRef}
                 variant='contained'
                 sx={{
                   background: '#6F41D2',
@@ -394,13 +541,16 @@ const EnterprisePage: React.FC = () => {
               size={6}
               display='flex'
               justifyContent='end'>
-              <Image
-                src={Interprice}
-                alt='ai-expert'
-                width={500}
-                height={500}
-                style={{ imageRendering: 'crisp-edges', objectFit: 'contain' }}
-              />
+              {/* Image with ref */}
+              <div ref={heroImgRef}>
+                <Image
+                  src={Interprice}
+                  alt='ai-expert'
+                  width={500}
+                  height={500}
+                  style={{ imageRendering: 'crisp-edges', objectFit: 'contain' }}
+                />
+              </div>
             </Grid>
           </Grid>
 
@@ -669,7 +819,7 @@ const EnterprisePage: React.FC = () => {
       <Container
         maxWidth='xl'
         sx={{ py: 8 }}>
-        <Box sx={{ maxWidth: '1280px', mx: 'auto' }}>
+        <Box sx={{ maxWidth: '1280px', mx: 'auto' }} ref={featuresSectionRef}>
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <HeroBadge sx={{ mb: 2 }}>
               <Typography
@@ -706,33 +856,34 @@ const EnterprisePage: React.FC = () => {
             spacing={3}>
             {features.map((feature, index) => (
               <Grid
-                // size={6}
                 size={index === 0 || index === 1 ? 6 : 4}
                 key={index}>
-                <FeatureCard>
-                  <IconContainer>{feature.icon}</IconContainer>
-                  <Box>
-                    <Typography
-                      variant='h5'
-                      sx={{
-                        color: 'white',
-                        fontSize: '24px',
-                        fontWeight: 500,
-                        mb: 2,
-                      }}>
-                      {feature.title}
-                    </Typography>
-                    <Typography
-                      variant='body1'
-                      sx={{
-                        color: '#F9FAFC',
-                        fontSize: '16px',
-                        lineHeight: 1.5,
-                      }}>
-                      {feature.description}
-                    </Typography>
-                  </Box>
-                </FeatureCard>
+                <div ref={el => { featureCardRefs.current[index] = el; }}>
+                  <FeatureCard>
+                    <IconContainer>{feature.icon}</IconContainer>
+                    <Box>
+                      <Typography
+                        variant='h5'
+                        sx={{
+                          color: 'white',
+                          fontSize: '24px',
+                          fontWeight: 500,
+                          mb: 2,
+                        }}>
+                        {feature.title}
+                      </Typography>
+                      <Typography
+                        variant='body1'
+                        sx={{
+                          color: '#F9FAFC',
+                          fontSize: '16px',
+                          lineHeight: 1.5,
+                        }}>
+                        {feature.description}
+                      </Typography>
+                    </Box>
+                  </FeatureCard>
+                </div>
               </Grid>
             ))}
           </Grid>
@@ -743,66 +894,68 @@ const EnterprisePage: React.FC = () => {
       <Container
         maxWidth='xl'
         sx={{ py: 8 }}>
-        <CTASection sx={{ maxWidth: '1280px', mx: 'auto', px: 6 }}>
-          <Box
-            sx={{
-              width: '548px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              gap: 3,
-            }}>
-            <GradientText
-              variant='h3'
-              sx={{ fontSize: '40px', fontWeight: 500, lineHeight: 1.2 }}>
-              Ready to Scale Your
-              <br />
-              Research with AI?
-            </GradientText>
-            <Typography
-              variant='body1'
-              sx={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '16px' }}>
-              Let&apos;s bring intelligent automation to your team, without the complexity.
-            </Typography>
-            <Button
-              variant='contained'
+        <div ref={ctaSectionRef}>
+          <CTASection sx={{ maxWidth: '1280px', mx: 'auto', px: 6 }}>
+            <Box
               sx={{
-                background: '#7352D5',
-                border: '1px solid #6F41D2',
-                borderRadius: '12px',
-                py: 2,
-                px: 4,
-                color: 'white',
-                fontSize: '15px',
-                fontWeight: 500,
-                textTransform: 'none',
-                maxWidth: 'fit-content',
-                '&:hover': {
-                  background: '#5A2FA8',
-                },
+                width: '548px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                gap: 3,
               }}>
-              Book Consultation
-            </Button>
-          </Box>
-          <Box
-            display='flex'
-            justifyContent='end'>
-            <Image
-              src={ResearchWithAi}
-              alt='ai-expert'
-              width={800}
-              height={300}
-              style={{ imageRendering: 'crisp-edges', objectFit: 'contain' }}
-            />
-          </Box>
-        </CTASection>
+              <GradientText
+                variant='h3'
+                sx={{ fontSize: '40px', fontWeight: 500, lineHeight: 1.2 }}>
+                Ready to Scale Your
+                <br />
+                Research with AI?
+              </GradientText>
+              <Typography
+                variant='body1'
+                sx={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '16px' }}>
+                Let&apos;s bring intelligent automation to your team, without the complexity.
+              </Typography>
+              <Button
+                variant='contained'
+                sx={{
+                  background: '#7352D5',
+                  border: '1px solid #6F41D2',
+                  borderRadius: '12px',
+                  py: 2,
+                  px: 4,
+                  color: 'white',
+                  fontSize: '15px',
+                  fontWeight: 500,
+                  textTransform: 'none',
+                  maxWidth: 'fit-content',
+                  '&:hover': {
+                    background: '#5A2FA8',
+                  },
+                }}>
+                Book Consultation
+              </Button>
+            </Box>
+            <Box
+              display='flex'
+              justifyContent='end'>
+              <Image
+                src={ResearchWithAi}
+                alt='ai-expert'
+                width={800}
+                height={300}
+                style={{ imageRendering: 'crisp-edges', objectFit: 'contain' }}
+              />
+            </Box>
+          </CTASection>
+        </div>
       </Container>
 
       {/* Enterprise Capabilities */}
       <Container
         maxWidth='xl'
         sx={{ py: 8 }}>
-        <Box sx={{ maxWidth: '1280px', mx: 'auto' }}>
+        <Box sx={{ maxWidth: '1280px', mx: 'auto' }} ref={capabilitiesSectionRef}>
           <Box sx={{ textAlign: 'center', mb: 6 }}>
             <HeroBadge sx={{ mb: 2 }}>
               <Typography
@@ -831,18 +984,20 @@ const EnterprisePage: React.FC = () => {
               <Grid
                 size={{ xs: 12, md: 6, lg: 3 }}
                 key={index}>
-                <CapabilityCard>
-                  <Typography
-                    variant='h6'
-                    sx={{ color: 'white', fontSize: '23px', fontWeight: 500 }}>
-                    {capability.title}
-                  </Typography>
-                  <Typography
-                    variant='body1'
-                    sx={{ color: 'white', fontSize: '16px', lineHeight: 1.5 }}>
-                    {capability.description}
-                  </Typography>
-                </CapabilityCard>
+                <div ref={el => { capabilityCardRefs.current[index] = el; }}>
+                  <CapabilityCard>
+                    <Typography
+                      variant='h6'
+                      sx={{ color: 'white', fontSize: '23px', fontWeight: 500 }}>
+                      {capability.title}
+                    </Typography>
+                    <Typography
+                      variant='body1'
+                      sx={{ color: 'white', fontSize: '16px', lineHeight: 1.5 }}>
+                      {capability.description}
+                    </Typography>
+                  </CapabilityCard>
+                </div>
               </Grid>
             ))}
           </Grid>
@@ -850,92 +1005,95 @@ const EnterprisePage: React.FC = () => {
       </Container>
 
       {/* FAQ Section */}
-      <FAQSection>
-        <Box
-          sx={{
-            width: '453px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 3,
-          }}>
-          <GradientText
-            variant='h2'
-            sx={{ fontSize: '56px', fontWeight: 500 }}>
-            Frequently
-            <br />
-            Asked Questions
-          </GradientText>
-          <Typography
-            variant='h5'
-            sx={{ color: 'white', fontSize: '24px', fontWeight: 500 }}>
-            Having more questions?
-          </Typography>
-          <Typography
-            variant='body1'
-            sx={{ color: 'white', fontSize: '16px' }}>
-            Contact our support team to get what you need.
-          </Typography>
-          <Button
-            variant='contained'
+      <div ref={faqSectionRef}>
+        <FAQSection>
+          <Box
             sx={{
-              background: '#6F41D2',
-              border: '1px solid #6F41D2',
-              borderRadius: '12px',
-              py: 2,
-              px: 4,
-              color: 'white',
-              fontSize: '15px',
-              fontWeight: 500,
-              textTransform: 'none',
-              maxWidth: 'fit-content',
-              '&:hover': {
-                background: '#5A2FA8',
-              },
+              width: '453px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 3,
             }}>
-            Contact Us
-          </Button>
-        </Box>
+            <GradientText
+              variant='h2'
+              sx={{ fontSize: '56px', fontWeight: 500 }}>
+              Frequently
+              <br />
+              Asked Questions
+            </GradientText>
+            <Typography
+              variant='h5'
+              sx={{ color: 'white', fontSize: '24px', fontWeight: 500 }}>
+              Having more questions?
+            </Typography>
+            <Typography
+              variant='body1'
+              sx={{ color: 'white', fontSize: '16px' }}>
+              Contact our support team to get what you need.
+            </Typography>
+            <Button
+              variant='contained'
+              sx={{
+                background: '#6F41D2',
+                border: '1px solid #6F41D2',
+                borderRadius: '12px',
+                py: 2,
+                px: 4,
+                color: 'white',
+                fontSize: '15px',
+                fontWeight: 500,
+                textTransform: 'none',
+                maxWidth: 'fit-content',
+                '&:hover': {
+                  background: '#5A2FA8',
+                },
+              }}>
+              Contact Us
+            </Button>
+          </Box>
 
-        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
-          {faqs.map((faq, index) => (
-            <StyledAccordion
-              key={faq.id}
-              expanded={expandedFAQ === faq.id}
-              onChange={handleFAQChange(faq.id)}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}
-                sx={{
-                  '& .MuiAccordionSummary-content': {
-                    alignItems: 'center',
-                    gap: 5,
-                  },
-                }}>
-                <Typography
-                  sx={{
-                    color: 'white',
-                    fontSize: '20px',
-                    fontWeight: 500,
-                    minWidth: '40px',
-                  }}>
-                  {String(index + 1).padStart(2, '0')}
-                </Typography>
-                <Typography sx={{ color: 'white', fontSize: '20px', fontWeight: 500 }}>{faq.question}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography
-                  sx={{
-                    color: 'white',
-                    fontSize: '20px',
-                    lineHeight: 1.4,
-                    whiteSpace: 'pre-line',
-                  }}>
-                  {faq.answer}
-                </Typography>
-              </AccordionDetails>
-            </StyledAccordion>
-          ))}
-        </Box>
-      </FAQSection>
+          <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {faqs.map((faq, index) => (
+              <div ref={el => { faqAccordionRefs.current[index] = el; }} key={faq.id}>
+                <StyledAccordion
+                  expanded={expandedFAQ === faq.id}
+                  onChange={handleFAQChange(faq.id)}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}
+                    sx={{
+                      '& .MuiAccordionSummary-content': {
+                        alignItems: 'center',
+                        gap: 5,
+                      },
+                    }}>
+                    <Typography
+                      sx={{
+                        color: 'white',
+                        fontSize: '20px',
+                        fontWeight: 500,
+                        minWidth: '40px',
+                      }}>
+                      {String(index + 1).padStart(2, '0')}
+                    </Typography>
+                    <Typography sx={{ color: 'white', fontSize: '20px', fontWeight: 500 }}>{faq.question}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography
+                      sx={{
+                        color: 'white',
+                        fontSize: '20px',
+                        lineHeight: 1.4,
+                        whiteSpace: 'pre-line',
+                      }}>
+                      {faq.answer}
+                    </Typography>
+                  </AccordionDetails>
+                </StyledAccordion>
+              </div>
+            ))}
+          </Box>
+        </FAQSection>
+      </div>
     </Box>
   );
 };
