@@ -4,6 +4,7 @@ import { Box, Typography, Button, Container } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import gsap from 'gsap';
+import { useModalFlow } from '../../components/modal/ModalFlowProvider';
 
 const GradientText = styled(Typography)({
   background: 'linear-gradient(to right, white, #9573DE, white)',
@@ -13,6 +14,7 @@ const GradientText = styled(Typography)({
 });
 
 const HeroSection: React.FC = () => {
+  const { open } = useModalFlow();
   const heroHeadingRef = useRef<HTMLDivElement>(null);
   const heroDescRef = useRef<HTMLParagraphElement>(null);
   const heroBtnRef = useRef<HTMLButtonElement>(null);
@@ -113,7 +115,8 @@ const HeroSection: React.FC = () => {
                   py: 2,
                   color: 'white',
                   alignSelf: 'flex-start',
-                }}>
+                }}
+                onClick={() => open('chooseRole')}>
                 Get started
               </Button>
             </Box>

@@ -4,6 +4,7 @@ import './globals.css';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import { Box } from '@mui/material';
+import { ModalFlowProvider } from './components/modal/ModalFlowProvider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -23,10 +24,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={inter.variable}>
-        <Header />
-        <Box pt='72px'>{children}</Box>
-        <Footer />
+      <body className={inter.variable} style={{ background: '#080411', minHeight: '100vh' }}>
+        <ModalFlowProvider>
+          <Header />
+          <Box pt='72px'>{children}</Box>
+          <Footer />
+        </ModalFlowProvider>
       </body>
     </html>
   );

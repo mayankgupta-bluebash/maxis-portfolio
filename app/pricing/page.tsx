@@ -4,6 +4,7 @@ import { Box, Typography, Container, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useModalFlow } from '../components/modal/ModalFlowProvider';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -95,6 +96,7 @@ const SectionHeader = styled(Box)({
 });
 
 const PricingPage: React.FC = () => {
+  const { open } = useModalFlow();
   const plans = [
     {
       name: 'Free',
@@ -623,7 +625,8 @@ const PricingPage: React.FC = () => {
                           borderColor: '#601EF9',
                         },
                       }),
-                }}>
+                }}
+                onClick={() => open('chooseRole')}>
                 {plan.cta}
               </Button>
             </PricingCard>

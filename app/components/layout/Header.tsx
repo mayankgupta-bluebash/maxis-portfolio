@@ -7,10 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import logoPng from '../../../public/logo.png';
 import gradientPng from '../../../public/circleGradient.png';
-import ChooseRoleModal from '../modal/ChooseRoleModal';
-import UserDetailsModal from '../modal/UserDetailsModal';
-import EmailVerificationModal from '../modal/EmailVerificationModal';
-import PlanSelectionModal from '../modal/PlanSelectionModal';
+import { useModalFlow } from '../modal/ModalFlowProvider';
 
 const navLinks = [
   { href: '/about-us', label: 'About Us' },
@@ -21,54 +18,8 @@ const navLinks = [
 ];
 
 const Header: React.FC = () => {
-  const [isChooseRoleModalOpen, setIsChooseRoleModalOpen] = React.useState(false);
-  const [isUserDetailsModalOpen, setIsUserDetailsModalOpen] = React.useState(false);
-  const [isEmailVerificationModalOpen, setIsEmailVerificationModalOpen] = React.useState(false);
-  const [isPlanSelectionModalOpen, setIsPlanSelectionModalOpen] = React.useState(false);
+  const { open } = useModalFlow();
 
-  const handleChooseModalOpen = () => setIsChooseRoleModalOpen(true);
-  const handleChooseModalClose = () => {
-    setIsChooseRoleModalOpen(false);
-    setIsUserDetailsModalOpen(false);
-    setIsEmailVerificationModalOpen(false);
-    setIsPlanSelectionModalOpen(false);
-  };
-
-  const handleNextToUserDetails = () => {
-    setIsChooseRoleModalOpen(false);
-    setIsUserDetailsModalOpen(true);
-  };
-
-  const handleBackToChooseRole = () => {
-    setIsUserDetailsModalOpen(false);
-    setIsChooseRoleModalOpen(true);
-  };
-
-  const handleNextToEmailVerification = () => {
-    setIsUserDetailsModalOpen(false);
-    setIsEmailVerificationModalOpen(true);
-  };
-
-  const handleBackToUserDetails = () => {
-    setIsEmailVerificationModalOpen(false);
-    setIsUserDetailsModalOpen(true);
-  };
-
-  const handleNextToPlanSelection = () => {
-    setIsEmailVerificationModalOpen(false);
-    setIsPlanSelectionModalOpen(true);
-  };
-
-  const handleBackToEmailVerification = () => {
-    setIsPlanSelectionModalOpen(false);
-    setIsEmailVerificationModalOpen(true);
-  };
-
-  // const handleEmailVerificationComplete = () => {
-  //   // Handle completion of email verification
-  //   handleChooseModalClose();
-  //   // You can add navigation or success logic here
-  // };
   return (
     <>
       <Box
@@ -130,7 +81,7 @@ const Header: React.FC = () => {
                 fontWeight: 'medium',
                 display: { xs: 'none', sm: 'inline-flex' },
               }}
-              onClick={handleChooseModalOpen}>
+              onClick={() => open('chooseRole')}>
               Sign Up
             </Button>
             <Button
@@ -167,28 +118,6 @@ const Header: React.FC = () => {
           />
         </Box>
       </Box>
-      <ChooseRoleModal
-        isOpen={isChooseRoleModalOpen}
-        handleClose={handleChooseModalClose}
-        onNext={handleNextToUserDetails}
-      />
-      <UserDetailsModal
-        isOpen={isUserDetailsModalOpen}
-        handleClose={handleChooseModalClose}
-        onPrevious={handleBackToChooseRole}
-        onNext={handleNextToEmailVerification}
-      />
-      <EmailVerificationModal
-        isOpen={isEmailVerificationModalOpen}
-        handleClose={handleChooseModalClose}
-        onPrevious={handleBackToUserDetails}
-        onNext={handleNextToPlanSelection}
-      />
-      <PlanSelectionModal
-        open={isPlanSelectionModalOpen}
-        onClose={handleChooseModalClose}
-        onBack={handleBackToEmailVerification}
-      />
     </>
   );
 };
