@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { Box, Modal, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
@@ -280,7 +280,6 @@ export default function ChooseRoleModal({ isOpen, handleClose, onNext }: ChooseR
                 </Box>
               </Box>
             </Box>
-
             <Box
               onClick={() => handleRoleSelect('consumer')}
               sx={{
@@ -292,11 +291,11 @@ export default function ChooseRoleModal({ isOpen, handleClose, onNext }: ChooseR
                 alignItems: 'center',
                 gap: { xs: '16px', md: '24px' },
                 borderRadius: '24px',
-                background: 'rgba(37, 26, 73, 0.50)',
+                border: selectedRole === 'consumer' ? '1px solid #7352D5' : '1px solid rgba(141, 49, 245, 0.20)',
+                background: selectedRole === 'consumer' ? 'rgba(141, 49, 245, 0.20)' : 'rgba(37, 26, 73, 0.50)',
                 cursor: 'pointer',
                 flex: 1,
                 transition: 'all 0.3s ease',
-                border: selectedRole === 'consumer' ? '1px solid #7352D5' : 'none',
               }}>
               <Box
                 sx={{

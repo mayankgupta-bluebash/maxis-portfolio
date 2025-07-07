@@ -4,7 +4,7 @@ import { Box, Typography, Container, Button, Card, Accordion, AccordionSummary, 
 import { styled } from '@mui/material/styles';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Image from 'next/image';
-import Interprice from '../assets/images/enterprice.png';
+import Interprice from '../assets/images/ai_expertise.webp';
 import ResearchWithAi from '../assets/images/enterprice-research-with-ai.png';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -819,7 +819,9 @@ const EnterprisePage: React.FC = () => {
       <Container
         maxWidth='xl'
         sx={{ py: 8 }}>
-        <Box sx={{ maxWidth: '1280px', mx: 'auto' }} ref={featuresSectionRef}>
+        <Box
+          sx={{ maxWidth: '1280px', mx: 'auto' }}
+          ref={featuresSectionRef}>
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <HeroBadge sx={{ mb: 2 }}>
               <Typography
@@ -858,7 +860,10 @@ const EnterprisePage: React.FC = () => {
               <Grid
                 size={index === 0 || index === 1 ? 6 : 4}
                 key={index}>
-                <div ref={el => { featureCardRefs.current[index] = el; }}>
+                <div
+                  ref={(el) => {
+                    featureCardRefs.current[index] = el;
+                  }}>
                   <FeatureCard>
                     <IconContainer>{feature.icon}</IconContainer>
                     <Box>
@@ -955,7 +960,9 @@ const EnterprisePage: React.FC = () => {
       <Container
         maxWidth='xl'
         sx={{ py: 8 }}>
-        <Box sx={{ maxWidth: '1280px', mx: 'auto' }} ref={capabilitiesSectionRef}>
+        <Box
+          sx={{ maxWidth: '1280px', mx: 'auto' }}
+          ref={capabilitiesSectionRef}>
           <Box sx={{ textAlign: 'center', mb: 6 }}>
             <HeroBadge sx={{ mb: 2 }}>
               <Typography
@@ -984,7 +991,10 @@ const EnterprisePage: React.FC = () => {
               <Grid
                 size={{ xs: 12, md: 6, lg: 3 }}
                 key={index}>
-                <div ref={el => { capabilityCardRefs.current[index] = el; }}>
+                <div
+                  ref={(el) => {
+                    capabilityCardRefs.current[index] = el;
+                  }}>
                   <CapabilityCard>
                     <Typography
                       variant='h6'
@@ -1054,7 +1064,11 @@ const EnterprisePage: React.FC = () => {
 
           <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
             {faqs.map((faq, index) => (
-              <div ref={el => { faqAccordionRefs.current[index] = el; }} key={faq.id}>
+              <div
+                ref={(el) => {
+                  faqAccordionRefs.current[index] = el;
+                }}
+                key={faq.id}>
                 <StyledAccordion
                   expanded={expandedFAQ === faq.id}
                   onChange={handleFAQChange(faq.id)}>

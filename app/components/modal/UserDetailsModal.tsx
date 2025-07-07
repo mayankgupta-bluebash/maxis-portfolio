@@ -12,12 +12,12 @@ interface UserDetailsModalProps {
 
 export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNext }: UserDetailsModalProps) {
   const [formData, setFormData] = useState({
-    firstName: 'Michael',
-    middleName: 'Dr.',
-    lastName: 'Joe',
-    email: 'michael23@gmail.com',
-    username: 'michael_22',
-    password: '**********',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    email: '',
+    username: '',
+    password: '',
     organizationName: '',
   });
 

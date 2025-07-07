@@ -397,7 +397,7 @@ const ContactUsPage: React.FC = () => {
         maxWidth='xl'
         sx={{ py: 10 }}>
         <Box
-        display={{md:'flex'}}
+          display={{ md: 'flex' }}
           sx={{
             justifyContent: 'center',
             alignItems: 'center',
@@ -473,6 +473,7 @@ const ContactUsPage: React.FC = () => {
             ref={contactFormRef}
             onSubmit={handleSubmit}
             sx={{
+              padding: '20px',
               transform: 'perspective(1000px)',
             }}>
             <Typography
@@ -633,7 +634,11 @@ const ContactUsPage: React.FC = () => {
           </Box>
 
           {/* Office Cards */}
-          <Box display={{ md: 'flex' }} flexDirection={{md: 'row', xs:'column'}} gap={3} sx={{  justifyContent: 'center', gap: 3 }}>
+          <Box
+            display={{ md: 'flex' }}
+            flexDirection={{ md: 'row', xs: 'column' }}
+            gap={3}
+            sx={{ justifyContent: 'center', gap: 3 }}>
             {/* USA Office */}
             <OfficeCard
               ref={(el: HTMLDivElement | null) => {

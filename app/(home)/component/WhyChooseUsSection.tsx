@@ -6,7 +6,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import MaxisCore from '../../assets/images/maxisCore.png';
+import MaxisCore from '../../assets/images/flow_diagram.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
