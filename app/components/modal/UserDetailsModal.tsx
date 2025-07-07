@@ -60,7 +60,8 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
           sx: {
             color: '#FFF',
             backgroundColor: 'radial-gradient(487.94% 102.17% at -4950% 100%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 90%)',
-            border: validation === 'valid' ? '1px solid #02A367' : '1px solid rgba(255, 255, 255, 0.10)',
+            // border: validation === 'valid' ? '1px solid #02A367' : '1px solid rgba(255, 255, 255, 0.10)',
+            border: '1px solid rgba(255, 255, 255, 0.10)',
             borderRadius: '4px',
             height: '56px',
             '& fieldset': { border: 'none' },
@@ -269,7 +270,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                   flexDirection: { xs: 'column', md: 'row' },
                 }}>
                 {renderTextField('Last Name', formData.lastName, 'lastName', true, 'Max 20 char.')}
-                {renderTextField('Email Address', formData.email, 'email', false, 'Ready to go', 'valid')}
+                {renderTextField('Email Address', formData.email, 'email', false)}
               </Box>
 
               {/* Third Row: Username, Password */}
@@ -281,7 +282,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                   width: '100%',
                   flexDirection: { xs: 'column', md: 'row' },
                 }}>
-                {renderTextField('User Name', formData.username, 'username', true, 'Ready to go', 'valid')}
+                {renderTextField('User Name', formData.username, 'username', true)}
                 {renderTextField('Password', formData.password, 'password', false, '', undefined, 'password')}
               </Box>
 
