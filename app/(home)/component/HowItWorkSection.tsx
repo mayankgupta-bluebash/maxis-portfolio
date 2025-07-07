@@ -114,7 +114,7 @@ export default function HowItWorkSection() {
         const startY = startRect.top + window.scrollY - containerRect.top - window.scrollY;
         const endY = endRect.bottom + window.scrollY - containerRect.top - window.scrollY;
         // Add extra padding to ensure the line reaches the bottom of the 4th step
-        const fullHeight = endY - startY + 50;
+        const fullHeight = endY - startY + 100;
 
         if (progressEl.style) {
           progressEl.style.height = `${fullHeight}px`;
