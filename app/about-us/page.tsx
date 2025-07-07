@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
-import AboutCircle from '../assets/images/about-us.png';
+import AboutCircle from '../assets/images/maxis_circle.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -652,8 +652,8 @@ const AboutUsPage: React.FC = () => {
             <Image
               src={AboutCircle}
               alt='About'
-              width={550}
-              height={550}
+              width={600}
+              height={600}
               priority
             />
           </Box>
@@ -664,7 +664,9 @@ const AboutUsPage: React.FC = () => {
       <Container
         maxWidth='xl'
         sx={{ py: 8 }}>
-        <Box ref={statsSectionRef} sx={{ maxWidth: '1280px', mx: 'auto' }}>
+        <Box
+          ref={statsSectionRef}
+          sx={{ maxWidth: '1280px', mx: 'auto' }}>
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <HeroBadge sx={{ mb: 2 }}>
               <Typography
@@ -793,7 +795,9 @@ const AboutUsPage: React.FC = () => {
             </Button>
           </Box>
 
-          <Box ref={platformImageRef} sx={{ flex: 1, display: { xs: 'none', md: 'block' } }}>
+          <Box
+            ref={platformImageRef}
+            sx={{ flex: 1, display: { xs: 'none', md: 'block' } }}>
             <Image
               src='https://cdn.builder.io/api/v1/image/assets/TEMP/df23cacbfe6144d4fa23e3b658d0050f7554345c?width=1294'
               alt='Platform visualization'
@@ -813,7 +817,9 @@ const AboutUsPage: React.FC = () => {
       <Container
         maxWidth='xl'
         sx={{ py: 8 }}>
-        <Box ref={visionMissionRef} sx={{ maxWidth: '1280px', mx: 'auto' }}>
+        <Box
+          ref={visionMissionRef}
+          sx={{ maxWidth: '1280px', mx: 'auto' }}>
           <Box sx={{ textAlign: 'center', mb: 6 }}>
             <HeroBadge sx={{ mb: 6 }}>
               <Typography

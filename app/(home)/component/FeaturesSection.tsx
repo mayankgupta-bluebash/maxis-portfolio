@@ -1,10 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
-import { Box, Container, Grid, Paper, Typography } from '@mui/material';
+import { Box, Container, Paper, Typography } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import { styled } from '@mui/material/styles';
 import gsap from 'gsap';
+import Grid from '@mui/material/Grid';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Image from 'next/image';
+import StartIcon from '../../assets/images/star.webp';
+import CircleIcon from '../../assets/images/circle.webp';
+import FilterIcon from '../../assets/images/filter_icon.webp';
+import CrossedCircleIcon from '../../assets/images/crossed_circle.webp';
+import TriangleIcon from '../../assets/images/triangle.webp';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const FeatureCard = styled(Paper)(({ theme }) => ({
@@ -80,6 +88,57 @@ export default function FeaturesSection() {
           </Typography>
         </Box>
 
+        <Box
+          my={3}
+          ml={4}
+          sx={{ display: 'flex', gap: 2 }}>
+          <Box width={100} height={100} display="flex" alignItems="center" justifyContent="center">
+            <Image
+              src={StartIcon}
+              height={80}
+              width={80}
+              alt='Features-Icons'
+              objectFit='contain'
+            />
+          </Box>
+          <Box width={100} height={100} display="flex" alignItems="center" justifyContent="center">
+            <Image
+              src={CircleIcon}
+              height={90}
+              width={90}
+              alt='Features-Icons'
+              objectFit='contain'
+            />
+          </Box>
+          <Box width={100} height={100} display="flex" alignItems="center" justifyContent="center">
+            <Image
+              src={FilterIcon}
+              height={100}
+              width={100}
+              alt='Features-Icons'
+              objectFit='contain'
+            />
+          </Box>
+          <Box width={100} height={100} display="flex" alignItems="center" justifyContent="center">
+            <Image
+              src={CrossedCircleIcon}
+              height={90}
+              width={90}
+              alt='Features-Icons'
+              objectFit='contain'
+            />
+          </Box>
+          <Box width={100} height={100} display="flex" alignItems="center" justifyContent="center">
+            <Image
+              src={TriangleIcon}
+              height={80}
+              width={80}
+              alt='Features-Icons'
+              objectFit='contain'
+            />
+          </Box>
+        </Box>
+
         <Typography
           variant='h2'
           sx={{
@@ -110,7 +169,7 @@ export default function FeaturesSection() {
         <Grid
           container
           spacing={2}>
-          <Grid size={{md: 6}}>
+          <Grid size={{ md: 6 }}>
             <FeatureCard ref={(el: any) => (featuresRef.current[0] = el)}>
               <IconWrapper>
                 <svg
@@ -157,7 +216,7 @@ export default function FeaturesSection() {
             </FeatureCard>
           </Grid>
 
-          <Grid size={{md: 6}}>
+          <Grid size={{ md: 6 }}>
             <FeatureCard
               ref={(el) => {
                 featuresRef.current[1] = el;
@@ -207,7 +266,7 @@ export default function FeaturesSection() {
             </FeatureCard>
           </Grid>
 
-          <Grid size={{md: 4, xs: 6}}>
+          <Grid size={{ md: 4, xs: 6 }}>
             <FeatureCard ref={(el: any) => (featuresRef.current[2] = el)}>
               <IconWrapper>
                 <svg
@@ -254,7 +313,7 @@ export default function FeaturesSection() {
             </FeatureCard>
           </Grid>
 
-          <Grid size={{md: 4, xs: 6}}>
+          <Grid size={{ md: 4, xs: 6 }}>
             <FeatureCard ref={(el: any) => (featuresRef.current[3] = el)}>
               <IconWrapper>
                 <svg
@@ -301,7 +360,7 @@ export default function FeaturesSection() {
             </FeatureCard>
           </Grid>
 
-          <Grid size={{md: 4, xs: 6}}>
+          <Grid size={{ md: 4, xs: 6 }}>
             <FeatureCard ref={(el: any) => (featuresRef.current[4] = el)}>
               <IconWrapper>
                 <svg

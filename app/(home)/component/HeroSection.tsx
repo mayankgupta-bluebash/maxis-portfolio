@@ -5,7 +5,8 @@ import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import gsap from 'gsap';
 import { useModalFlow } from '../../components/modal/ModalFlowProvider';
-
+import HeroBrainImage from '../../assets/images/ai_brain.webp';
+import Image from 'next/image';
 const GradientText = styled(Typography)({
   background: 'linear-gradient(to right, white, #9573DE, white)',
   WebkitBackgroundClip: 'text',
@@ -133,15 +134,12 @@ const HeroSection: React.FC = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-              <Box
-                component='img'
-                src='https://cdn.builder.io/api/v1/image/assets/TEMP/1882a2c8b470b315a56d40d0f414a5eb55a2f286?width=1085'
+              <Image
+                src={HeroBrainImage}
                 alt='AI Brain Visualization'
-                sx={{
-                  height: { xs: '260px', md: '448px' },
-                  width: { xs: '300px', md: '543px' },
-                  objectFit: 'cover',
-                }}
+                height={448}
+                width={543}
+                objectFit='cover'
               />
             </Box>
           </Grid>
