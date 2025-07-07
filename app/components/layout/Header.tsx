@@ -38,6 +38,7 @@ const Header: React.FC = () => {
             py: 1.4,
             borderBottom: '1px solid rgba(255,255,255,0.14)',
             backgroundColor: 'rgba(255,255,255,0.02)',
+            color: '#fff',
             backdropFilter: 'blur(16.5px)',
           }}>
           <Link
@@ -80,13 +81,14 @@ const Header: React.FC = () => {
                 textTransform: 'none',
                 fontWeight: 'medium',
                 display: { xs: 'none', sm: 'inline-flex' },
+                border: 'none'
               }}
               onClick={() => open('chooseRole')}>
               Sign Up
             </Button>
             <Button
               variant='outlined'
-              onClick={() => window.open('https://www.maxis-ai.com/', '_blank')}
+              onClick={() => window?.open('https://www.maxis-ai.com/', '_blank')}
               sx={{
                 borderRadius: '12px',
                 backgroundColor: '#6F41D2',
@@ -95,6 +97,7 @@ const Header: React.FC = () => {
                 py: 1,
                 textTransform: 'none',
                 fontWeight: 'medium',
+                border: 'none'
               }}>
               Log In
             </Button>

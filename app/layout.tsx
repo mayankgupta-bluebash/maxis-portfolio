@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={inter.variable} style={{ background: '#080411', minHeight: '100vh' }}>
+      <body className={inter.variable}>
         <ModalFlowProvider>
           <Header />
           <Box pt='72px'>{children}</Box>
