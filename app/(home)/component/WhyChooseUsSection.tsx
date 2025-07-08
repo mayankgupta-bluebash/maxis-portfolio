@@ -80,7 +80,7 @@ export default function WhyChooseUsSection() {
   return (
     <Container
       maxWidth='xl'
-      sx={{ py: 8 }}>
+      sx={{ my: '120px' }}>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
         <Box
           ref={whyChooseTitleRef}
@@ -108,7 +108,7 @@ export default function WhyChooseUsSection() {
               fontWeight: 500,
               mb: 2,
             }}>
-            How Maxis delivers <GradientText sx={{ display: 'inline' }}>growth</GradientText>
+            How Maxis delivers <GradientText sx={{ display: 'inline', fontSize: '56px' }}>growth</GradientText>
           </Typography>
           <Typography
             variant='body1'

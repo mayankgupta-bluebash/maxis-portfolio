@@ -237,7 +237,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
               sx={{
                 display: 'flex',
                 width: { xs: '100%' },
-                padding: { xs: '24px', md: '73px 48px' },
+                padding: { xs: '24px', md: '33px 48px' },
                 flexDirection: 'column',
                 justifyContent: 'flex-end',
                 alignItems: 'flex-end',

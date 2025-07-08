@@ -367,6 +367,7 @@ export default function BuilderConsumerSection() {
                     backgroundColor: '#694BC2',
                     borderColor: '#7352D5',
                     px: 4,
+                    mt: 3,
                     py: 2,
                     color: 'white',
                     textTransform: 'none',

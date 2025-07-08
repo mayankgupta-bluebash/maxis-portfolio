@@ -488,7 +488,7 @@ const EnterprisePage: React.FC = () => {
 
               {/* Hero Heading with ref */}
               <div ref={heroHeadingRef}>
-                <GradientText
+                <Typography
                   variant='h1'
                   sx={{
                     fontSize: { xs: '48px', md: '64px' },
@@ -497,8 +497,16 @@ const EnterprisePage: React.FC = () => {
                   }}>
                   Scale AI Automation Across
                   <br />
-                  Your Enterprise
-                </GradientText>
+                  <GradientText
+                    variant='h1'
+                    sx={{
+                      fontSize: { xs: '48px', md: '64px' },
+                      fontWeight: 500,
+                      lineHeight: 1.1,
+                    }}>
+                    Your Enterprise
+                  </GradientText>
+                </Typography>
               </div>
 
               {/* Description with ref */}
@@ -830,7 +838,7 @@ const EnterprisePage: React.FC = () => {
                 AI Agents that Drive Scientific Outcomes
               </Typography>
             </HeroBadge>
-            <GradientText
+            <Typography
               variant='h2'
               sx={{
                 fontSize: { xs: '40px', md: '56px' },
@@ -839,8 +847,15 @@ const EnterprisePage: React.FC = () => {
               }}>
               AI Handles the Process
               <br />
-              You Create the Progress
-            </GradientText>
+              <GradientText
+                variant='h2'
+                sx={{
+                  fontSize: { xs: '40px', md: '56px' },
+                  fontWeight: 500,
+                }}>
+                You Create the Progress
+              </GradientText>
+            </Typography>
             <Typography
               variant='h5'
               sx={{
@@ -909,13 +924,14 @@ const EnterprisePage: React.FC = () => {
                 justifyContent: 'center',
                 gap: 3,
               }}>
-              <GradientText
+              <Typography
                 variant='h3'
                 sx={{ fontSize: '40px', fontWeight: 500, lineHeight: 1.2 }}>
                 Ready to Scale Your
-                <br />
-                Research with AI?
-              </GradientText>
+              </Typography>
+
+              <GradientText sx={{ fontSize: '40px', fontWeight: 500, lineHeight: 1.2 }}>Research with AI?</GradientText>
+
               <Typography
                 variant='body1'
                 sx={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '16px' }}>

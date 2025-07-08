@@ -57,7 +57,9 @@ export default function FeaturesSection() {
   }, []);
 
   return (
-    <Container maxWidth='xl'>
+    <Container
+      maxWidth='xl'
+      sx={{ my: '120px' }}>
       <Box
         sx={{
           position: 'relative',
