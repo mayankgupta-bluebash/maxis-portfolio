@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 import Logo from '../../assets/images/logo.png';
 import FooterBlur from '../../assets/images/footer-blur.png';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import XIcon from '@mui/icons-material/X';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 
@@ -113,7 +113,7 @@ export default function Footer() {
                 href='https://twitter.com'
                 target='_blank'
                 sx={{ color: '#F9FAFC' }}>
-                <TwitterIcon />
+                <XIcon />
               </IconButton>
               <IconButton
                 href='https://linkedin.com'
@@ -147,9 +147,8 @@ export default function Footer() {
         <Image
           src={FooterBlur}
           alt='footer-blur-design'
-          width={1000}
           height={220}
-          style={{ objectFit: 'cover' }}
+          style={{ objectFit: 'cover', width: '87vw' }}
         />
       </Box>
     </Box>
