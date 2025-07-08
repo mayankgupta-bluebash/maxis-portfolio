@@ -19,7 +19,7 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v6
         with:
-          token: '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'
+          token: ${{ secrets.GITHUB_TOKEN }}
           base: main
           branch: ${{ github.ref_name }}
           title: 'Auto PR: Merge ${{ github.ref_name }} into main'
@@ -34,7 +34,7 @@ jobs:
 
       - name: Merge PR automatically
         env:
-          GH_TOKEN: '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'
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_NUMBER=$(gh pr list --base main --head ${{ github.ref_name }} --json number --jq '.[0].number')
           if [ -n "$PR_NUMBER" ]; then
