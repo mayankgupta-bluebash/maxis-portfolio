@@ -1,0 +1,44 @@
+name: Auto PR to Main
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  create-and-merge-pr:
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create Pull Request to main
+        id: cpr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          branch: ${{ github.ref_name }}
+          title: 'Auto PR: Merge ${{ github.ref_name }} into main'
+          body: 'This PR was automatically created by a GitHub Action to merge changes from `${{ github.ref_name }}` into `main`.'
+          draft: false
+          delete-branch: false
+
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install gh -y
+
+      - name: Merge PR automatically
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=$(gh pr list --base main --head ${{ github.ref_name }} --json number --jq '.[0].number')
+          if [ -n "$PR_NUMBER" ]; then
+            gh pr merge $PR_NUMBER --squash --admin --delete-branch --yes
+          else
+            echo "No PR found to merge."
+          fi 
