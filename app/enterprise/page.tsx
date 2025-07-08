@@ -76,7 +76,7 @@ const StyledAccordion = styled(Accordion)({
     display: 'none',
   },
   '& .MuiAccordionSummary-root': {
-    padding: '0 0 0 40px',
+    // padding: '0 0 0 40px',
     minHeight: '80px',
   },
   '& .MuiAccordionDetails-root': {
@@ -87,7 +87,7 @@ const StyledAccordion = styled(Accordion)({
 const FAQSection = styled(Box)({
   display: 'flex',
   padding: '60px 80px',
-  background: '#6F41D2',
+  // background: '#6F41D2',
   gap: '20px',
 });
 
