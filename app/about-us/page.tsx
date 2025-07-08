@@ -6,7 +6,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import AboutCircle from '../assets/images/maxis_circle.webp';
-
+import Healthcare_AI_Innovation_Framework from '../assets/images/healthcare_AI_innovation_framework.webp';
 gsap.registerPlugin(ScrollTrigger);
 
 const GradientText = styled(Typography)({
@@ -14,6 +14,7 @@ const GradientText = styled(Typography)({
   WebkitBackgroundClip: 'text',
   backgroundClip: 'text',
   color: 'transparent',
+  display: 'inline', // This is correct
 });
 
 const HeroBadge = styled(Box)({
@@ -595,7 +596,7 @@ const AboutUsPage: React.FC = () => {
             </HeroBadge>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <GradientText
+              <Typography
                 ref={heroTitleRef}
                 variant='h1'
                 sx={{
@@ -603,13 +604,19 @@ const AboutUsPage: React.FC = () => {
                   fontWeight: 500,
                   lineHeight: 1.1,
                   width: '706px',
+                  color: '#fff',
                 }}>
                 Revolutionizing
                 <br />
-                Clinical Data Analytics
+                <GradientText
+                  as='span'
+                  variant='inherit'>
+                  Clinical Data
+                </GradientText>{' '}
+                Analytics
                 <br />
                 since 2003
-              </GradientText>
+              </Typography>
             </Box>
 
             <Typography
@@ -675,11 +682,14 @@ const AboutUsPage: React.FC = () => {
                 A Global Network
               </Typography>
             </HeroBadge>
+            <Typography
+              variant='h2'
+              sx={{ fontSize: '56px', fontWeight: 500, color: '#fff' }}>
+              200+ Experts. 1 Mission:
+            </Typography>
             <GradientText
               variant='h2'
               sx={{ fontSize: '56px', fontWeight: 500, mb: 4 }}>
-              200+ Experts. 1 Mission:
-              <br />
               Accelerate Global Health
             </GradientText>
             <Typography
@@ -771,7 +781,8 @@ const AboutUsPage: React.FC = () => {
               }}>
               We&apos;re not just building AI—we&apos;re transforming how medical research happens.
               <br />
-              At Maxis, we combine deep domain expertise with agentic automation to accelerate discovery and bring innovations to life faster.
+              At <GradientText as='span'>Maxis</GradientText>, we combine deep domain expertise with agentic automation to accelerate discovery and bring innovations to life
+              faster.
             </Typography>
 
             <Button
@@ -799,7 +810,7 @@ const AboutUsPage: React.FC = () => {
             ref={platformImageRef}
             sx={{ flex: 1, display: { xs: 'none', md: 'block' } }}>
             <Image
-              src='https://cdn.builder.io/api/v1/image/assets/TEMP/df23cacbfe6144d4fa23e3b658d0050f7554345c?width=1294'
+              src={Healthcare_AI_Innovation_Framework}
               alt='Platform visualization'
               width={647}
               height={530}
@@ -828,17 +839,16 @@ const AboutUsPage: React.FC = () => {
                 Our Vision & Mission
               </Typography>
             </HeroBadge>
-
-            <GradientText
-              variant='h2'
+            <Typography
               sx={{
                 fontSize: '56px',
                 fontWeight: 500,
                 lineHeight: '76.8px',
                 mb: 2,
+                textAlign: 'center',
               }}>
-              Aligned by Vision, United in Mission
-            </GradientText>
+              Aligned by <GradientText fontSize='56px'>Vision,</GradientText> United in <GradientText fontSize='56px'>Mission</GradientText>
+            </Typography>
 
             <Typography
               sx={{
@@ -849,7 +859,6 @@ const AboutUsPage: React.FC = () => {
               }}>
               Whether you&apos;re here to build intelligent agents or to use AI tools without coding, our platform is built for both.
             </Typography>
-
             <Button
               variant='contained'
               sx={{
@@ -969,7 +978,7 @@ const AboutUsPage: React.FC = () => {
               </Typography>
             </HeroBadge>
 
-            <GradientText
+            <Typography
               variant='h2'
               sx={{
                 fontSize: '56px',
@@ -977,8 +986,14 @@ const AboutUsPage: React.FC = () => {
                 lineHeight: '76.8px',
                 width: '595px',
               }}>
-              Curious About What Maxis Can Do for You?
-            </GradientText>
+              Curious About What{' '}
+              <GradientText
+                fontSize='56px'
+                sx={{ fontWeight: 500, lineHeight: '76.8px' }}>
+                Maxis
+              </GradientText>{' '}
+              Can Do for You?
+            </Typography>
 
             <Typography
               variant='body1'

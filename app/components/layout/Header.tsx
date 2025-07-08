@@ -21,7 +21,7 @@ const Header: React.FC = () => {
   const { open } = useModalFlow();
 
   return (
-    <>
+    <div>
       <Box
         width='100%'
         sx={{ position: 'fixed', top: 0, zIndex: 1100 }}>
@@ -81,7 +81,7 @@ const Header: React.FC = () => {
                 textTransform: 'none',
                 fontWeight: 'medium',
                 display: { xs: 'none', sm: 'inline-flex' },
-                border: 'none'
+                border: 'none',
               }}
               onClick={() => open('chooseRole')}>
               Sign Up
@@ -97,7 +97,7 @@ const Header: React.FC = () => {
                 py: 1,
                 textTransform: 'none',
                 fontWeight: 'medium',
-                border: 'none'
+                border: 'none',
               }}>
               Log In
             </Button>
@@ -115,13 +115,12 @@ const Header: React.FC = () => {
           <Image
             src={gradientPng}
             alt='gradient'
-            width={800}
             height={200}
-            style={{ width: '100%', height: 'auto' }}
+            style={{ width: '70vw' }}
           />
         </Box>
       </Box>
-    </>
+    </div>
   );
 };
 

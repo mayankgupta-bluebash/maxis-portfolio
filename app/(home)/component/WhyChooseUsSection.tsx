@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import MaxisCore from '../../assets/images/flow_diagram.webp';
+import UniversalCircleBg from '../../assets/images/universal.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -201,17 +202,17 @@ export default function WhyChooseUsSection() {
             About us
           </Button>
         </Box>
-        <Box sx={{ position: 'relative', height: { xs: '400px', md: '240px' }, width: '100%', mb: 8 }}>
+        <Box sx={{ position: 'relative', zIndex: 10, height: { xs: '400px', md: '240px' }, width: '100%', mb: 8 }}>
           <Paper
             ref={(el) => {
               floatingCardsRef.current[0] = el as HTMLDivElement | null;
             }}
             sx={{
               position: { xs: 'static', md: 'absolute' },
-              left: { xs: 0, md: '180px' },
+              left: { xs: 0, md: '122px' },
               top: { xs: 0, md: '-30px' },
               height: '142px',
-              width: { xs: '100%', md: '240px' },
+              width: { xs: '100%', md: '280px' },
               borderRadius: '16px',
               border: '1px solid rgba(141,49,245,0.2)',
               backgroundColor: 'rgba(37,26,73,0.5)',
@@ -239,10 +240,10 @@ export default function WhyChooseUsSection() {
             }}
             sx={{
               position: { xs: 'static', md: 'absolute' },
-              left: { xs: 0, md: '532px' },
-              top: { xs: '160px', md: '240px' },
+              left: { xs: 0, md: '500px' },
+              top: { xs: '160px', md: '160px' },
               height: '142px',
-              width: { xs: '100%', md: '240px' },
+              width: { xs: '100%', md: '280px' },
               borderRadius: '16px',
               border: '1px solid rgba(141,49,245,0.2)',
               backgroundColor: 'rgba(37,26,73,0.5)',
@@ -294,6 +295,20 @@ export default function WhyChooseUsSection() {
               Intuitive interface that anyone can use without technical expertise
             </Typography>
           </Paper>
+          <Box
+            sx={{
+              position: 'absolute',
+              bottom: 0,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 5, // or any number as needed
+            }}>
+            <Image
+              src={UniversalCircleBg}
+              alt='bg-image'
+              style={{ zIndex: '-1', height: 900, width: '70vw' }}
+            />
+          </Box>
         </Box>
       </Box>
     </Container>

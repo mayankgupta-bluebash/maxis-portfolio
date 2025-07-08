@@ -22,7 +22,7 @@ const TimelineLine = styled(Box)(() => ({
   position: 'absolute',
   left: '50%',
   top: 0,
-  height: '85%',
+  height: '92%',
   width: '1px',
   borderLeft: '1px dashed rgba(255,255,255,0.2)',
   transform: 'translateX(-1px)',
