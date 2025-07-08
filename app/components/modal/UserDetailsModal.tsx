@@ -18,7 +18,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
     email: '',
     username: '',
     password: '',
-    organizationName: '',
+    // organizationName: '',
   });
 
   // const [validationState, setValidationState] = useState({
@@ -283,11 +283,11 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                   flexDirection: { xs: 'column', md: 'row' },
                 }}>
                 {renderTextField('User Name', formData.username, 'username', true)}
-                {renderTextField('Password', formData.password, 'password', false, '', undefined, 'password')}
+                {renderTextField('Password', formData.password, 'password', false)}
               </Box>
 
               {/* Fourth Row: Organization */}
-              <Box
+              {/* <Box
                 sx={{
                   display: 'flex',
                   alignItems: 'flex-start',
@@ -305,7 +305,6 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                       background: 'radial-gradient(487.94% 102.17% at -4950% 100%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 90%)',
                       position: 'relative',
                     }}>
-                    {/* https:// prefix */}
                     <Box
                       sx={{
                         width: '98px',
@@ -328,7 +327,6 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                       </Typography>
                     </Box>
 
-                    {/* Input field */}
                     <TextField
                       value={formData.organizationName}
                       onChange={(e) => handleInputChange('organizationName', e.target.value)}
@@ -353,7 +351,6 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                       }}
                     />
 
-                    {/* .maxisai.com suffix */}
                     <Box
                       sx={{
                         width: '128px',
@@ -377,7 +374,6 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                     </Box>
                   </Box>
 
-                  {/* Label */}
                   <Box
                     sx={{
                       position: 'absolute',
@@ -400,7 +396,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                   </Box>
                 </Box>
                 <Box sx={{ width: { xs: '100%', md: '526px' } }}></Box>
-              </Box>
+              </Box> */}
             </Box>
 
             {/* Bottom Navigation */}

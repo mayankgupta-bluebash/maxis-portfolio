@@ -357,12 +357,12 @@ export default function HowItWorkSection() {
               <Typography
                 variant='h3'
                 sx={{ color: 'white', mb: 2 }}>
-                Publish and Deploy Anywhere
+                Publish Agentic Assets
               </Typography>
               <Typography
                 variant='body1'
                 sx={{ color: '#DEDEDE' }}>
-                With one click, publish your agent to the Maxis Marketplace or integrate it into your website, chat app, or internal system.
+                Verify and Publish agentic assets to Marketplace
               </Typography>
             </Box>
             <TimelineDot
