@@ -183,8 +183,8 @@ export default function WhyChooseUsSection() {
               color: '#DEDEDE',
               mb: 4,
             }}>
-            We&apos;re not just another AI platform—we&apos;re purpose-built to accelerate biomedical breakthroughs. From ingesting complex research data to deploying intelligent
-            agents in real-world labs, Maxis helps you move faster, think deeper, and innovate smarter.
+            We&apos;re not just another AI platform—we&apos;re purpose-built to accelerate accelerate clinical research breakthroughs. From ingesting complex research data to
+            deploying intelligent agents in real-world labs, Maxis helps you move faster, think deeper, and innovate smarter.
           </Typography>
           <Button
             variant='contained'

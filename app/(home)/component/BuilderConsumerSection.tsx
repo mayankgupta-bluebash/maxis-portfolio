@@ -256,6 +256,7 @@ export default function BuilderConsumerSection() {
                     borderColor: '#7352D5',
                     px: 4,
                     py: 2,
+                    mt: 5.5,
                     color: 'white',
                     textTransform: 'none',
                     fontWeight: 'medium',
@@ -341,22 +342,22 @@ export default function BuilderConsumerSection() {
                   <Typography
                     variant='body2'
                     sx={{ color: '#F9FAFC' }}>
-                    • Browse marketplace of ready-to-use agents
+                    • Explore and search for apps, agents, or orchestrations in the Marketplace
                   </Typography>
                   <Typography
                     variant='body2'
                     sx={{ color: '#F9FAFC' }}>
-                    • Pre-built components and integrations
+                    • Hire and use published agentic assets
                   </Typography>
                   <Typography
                     variant='body2'
                     sx={{ color: '#F9FAFC' }}>
-                    • Marketplace to sell your agents
+                    • Ingest data and documents
                   </Typography>
                   <Typography
                     variant='body2'
                     sx={{ color: '#F9FAFC' }}>
-                    • Revenue sharing and analytics
+                    • Leverage ingested data and documents and run hired agentic assets
                   </Typography>
                 </Box>
                 <Button
