@@ -108,7 +108,7 @@ export default function WhyChooseUsSection() {
               fontWeight: 500,
               mb: 2,
             }}>
-            How Maxis delivers <GradientText sx={{ display: 'inline', fontSize: '56px' }}>growth</GradientText>
+            How Maxis Ai delivers <GradientText sx={{ display: 'inline', fontSize: '56px' }}>growth</GradientText>
           </Typography>
           <Typography
             variant='body1'
@@ -116,7 +116,7 @@ export default function WhyChooseUsSection() {
               color: '#DEDEDE',
               mb: 4,
             }}>
-            Our approach reimagines medical innovation by combining the power of AI-driven automation with deep domain knowledge. Maxis enables researchers to rapidly build
+            Our approach reimagines medical innovation by combining the power of AI-driven automation with deep domain knowledge. Maxis Ai enables researchers to rapidly build
             intelligent agents that extract insights, streamline discovery workflows, and reduce time-to-market—bridging the speed of digital intelligence with the precision
             required in biomedical research.
           </Typography>
@@ -137,13 +137,13 @@ export default function WhyChooseUsSection() {
         </Box>
         <Image
           src={MaxisCore}
-          alt='maxis Core image'
+          alt='Maxis Ai Core image'
           width={800}
           height={600}
           style={{
             width: '100%',
             height: 'auto',
-            marginBottom: '120px',
+            marginBottom: '4px',
             imageRendering: 'crisp-edges',
             objectFit: 'contain',
           }}
@@ -175,7 +175,7 @@ export default function WhyChooseUsSection() {
               fontWeight: 500,
               mb: 2,
             }}>
-            Maxis is Different—Here&apos;s How
+            Maxis Ai is Different—Here&apos;s How
           </Typography>
           <Typography
             variant='body1'
@@ -184,7 +184,7 @@ export default function WhyChooseUsSection() {
               mb: 4,
             }}>
             We&apos;re not just another AI platform—we&apos;re purpose-built to accelerate accelerate clinical research breakthroughs. From ingesting complex research data to
-            deploying intelligent agents in real-world labs, Maxis helps you move faster, think deeper, and innovate smarter.
+            deploying intelligent agents in real-world labs, Maxis Ai helps you move faster, think deeper, and innovate smarter.
           </Typography>
           <Button
             variant='contained'

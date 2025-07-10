@@ -253,7 +253,7 @@ const PricingPage: React.FC = () => {
           values: [true, true, true, true, true],
         },
         {
-          name: 'Maxis AI Forum?',
+          name: 'Maxis Ai AI Forum?',
           values: [true, true, true, true, true],
         },
         {
@@ -265,7 +265,7 @@ const PricingPage: React.FC = () => {
           values: [false, false, false, true, true],
         },
         {
-          name: 'Embedded Maxis AI Expert?',
+          name: 'Embedded Maxis Ai AI Expert?',
           values: [false, false, false, false, true],
         },
         {

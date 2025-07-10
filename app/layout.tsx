@@ -13,8 +13,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Maxis - Portfolio',
-  description: 'Maxis IT Solutions Portfolio',
+  title: 'Maxis Ai - Portfolio',
+  description: 'Maxis Ai IT Solutions Portfolio',
 };
 
 export default function RootLayout({

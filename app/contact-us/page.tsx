@@ -391,7 +391,7 @@ const ContactUsPage: React.FC = () => {
   };
 
   return (
-    <Box sx={{ background: '#080411', minHeight: '100vh', pt: '72px' }}>
+    <Box sx={{ background: '#080411', minHeight: '100vh' }}>
       {/* Contact Section */}
       <Container
         maxWidth='xl'

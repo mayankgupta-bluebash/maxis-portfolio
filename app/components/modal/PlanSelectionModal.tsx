@@ -13,6 +13,7 @@ interface PlanSelectionModalProps {
   open: boolean;
   onClose: () => void;
   onBack: () => void;
+  role: 'builder' | 'consumer';
 }
 
 const StyledModal = styled(Modal)({
@@ -311,7 +312,7 @@ const featureCategories = [
         values: [true, true, true, true, true],
       },
       {
-        name: 'Maxis AI Forum?',
+        name: 'Maxis Ai AI Forum?',
         values: [true, true, true, true, true],
       },
       {
@@ -323,7 +324,7 @@ const featureCategories = [
         values: [false, false, false, true, true],
       },
       {
-        name: 'Embedded Maxis AI Expert?',
+        name: 'Embedded Maxis Ai AI Expert?',
         values: [false, false, false, false, true],
       },
       {
@@ -381,7 +382,8 @@ const renderFeatureValue = (value: any) => {
   return <Typography sx={{ color: '#999', fontSize: '13.26px', textAlign: 'center' }}>{value}</Typography>;
 };
 
-export default function PlanSelectionModal({ open, onClose, onBack }: PlanSelectionModalProps) {
+export default function PlanSelectionModal({ open, onClose, onBack, role }: PlanSelectionModalProps) {
+  const filteredPlans = role === 'consumer' ? plans.filter((plan) => !['Free', 'Individual'].includes(plan.name)) : plans;
   return (
     <StyledModal
       open={open}
@@ -396,8 +398,9 @@ export default function PlanSelectionModal({ open, onClose, onBack }: PlanSelect
               display: 'flex',
               alignItems: 'center',
               gap: 1,
-              position: 'relative',
-              zIndex: 1,
+              position: 'sticky',
+              top: 0,
+              zIndex: 5,
             }}>
             <IconButton
               onClick={onBack}
@@ -499,7 +502,7 @@ export default function PlanSelectionModal({ open, onClose, onBack }: PlanSelect
 
           {/* Plan Cards */}
           <Box sx={{ display: 'flex', gap: 3, mb: 10, flexWrap: 'wrap' }}>
-            {plans.map((plan) => (
+            {filteredPlans.map((plan) => (
               <PlanCard
                 key={plan.name}
                 featured={plan.featured}>

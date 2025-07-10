@@ -767,7 +767,7 @@ const AboutUsPage: React.FC = () => {
                 lineHeight: '76.8px',
                 width: '595px',
               }}>
-              What Makes Maxis More Than Just a Platform
+              What Makes Maxis Ai More Than Just a Platform
             </Typography>
 
             <Typography

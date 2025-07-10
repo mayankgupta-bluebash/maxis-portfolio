@@ -23,7 +23,6 @@ export default function Footer() {
         bgcolor: '#FFFFFF14',
         px: { xs: 4, md: 10 },
         py: 6,
-        mt: 5,
         boxShadow: '0px 10px 15px -3px rgba(0,41,41,0.32), 0px 4px 6px -4px rgba(0,41,41,0.32)',
       }}>
       <Container
