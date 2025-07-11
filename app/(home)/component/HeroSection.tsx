@@ -141,7 +141,7 @@ const HeroSection: React.FC = () => {
                 alt='AI Brain Visualization'
                 height={448}
                 width={543}
-                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                style={{ objectFit: 'cover', width: '100%', height: '108%' }}
               />
             </Box>
           </Grid>
