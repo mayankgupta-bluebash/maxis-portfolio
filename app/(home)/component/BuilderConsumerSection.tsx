@@ -299,10 +299,10 @@ export default function BuilderConsumerSection() {
                       x2='69.2418'
                       y2='81.7828'
                       gradientUnits='userSpaceOnUse'>
-                      <stop stop-color='#8E76FF' />
+                      <stop stopColor='#8E76FF' />
                       <stop
                         offset='1'
-                        stop-color='#C1B0F1'
+                        stopColor='#C1B0F1'
                       />
                     </linearGradient>
                   </defs>
