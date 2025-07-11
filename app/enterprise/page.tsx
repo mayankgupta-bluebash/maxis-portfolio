@@ -477,7 +477,9 @@ const EnterprisePage: React.FC = () => {
             container
             spacing={{ xs: 4, md: 5 }}
             alignItems='center'>
-            <Grid  size={{xs: 12, md:6}} sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 3, md: 4 } }}>
+            <Grid
+              size={{ xs: 12, md: 6 }}
+              sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 3, md: 4 } }}>
               <HeroBadge sx={{ mb: { xs: 1, md: 3 } }}>
                 <GradientText
                   variant='body2'
@@ -498,7 +500,7 @@ const EnterprisePage: React.FC = () => {
                   Scale AI Automation Across
                   <br />
                   <GradientText
-                    as="span"
+                    as='span'
                     sx={{
                       fontSize: { xs: '32px', sm: '40px', md: '64px' },
                       fontWeight: 500,
@@ -545,7 +547,9 @@ const EnterprisePage: React.FC = () => {
                 Request Demo
               </Button>
             </Grid>
-            <Grid size={{xs:12, md: 6}} sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'end' }, alignItems: 'center' }}>
+            <Grid
+              size={{ xs: 12, md: 6 }}
+              sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'end' }, alignItems: 'center' }}>
               {/* Image with ref */}
               <div ref={heroImgRef}>
                 <Box sx={{ width: { xs: '100%', sm: 350, md: 500 }, maxWidth: '100%' }}>
@@ -561,8 +565,8 @@ const EnterprisePage: React.FC = () => {
             </Grid>
           </Grid>
 
-          <Box sx={{ flex: 1, display: { xs: 'none', md: 'block' } }}>
-            {/* AI Expertise Visualization */}
+          {/* <Box sx={{ flex: 1, display: { xs: 'none', md: 'block' } }}>
+
             <Box sx={{ position: 'relative', height: '512px', opacity: 0.2 }}>
               <svg
                 width='640'
@@ -818,7 +822,7 @@ const EnterprisePage: React.FC = () => {
                 </defs>
               </svg>
             </Box>
-          </Box>
+          </Box> */}
         </Box>
       </Container>
 
@@ -847,7 +851,7 @@ const EnterprisePage: React.FC = () => {
               AI Handles the Process
               <br />
               <GradientText
-                as="span"
+                as='span'
                 sx={{
                   fontSize: { xs: '28px', sm: '32px', md: '56px' },
                   fontWeight: 500,
@@ -872,7 +876,7 @@ const EnterprisePage: React.FC = () => {
             spacing={{ xs: 2, md: 3 }}>
             {features.map((feature, index) => (
               <Grid
-                size={{xs: 12, md: index === 0 || index === 1 ? 6 : 4, sm: 6}}
+                size={{ xs: 12, md: index === 0 || index === 1 ? 6 : 4, sm: 6 }}
                 key={index}>
                 <div
                   ref={(el) => {
@@ -1008,7 +1012,9 @@ const EnterprisePage: React.FC = () => {
             container
             spacing={{ xs: 2, md: 3 }}>
             {capabilities.map((capability, index) => (
-              <Grid size={{xs:12, sm:6, md: 3}}  key={index}>
+              <Grid
+                size={{ xs: 12, sm: 6, md: 3 }}
+                key={index}>
                 <div
                   ref={(el) => {
                     capabilityCardRefs.current[index] = el;
@@ -1034,12 +1040,13 @@ const EnterprisePage: React.FC = () => {
 
       {/* FAQ Section */}
       <div ref={faqSectionRef}>
-        <FAQSection sx={{
-          flexDirection: { xs: 'column', md: 'row' },
-          px: { xs: 2, md: 8 },
-          py: { xs: 4, md: 8 },
-          gap: { xs: 4, md: 8 },
-        }}>
+        <FAQSection
+          sx={{
+            flexDirection: { xs: 'column', md: 'row' },
+            px: { xs: 2, md: 8 },
+            py: { xs: 4, md: 8 },
+            gap: { xs: 4, md: 8 },
+          }}>
           <Box
             sx={{
               width: { xs: '100%', md: '453px' },
