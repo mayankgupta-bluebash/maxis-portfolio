@@ -58,16 +58,20 @@ const VisionMissionCard = styled(Card)({
   maxWidth: '1280px',
 });
 
-const IconContainer = styled(Box)({
+const IconContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  width: '150px',
-  height: '150px',
+  width: 80,
+  height: 80,
   padding: '10px',
   borderRadius: '24px',
   border: '2px solid rgba(141, 49, 245, 0.20)',
   justifyContent: 'center',
   alignItems: 'center',
-});
+  [theme.breakpoints.up('md')]: {
+    width: 150,
+    height: 150,
+  },
+}));
 
 const ContactForm = styled(Card)({
   padding: '53px 30px',
@@ -656,13 +660,15 @@ const AboutUsPage: React.FC = () => {
           </Box>
 
           {/* Right Side - Stakeholder Diagram */}
-          <Box ref={aboutCircleRef} sx={{ width: { xs: '100%', md: 600 }, display: 'flex', justifyContent: 'center', alignItems: 'center', mt: { xs: 4, md: 0 } }}>
+          <Box
+            ref={aboutCircleRef}
+            sx={{ width: '100%', maxWidth: { xs: 320, sm: 400, md: 600 }, mx: 'auto', textAlign: 'center', mt: { xs: 4, md: 0 }, transform: 'translate(-30px, 0px)' }}>
             <Image
               src={AboutCircle}
               alt='About'
               width={600}
               height={600}
-              style={{ width: '100%', height: 'auto', maxWidth: 600 }}
+              style={{ width: '100%', height: 'auto', maxWidth: '100%' }}
               priority
             />
           </Box>
@@ -796,8 +802,8 @@ const AboutUsPage: React.FC = () => {
                 background: '#6F41D2',
                 border: '1px solid #6F41D2',
                 borderRadius: '12px',
-                py: 2,
-                px: 4,
+                py: { xs: 1, md: 2 },
+                px: { xs: 2, md: 4 },
                 color: 'white',
                 fontSize: { xs: '13px', md: '15px' },
                 fontWeight: 500,
@@ -848,7 +854,8 @@ const AboutUsPage: React.FC = () => {
                 mb: 2,
                 textAlign: 'center',
               }}>
-              Aligned by <GradientText fontSize={{ xs: '28px', md: '56px' }}>Vision,</GradientText> United in <GradientText fontSize={{ xs: '28px', md: '56px' }}>Mission</GradientText>
+              Aligned by <GradientText fontSize={{ xs: '28px', md: '56px' }}>Vision,</GradientText> United in{' '}
+              <GradientText fontSize={{ xs: '28px', md: '56px' }}>Mission</GradientText>
             </Typography>
 
             <Typography
@@ -866,9 +873,9 @@ const AboutUsPage: React.FC = () => {
                 background: '#694BC2',
                 border: '1px solid #7352D5',
                 borderRadius: '12px',
-                py: 2,
+                py: { xs: 1, md: 2 },
                 width: 'fit-content',
-                px: 4,
+                px: { xs: 2, md: 4 },
                 color: 'white',
                 fontSize: { xs: '13px', md: '15px' },
                 fontWeight: 500,
@@ -1015,7 +1022,9 @@ const AboutUsPage: React.FC = () => {
           </Box>
 
           {/* Contact Form */}
-          <ContactForm onSubmit={handleSubmit} sx={{ width: { xs: '100%', md: '644px' }, mt: { xs: 4, md: 0 } }}>
+          <ContactForm
+            onSubmit={handleSubmit}
+            sx={{ width: { xs: '100%', md: '644px' }, mt: { xs: 4, md: 0 } }}>
             <Typography
               variant='h6'
               sx={{
@@ -1107,8 +1116,8 @@ const AboutUsPage: React.FC = () => {
                   background: '#6F41D2',
                   border: '1px solid #6F41D2',
                   borderRadius: '12px',
-                  py: 2,
-                  px: 4,
+                  py: { xs: 1, md: 2 },
+                  px: { xs: 2, md: 4 },
                   color: 'white',
                   fontSize: { xs: '13px', md: '15px' },
                   fontWeight: 500,
