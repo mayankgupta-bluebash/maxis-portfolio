@@ -153,18 +153,18 @@ export default function BuilderConsumerSection() {
         </Box>
         <Grid
           container
-          spacing={4}
-          sx={{ mt: 4 }}>
-          <Grid size={{ md: 6 }}>
+          spacing={{ xs: 2, sm: 3, md: 4 }}
+          sx={{ mt: { xs: 2, md: 4 } }}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <FeatureCard
               ref={(el) => {
                 cardsRef.current[0] = el as HTMLDivElement | null;
               }}
-              sx={{ p: 6, alignItems: 'center', textAlign: 'center' }}>
+              sx={{ p: { xs: 3, sm: 4, md: 6 }, alignItems: 'center', textAlign: 'center' }}>
               <IconWrapper
                 sx={{
-                  width: '150px',
-                  height: '150px',
+                  width: { xs: '90px', sm: '120px', md: '150px' },
+                  height: { xs: '90px', sm: '120px', md: '150px' },
                   borderWidth: '2px',
                   mr: 'auto',
                 }}>
@@ -200,7 +200,7 @@ export default function BuilderConsumerSection() {
                   <GradientText
                     variant='h3'
                     sx={{
-                      fontSize: '32px',
+                      fontSize: { xs: '1.5rem', sm: '2rem', md: '2rem' },
                       fontWeight: 'bold',
                       mb: 1,
                       textAlign: 'left',
@@ -211,7 +211,7 @@ export default function BuilderConsumerSection() {
                     variant='h4'
                     sx={{
                       textAlign: 'left',
-                      fontSize: '20px',
+                      fontSize: { xs: '1rem', sm: '1.2rem', md: '1.25rem' },
                       fontWeight: 'normal',
                       color: '#F9FAFC',
                     }}>
@@ -225,6 +225,7 @@ export default function BuilderConsumerSection() {
                     gap: 1.5,
                     mb: 4,
                     textAlign: 'left',
+                    fontSize: { xs: '0.95rem', md: '1rem' },
                   }}>
                   <Typography
                     variant='body2'
@@ -254,9 +255,9 @@ export default function BuilderConsumerSection() {
                     borderRadius: '12px',
                     backgroundColor: '#694BC2',
                     borderColor: '#7352D5',
-                    px: 4,
-                    py: 2,
-                    mt: 5.5,
+                    px: { xs: 2, sm: 3, md: 4 },
+                    py: { xs: 1, sm: 1.5, md: 2 },
+                    mt: { xs: 3, md: 5.5 },
                     color: 'white',
                     textTransform: 'none',
                     fontWeight: 'medium',
@@ -268,16 +269,16 @@ export default function BuilderConsumerSection() {
               </Box>
             </FeatureCard>
           </Grid>
-          <Grid size={{ md: 6 }}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <FeatureCard
               ref={(el) => {
                 cardsRef.current[0] = el as HTMLDivElement | null;
               }}
-              sx={{ p: 6, alignItems: 'center', textAlign: 'center' }}>
+              sx={{ p: { xs: 3, sm: 4, md: 6 }, alignItems: 'center', textAlign: 'center' }}>
               <IconWrapper
                 sx={{
-                  width: '150px',
-                  height: '150px',
+                  width: { xs: '90px', sm: '120px', md: '150px' },
+                  height: { xs: '90px', sm: '120px', md: '150px' },
                   borderWidth: '2px',
                   mr: 'auto',
                 }}>
@@ -313,7 +314,7 @@ export default function BuilderConsumerSection() {
                   <GradientText
                     variant='h3'
                     sx={{
-                      fontSize: '32px',
+                      fontSize: { xs: '1.5rem', sm: '2rem', md: '2rem' },
                       fontWeight: 'bold',
                       mb: 1,
                       textAlign: 'left',
@@ -324,7 +325,7 @@ export default function BuilderConsumerSection() {
                     variant='h4'
                     sx={{
                       textAlign: 'left',
-                      fontSize: '20px',
+                      fontSize: { xs: '1rem', sm: '1.2rem', md: '1.25rem' },
                       fontWeight: 'normal',
                       color: '#F9FAFC',
                     }}>
@@ -338,6 +339,7 @@ export default function BuilderConsumerSection() {
                     gap: 1.5,
                     mb: 4,
                     textAlign: 'left',
+                    fontSize: { xs: '0.95rem', md: '1rem' },
                   }}>
                   <Typography
                     variant='body2'
@@ -367,9 +369,9 @@ export default function BuilderConsumerSection() {
                     borderRadius: '12px',
                     backgroundColor: '#694BC2',
                     borderColor: '#7352D5',
-                    px: 4,
-                    mt: 3,
-                    py: 2,
+                    px: { xs: 2, sm: 3, md: 4 },
+                    mt: { xs: 3, md: 3 },
+                    py: { xs: 1, sm: 1.5, md: 2 },
                     color: 'white',
                     textTransform: 'none',
                     fontWeight: 'medium',

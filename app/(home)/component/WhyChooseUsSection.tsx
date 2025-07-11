@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import MaxisCore from '../../assets/images/flow_diagram.webp';
 import UniversalCircleBg from '../../assets/images/universal.webp';
+import './WhyChooseUsSection.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -104,17 +105,18 @@ export default function WhyChooseUsSection() {
           <Typography
             variant='h2'
             sx={{
-              fontSize: { xs: '40px', md: '56px' },
+              fontSize: { xs: '2rem', sm: '2.5rem', md: '3.5rem' },
               fontWeight: 500,
               mb: 2,
             }}>
-            How Maxis Ai delivers <GradientText sx={{ display: 'inline', fontSize: '56px' }}>growth</GradientText>
+            How Maxis Ai delivers <GradientText sx={{ display: 'inline', fontSize: { xs: '2rem', sm: '2.5rem', md: '3.5rem' } }}>growth</GradientText>
           </Typography>
           <Typography
             variant='body1'
             sx={{
               color: '#DEDEDE',
               mb: 4,
+              fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' },
             }}>
             Our approach reimagines medical innovation by combining the power of AI-driven automation with deep domain knowledge. Maxis Ai enables researchers to rapidly build
             intelligent agents that extract insights, streamline discovery workflows, and reduce time-to-market—bridging the speed of digital intelligence with the precision
@@ -126,8 +128,8 @@ export default function WhyChooseUsSection() {
               borderRadius: '12px',
               backgroundColor: '#694BC2',
               borderColor: '#7352D5',
-              px: 4,
-              py: 2,
+              px: { xs: 2, sm: 3, md: 4 },
+              py: { xs: 1, sm: 1.5, md: 2 },
               color: 'white',
               textTransform: 'none',
               fontWeight: 'medium',
@@ -140,6 +142,7 @@ export default function WhyChooseUsSection() {
           alt='Maxis Ai Core image'
           width={800}
           height={600}
+          className='hideOnMobile'
           style={{
             width: '100%',
             height: 'auto',
@@ -171,7 +174,7 @@ export default function WhyChooseUsSection() {
           <Typography
             variant='h2'
             sx={{
-              fontSize: { xs: '40px', md: '56px' },
+              fontSize: { xs: '2rem', sm: '2.5rem', md: '3.5rem' },
               fontWeight: 500,
               mb: 2,
             }}>
@@ -182,6 +185,7 @@ export default function WhyChooseUsSection() {
             sx={{
               color: '#DEDEDE',
               mb: 4,
+              fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' },
             }}>
             We&apos;re not just another AI platform—we&apos;re purpose-built to accelerate accelerate clinical research breakthroughs. From ingesting complex research data to
             deploying intelligent agents in real-world labs, Maxis Ai helps you move faster, think deeper, and innovate smarter.
@@ -193,8 +197,8 @@ export default function WhyChooseUsSection() {
               borderRadius: '12px',
               backgroundColor: '#694BC2',
               borderColor: '#7352D5',
-              px: 4,
-              py: 2,
+              px: { xs: 2, sm: 3, md: 4 },
+              py: { xs: 1, sm: 1.5, md: 2 },
               color: 'white',
               textTransform: 'none',
               fontWeight: 'medium',
@@ -202,7 +206,7 @@ export default function WhyChooseUsSection() {
             About us
           </Button>
         </Box>
-        <Box sx={{ position: 'relative', zIndex: 10, height: { xs: '400px', md: '240px' }, width: '100%', mb: 8 }}>
+        <Box sx={{ position: 'relative', zIndex: 10, height: { xs: 'auto', md: '240px' }, width: '100%', mb: 8 }}>
           <Paper
             ref={(el) => {
               floatingCardsRef.current[0] = el as HTMLDivElement | null;
@@ -211,7 +215,7 @@ export default function WhyChooseUsSection() {
               position: { xs: 'static', md: 'absolute' },
               left: { xs: 0, md: '122px' },
               top: { xs: 0, md: '-30px' },
-              height: '142px',
+              height: { xs: 'auto', md: '142px' },
               width: { xs: '100%', md: '280px' },
               borderRadius: '16px',
               border: '1px solid rgba(141,49,245,0.2)',
@@ -242,7 +246,7 @@ export default function WhyChooseUsSection() {
               position: { xs: 'static', md: 'absolute' },
               left: { xs: 0, md: '500px' },
               top: { xs: '160px', md: '160px' },
-              height: '142px',
+              height: { xs: 'auto', md: '142px' },
               width: { xs: '100%', md: '280px' },
               borderRadius: '16px',
               border: '1px solid rgba(141,49,245,0.2)',
@@ -273,7 +277,7 @@ export default function WhyChooseUsSection() {
               position: { xs: 'static', md: 'absolute' },
               left: { xs: 0, md: '884px' },
               top: { xs: '320px', md: '-18px' },
-              height: '142px',
+              height: { xs: 'auto', md: '142px' },
               width: { xs: '100%', md: '280px' },
               borderRadius: '16px',
               border: '1px solid rgba(141,49,245,0.2)',
@@ -302,10 +306,12 @@ export default function WhyChooseUsSection() {
               left: '50%',
               transform: 'translateX(-50%)',
               zIndex: 5, // or any number as needed
+              display: { xs: 'none', md: 'block' },
             }}>
             <Image
               src={UniversalCircleBg}
               alt='bg-image'
+              className='hideOnMobile'
               style={{ zIndex: '-1', height: 900, width: '70vw' }}
             />
           </Box>

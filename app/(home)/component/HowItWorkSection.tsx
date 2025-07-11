@@ -35,7 +35,8 @@ const TimelineProgressLine = styled(Box)(() => ({
   top: 0,
   width: '1px',
   backgroundColor: '#7352D5',
-  zIndex: 1,
+  opacity:0.3,
+  zIndex: 0,
   transform: 'translateX(-1px)',
   pointerEvents: 'none',
 }));
@@ -81,22 +82,28 @@ export default function HowItWorkSection() {
       }
     );
     howItWorksStepsRef.current.forEach((el, i) => {
-      gsap.fromTo(
-        el,
-        { x: i % 2 === 0 ? -60 : 60, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 0.8,
-          delay: 0.2 + i * 0.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
+      if (!el) return;
+      // On small screens, animate only opacity and y; on md+ animate x and opacity
+      const isSmallScreen = window.matchMedia('(max-width: 900px)').matches;
+      const fromVars = isSmallScreen
+        ? { y: 40, opacity: 0 }
+        : { x: i % 2 === 0 ? -60 : 60, opacity: 0 };
+      const toVars = isSmallScreen
+        ? { y: 0, opacity: 1, duration: 0.8, delay: 0.2 + i * 0.2, ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        : { x: 0, opacity: 1, duration: 0.8, delay: 0.2 + i * 0.2, ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
+            },
+          };
+      gsap.fromTo(el, fromVars, toVars);
     });
     if (timelineProgressRef.current && howItWorksStepsRef.current[0] && howItWorksStepsRef.current[3]) {
       const updateProgressLine = () => {
@@ -158,20 +165,20 @@ export default function HowItWorkSection() {
   return (
     <Container
       maxWidth='lg'
-      sx={{ pt: 8 }}>
+      sx={{ pt: { xs: 4, md: 8 }, px: { xs: 1, sm: 2, md: 0 } }}>
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: 6,
+          gap: { xs: 3, md: 6 },
         }}>
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: 4,
+            gap: { xs: 2, md: 4 },
             textAlign: 'center',
           }}>
           <Box
@@ -180,12 +187,13 @@ export default function HowItWorkSection() {
               borderRadius: '99px',
               border: '1px solid #DAD9DB',
               backgroundColor: 'rgba(37,26,73,0.5)',
-              px: 2.5,
+              px: { xs: 1.5, md: 2.5 },
               py: 0.6,
+              mb: { xs: 2, md: 0 },
             }}>
             <Typography
               variant='body2'
-              sx={{ color: 'white' }}>
+              sx={{ color: 'white', fontSize: { xs: '0.95rem', md: '1rem' } }}>
               How it works
             </Typography>
           </Box>
@@ -193,7 +201,7 @@ export default function HowItWorkSection() {
             ref={howItWorksTitleRef}
             variant='h2'
             sx={{
-              fontSize: { xs: '40px', md: '56px' },
+              fontSize: { xs: '2rem', sm: '2.5rem', md: '3.5rem' },
               fontWeight: 500,
               color: 'white',
             }}>
@@ -209,15 +217,21 @@ export default function HowItWorkSection() {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: { xs: '48px', md: '96px' },
+            gap: { xs: 4, md: '96px' },
             backgroundColor: '#080411',
-            px: { xs: 4, md: '128px' },
-            py: 8,
+            px: { xs: 1, sm: 2, md: '128px' },
+            py: { xs: 4, md: 8 },
+            borderRadius: { xs: 2, md: 4 },
           }}>
-          <TimelineLine ref={timelineLineRef} />
+          <TimelineLine ref={timelineLineRef} sx={{ display: { xs: 'none', md: 'block' } }} />
           <TimelineProgressLine
             ref={timelineProgressRef}
             style={{ height: '0px' }}
+            sx={{
+              display: { xs: 'none', md: 'block' },
+              opacity: { xs: 0.3, md: 1 },
+              zIndex: { xs: 0, md: 1 },
+            }}
           />
           {/* Step 1 */}
           <Box
@@ -230,24 +244,25 @@ export default function HowItWorkSection() {
               display: 'flex',
               flexDirection: { xs: 'column', md: 'row' },
               alignItems: { xs: 'flex-start', md: 'center' },
-              gap: 4,
+              gap: { xs: 2, md: 4 },
               pl: { xs: 0, md: '507px' },
+              mb: { xs: 2, md: 0 },
             }}>
-            <TimelineDot />
+            <TimelineDot sx={{ top: { xs: 0, md: '8px' }, display: { xs: 'none', md: 'block' } }} />
             <Box sx={{ width: { xs: '100%', md: '505px' } }}>
               <Typography
                 variant='h4'
-                sx={{ color: '#7352D5', mb: 1 }}>
+                sx={{ color: '#7352D5', mb: 1, fontSize: { xs: '1.2rem', md: '1.5rem' } }}>
                 01
               </Typography>
               <Typography
                 variant='h3'
-                sx={{ color: 'white', mb: 2 }}>
+                sx={{ color: 'white', mb: 2, fontSize: { xs: '1.3rem', md: '2rem' } }}>
                 Design Your Agent
               </Typography>
               <Typography
                 variant='body1'
-                sx={{ color: '#DEDEDE' }}>
+                sx={{ color: '#DEDEDE', fontSize: { xs: '1rem', md: '1.15rem' } }}>
                 Use our intuitive visual builder to craft custom workflows, prompts, and personalities.
               </Typography>
             </Box>
@@ -263,9 +278,11 @@ export default function HowItWorkSection() {
               display: 'flex',
               flexDirection: { xs: 'column', md: 'row' },
               alignItems: { xs: 'flex-start', md: 'center' },
-              gap: 4,
+              gap: { xs: 2, md: 4 },
               pr: { xs: 0, md: '497px' },
               textAlign: { xs: 'left', md: 'right' },
+              mb: { xs: 2, md: 0 },
+              backdropFilter: { xs: 'blur(6px)', md: 'none' },
             }}>
             <Box
               sx={{
@@ -274,25 +291,28 @@ export default function HowItWorkSection() {
               }}>
               <Typography
                 variant='h4'
-                sx={{ color: '#7352D5', mb: 1 }}>
+                sx={{ color: '#7352D5', mb: 1, fontSize: { xs: '1.2rem', md: '1.5rem' } }}>
                 02
               </Typography>
               <Typography
                 variant='h3'
-                sx={{ color: 'white', mb: 2 }}>
+                sx={{ color: 'white', mb: 2, fontSize: { xs: '1.3rem', md: '2rem' } }}>
                 Connect Your Knowledge
               </Typography>
               <Typography
                 variant='body1'
-                sx={{ color: '#DEDEDE' }}>
+                sx={{ color: '#DEDEDE', fontSize: { xs: '1rem', md: '1.15rem' } }}>
                 Integrate internal documents, URLs, and APIs. Let your agent learn what matters most.
               </Typography>
             </Box>
             <TimelineDot
               sx={{
                 order: { xs: 1, md: 2 },
-                left: { xs: 0, md: '50%' },
-                position: { xs: 'relative', md: 'absolute' },
+                left: { xs: '50%', md: '50%' },
+                position: { xs: 'absolute', md: 'absolute' },
+                top: { xs: 0, md: '8px' },
+                transform: { xs: 'translateX(-50%)', md: 'translateX(-50%)' },
+                display: { xs: 'none', md: 'block' },
               }}
             />
           </Box>
@@ -307,24 +327,25 @@ export default function HowItWorkSection() {
               display: 'flex',
               flexDirection: { xs: 'column', md: 'row' },
               alignItems: { xs: 'flex-start', md: 'center' },
-              gap: 4,
+              gap: { xs: 2, md: 4 },
               pl: { xs: 0, md: '507px' },
+              mb: { xs: 2, md: 0 },
             }}>
-            <TimelineDot />
+            <TimelineDot sx={{ top: { xs: 0, md: '8px' }, display: { xs: 'none', md: 'block' } }} />
             <Box sx={{ width: { xs: '100%', md: '490px' } }}>
               <Typography
                 variant='h4'
-                sx={{ color: '#7352D5', mb: 1 }}>
+                sx={{ color: '#7352D5', mb: 1, fontSize: { xs: '1.2rem', md: '1.5rem' } }}>
                 03
               </Typography>
               <Typography
                 variant='h3'
-                sx={{ color: 'white', mb: 2 }}>
+                sx={{ color: 'white', mb: 2, fontSize: { xs: '1.3rem', md: '2rem' } }}>
                 Test and Fine-Tune
               </Typography>
               <Typography
                 variant='body1'
-                sx={{ color: '#DEDEDE' }}>
+                sx={{ color: '#DEDEDE', fontSize: { xs: '1rem', md: '1.15rem' } }}>
                 Run real-time simulations and optimize your logic with our agent debugger.
               </Typography>
             </Box>
@@ -340,9 +361,11 @@ export default function HowItWorkSection() {
               display: 'flex',
               flexDirection: { xs: 'column', md: 'row' },
               alignItems: { xs: 'flex-start', md: 'center' },
-              gap: 4,
+              gap: { xs: 2, md: 4 },
               pr: { xs: 0, md: '507px' },
               textAlign: { xs: 'left', md: 'right' },
+              mb: { xs: 2, md: 0 },
+              backdropFilter: { xs: 'blur(6px)', md: 'none' },
             }}>
             <Box
               sx={{
@@ -351,25 +374,28 @@ export default function HowItWorkSection() {
               }}>
               <Typography
                 variant='h4'
-                sx={{ color: '#7352D5', mb: 1 }}>
+                sx={{ color: '#7352D5', mb: 1, fontSize: { xs: '1.2rem', md: '1.5rem' } }}>
                 04
               </Typography>
               <Typography
                 variant='h3'
-                sx={{ color: 'white', mb: 2 }}>
+                sx={{ color: 'white', mb: 2, fontSize: { xs: '1.3rem', md: '2rem' } }}>
                 Publish Agentic Assets
               </Typography>
               <Typography
                 variant='body1'
-                sx={{ color: '#DEDEDE' }}>
+                sx={{ color: '#DEDEDE', fontSize: { xs: '1rem', md: '1.15rem' } }}>
                 Verify and Publish agentic assets to Marketplace
               </Typography>
             </Box>
             <TimelineDot
               sx={{
                 order: { xs: 1, md: 2 },
-                left: { xs: 0, md: '50%' },
-                position: { xs: 'relative', md: 'absolute' },
+                left: { xs: '50%', md: '50%' },
+                position: { xs: 'absolute', md: 'absolute' },
+                top: { xs: 0, md: '8px' },
+                transform: { xs: 'translateX(-50%)', md: 'translateX(-50%)' },
+                display: { xs: 'none', md: 'block' },
               }}
             />
           </Box>

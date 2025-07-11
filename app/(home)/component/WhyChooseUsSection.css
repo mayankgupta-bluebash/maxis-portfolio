@@ -1,0 +1,9 @@
+.hideOnMobile {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .hideOnMobile {
+    display: block !important;
+  }
+} 

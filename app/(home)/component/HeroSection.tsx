@@ -74,9 +74,9 @@ const HeroSection: React.FC = () => {
                 <Typography
                   variant='h1'
                   sx={{
-                    fontSize: { xs: '48px', md: '76px' },
+                    fontSize: { xs: '2.2rem', sm: '2.8rem', md: '4.75rem' },
                     fontWeight: 500,
-                    lineHeight: { xs: '56px', md: '88px' },
+                    lineHeight: { xs: '2.8rem', sm: '3.2rem', md: '5.5rem' },
                     color: '#F9FAFC',
                   }}>
                   Build the Next
@@ -84,9 +84,9 @@ const HeroSection: React.FC = () => {
                 <GradientText
                   variant='h1'
                   sx={{
-                    fontSize: { xs: '48px', md: '76px' },
+                    fontSize: { xs: '2.2rem', sm: '2.8rem', md: '4.75rem' },
                     fontWeight: 500,
-                    lineHeight: { xs: '56px', md: '88px' },
+                    lineHeight: { xs: '2.8rem', sm: '3.2rem', md: '5.5rem' },
                   }}>
                   Generation of AI Agents
                 </GradientText>
@@ -96,8 +96,8 @@ const HeroSection: React.FC = () => {
                 ref={heroDescRef}
                 variant='body1'
                 sx={{
-                  fontSize: { xs: '16px', md: '20px' },
-                  lineHeight: { xs: '24px', md: '30px' },
+                  fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' },
+                  lineHeight: { xs: '1.5rem', sm: '1.7rem', md: '1.9rem' },
                   color: '#DEDEDE',
                   pb: 4,
                 }}>
@@ -108,14 +108,15 @@ const HeroSection: React.FC = () => {
                 ref={heroBtnRef}
                 variant='outlined'
                 sx={{
-                  maxWidth: '620px',
+                  maxWidth: { xs: '100%', sm: '80%', md: '620px' },
                   borderRadius: '12px',
                   borderColor: '#7352D5',
                   backgroundColor: '#080411',
-                  px: 4,
-                  py: 2,
+                  px: { xs: 2, sm: 3, md: 4 },
+                  py: { xs: 1, sm: 1.5, md: 2 },
                   color: 'white',
-                  alignSelf: 'flex-start',
+                  alignSelf: { xs: 'stretch', sm: 'flex-start' },
+                  fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' },
                 }}
                 onClick={() => open('chooseRole')}>
                 Get started
@@ -128,18 +129,19 @@ const HeroSection: React.FC = () => {
               ref={heroImgRef}
               sx={{
                 position: 'relative',
-                height: { xs: '300px', md: '512px' },
+                height: { xs: '220px', sm: '300px', md: '512px' },
                 width: '100%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                mt: { xs: 4, md: 0 },
               }}>
               <Image
                 src={HeroBrainImage}
                 alt='AI Brain Visualization'
                 height={448}
                 width={543}
-                objectFit='cover'
+                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
             </Box>
           </Grid>

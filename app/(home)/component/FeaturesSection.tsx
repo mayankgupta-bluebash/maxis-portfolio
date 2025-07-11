@@ -113,8 +113,8 @@ export default function FeaturesSection() {
         sx={{ width: '100%' }}>
         <Grid
           container
-          spacing={2}>
-          <Grid size={{ md: 6 }}>
+          spacing={{ xs: 2, sm: 3, md: 4 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <FeatureCard ref={(el: any) => (featuresRef.current[0] = el)}>
               <IconWrapper>
                 <svg
@@ -161,7 +161,7 @@ export default function FeaturesSection() {
             </FeatureCard>
           </Grid>
 
-          <Grid size={{ md: 6 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <FeatureCard
               ref={(el) => {
                 featuresRef.current[1] = el;
@@ -211,7 +211,7 @@ export default function FeaturesSection() {
             </FeatureCard>
           </Grid>
 
-          <Grid size={{ md: 4, xs: 6 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <FeatureCard ref={(el: any) => (featuresRef.current[2] = el)}>
               <IconWrapper>
                 <svg
@@ -258,7 +258,7 @@ export default function FeaturesSection() {
             </FeatureCard>
           </Grid>
 
-          <Grid size={{ md: 4, xs: 6 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <FeatureCard ref={(el: any) => (featuresRef.current[3] = el)}>
               <IconWrapper>
                 <svg
@@ -305,7 +305,7 @@ export default function FeaturesSection() {
             </FeatureCard>
           </Grid>
 
-          <Grid size={{ md: 4, xs: 6 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <FeatureCard ref={(el: any) => (featuresRef.current[4] = el)}>
               <IconWrapper>
                 <svg
