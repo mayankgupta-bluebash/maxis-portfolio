@@ -575,13 +575,14 @@ const AboutUsPage: React.FC = () => {
       {/* Hero Section */}
       <Container
         maxWidth='xl'
-        sx={{ py: 10 }}>
+        sx={{ py: { xs: 4, md: 10 } }}>
         <Box
           sx={{
             display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'center',
             alignItems: 'center',
-            gap: 3,
+            gap: { xs: 4, md: 3 },
             maxWidth: '1280px',
             mx: 'auto',
           }}>
@@ -590,7 +591,7 @@ const AboutUsPage: React.FC = () => {
             <HeroBadge ref={heroBadgeRef}>
               <GradientText
                 variant='body2'
-                sx={{ fontSize: '15px', fontWeight: 400 }}>
+                sx={{ fontSize: { xs: '13px', md: '15px' }, fontWeight: 400 }}>
                 Bringing the AI Revolution
               </GradientText>
             </HeroBadge>
@@ -600,10 +601,10 @@ const AboutUsPage: React.FC = () => {
                 ref={heroTitleRef}
                 variant='h1'
                 sx={{
-                  fontSize: '64px',
+                  fontSize: { xs: '32px', sm: '40px', md: '64px' },
                   fontWeight: 500,
-                  lineHeight: 1.1,
-                  width: '706px',
+                  lineHeight: { xs: '40px', sm: '48px', md: '1.1' },
+                  width: { xs: '100%', md: '706px' },
                   color: '#fff',
                 }}>
                 Revolutionizing
@@ -624,10 +625,10 @@ const AboutUsPage: React.FC = () => {
               variant='h5'
               sx={{
                 color: 'rgba(255, 255, 255, 0.7)',
-                fontSize: '20px',
+                fontSize: { xs: '15px', md: '20px' },
                 fontWeight: 400,
-                lineHeight: '30px',
-                maxWidth: '706px',
+                lineHeight: { xs: '22px', md: '30px' },
+                maxWidth: { xs: '100%', md: '706px' },
               }}>
               MaxisIT empowers life sciences to reduce risk, time, and cost with integrated data management and analytics solutions.
             </Typography>
@@ -642,7 +643,7 @@ const AboutUsPage: React.FC = () => {
                 py: 2,
                 px: 4,
                 color: 'white',
-                fontSize: '15px',
+                fontSize: { xs: '13px', md: '15px' },
                 fontWeight: 500,
                 textTransform: 'none',
                 maxWidth: 'fit-content',
@@ -655,12 +656,13 @@ const AboutUsPage: React.FC = () => {
           </Box>
 
           {/* Right Side - Stakeholder Diagram */}
-          <Box ref={aboutCircleRef}>
+          <Box ref={aboutCircleRef} sx={{ width: { xs: '100%', md: 600 }, display: 'flex', justifyContent: 'center', alignItems: 'center', mt: { xs: 4, md: 0 } }}>
             <Image
               src={AboutCircle}
               alt='About'
               width={600}
               height={600}
+              style={{ width: '100%', height: 'auto', maxWidth: 600 }}
               priority
             />
           </Box>
@@ -670,34 +672,34 @@ const AboutUsPage: React.FC = () => {
       {/* Stats Section */}
       <Container
         maxWidth='xl'
-        sx={{ py: 8 }}>
+        sx={{ py: { xs: 4, md: 8 } }}>
         <Box
           ref={statsSectionRef}
           sx={{ maxWidth: '1280px', mx: 'auto' }}>
-          <Box sx={{ textAlign: 'center', mb: 8 }}>
+          <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 8 } }}>
             <HeroBadge sx={{ mb: 2 }}>
               <Typography
                 variant='body2'
-                sx={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '15px' }}>
+                sx={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: { xs: '13px', md: '15px' } }}>
                 A Global Network
               </Typography>
             </HeroBadge>
             <Typography
               variant='h2'
-              sx={{ fontSize: '56px', fontWeight: 500, color: '#fff' }}>
+              sx={{ fontSize: { xs: '28px', md: '56px' }, fontWeight: 500, color: '#fff' }}>
               200+ Experts. 1 Mission:
             </Typography>
             <GradientText
               variant='h2'
-              sx={{ fontSize: '56px', fontWeight: 500, mb: 4 }}>
+              sx={{ fontSize: { xs: '28px', md: '56px' }, fontWeight: 500, mb: { xs: 2, md: 4 } }}>
               Accelerate Global Health
             </GradientText>
             <Typography
               variant='h5'
               sx={{
                 color: 'rgba(255, 255, 255, 0.7)',
-                fontSize: '20px',
-                maxWidth: '1252px',
+                fontSize: { xs: '15px', md: '20px' },
+                maxWidth: { xs: '100%', md: '1252px' },
                 mx: 'auto',
               }}>
               Powering pharma, startups, and CROs across the U.S. and India.
@@ -711,20 +713,22 @@ const AboutUsPage: React.FC = () => {
             {stats.map((stat, index) => (
               <Grid
                 size='auto'
-                key={index}>
+                key={index}
+                sx={{ minWidth: { xs: 150, sm: 200, md: 250 }, mb: { xs: 2, md: 0 } }}>
                 <StatsCard
                   ref={(el: HTMLDivElement | null) => {
                     statsCardsRef.current[index] = el;
-                  }}>
-                  <StatNumber>{stat.number}</StatNumber>
+                  }}
+                  sx={{ width: '100%' }}>
+                  <StatNumber sx={{ fontSize: { xs: '32px', md: '48px' } }}>{stat.number}</StatNumber>
                   <Typography
                     sx={{
                       color: '#F9FAFC',
-                      fontSize: '20px',
+                      fontSize: { xs: '15px', md: '20px' },
                       fontWeight: 500,
                       lineHeight: '36px',
                       textAlign: 'center',
-                      width: '250px',
+                      width: { xs: '100%', md: '250px' },
                     }}>
                     {stat.label}
                   </Typography>
@@ -738,14 +742,15 @@ const AboutUsPage: React.FC = () => {
       {/* Platform Section */}
       <Container
         maxWidth='xl'
-        sx={{ py: 8 }}>
+        sx={{ py: { xs: 4, md: 8 } }}>
         <Box
           ref={platformSectionRef}
           sx={{
             display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'center',
             alignItems: 'center',
-            gap: 4,
+            gap: { xs: 4, md: 4 },
             maxWidth: '1280px',
             mx: 'auto',
           }}>
@@ -753,7 +758,7 @@ const AboutUsPage: React.FC = () => {
             <HeroBadge>
               <Typography
                 variant='body2'
-                sx={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '15px' }}>
+                sx={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: { xs: '13px', md: '15px' } }}>
                 Contact Us
               </Typography>
             </HeroBadge>
@@ -762,10 +767,10 @@ const AboutUsPage: React.FC = () => {
               variant='h2'
               sx={{
                 color: '#FFF',
-                fontSize: '56px',
+                fontSize: { xs: '28px', md: '56px' },
                 fontWeight: 500,
-                lineHeight: '76.8px',
-                width: '595px',
+                lineHeight: { xs: '36px', md: '76.8px' },
+                width: { xs: '100%', md: '595px' },
               }}>
               What Makes Maxis Ai More Than Just a Platform
             </Typography>
@@ -774,10 +779,10 @@ const AboutUsPage: React.FC = () => {
               variant='body1'
               sx={{
                 color: '#DEDEDE',
-                fontSize: '20px',
+                fontSize: { xs: '15px', md: '20px' },
                 fontWeight: 400,
-                lineHeight: '28px',
-                width: '565px',
+                lineHeight: { xs: '22px', md: '28px' },
+                width: { xs: '100%', md: '565px' },
               }}>
               We&apos;re not just building AI—we&apos;re transforming how medical research happens.
               <br />
@@ -794,7 +799,7 @@ const AboutUsPage: React.FC = () => {
                 py: 2,
                 px: 4,
                 color: 'white',
-                fontSize: '15px',
+                fontSize: { xs: '13px', md: '15px' },
                 fontWeight: 500,
                 textTransform: 'none',
                 maxWidth: 'fit-content',
@@ -808,17 +813,13 @@ const AboutUsPage: React.FC = () => {
 
           <Box
             ref={platformImageRef}
-            sx={{ flex: 1, display: { xs: 'none', md: 'block' } }}>
+            sx={{ flex: 1, display: { xs: 'block', md: 'block' }, width: '100%', mt: { xs: 4, md: 0 } }}>
             <Image
               src={Healthcare_AI_Innovation_Framework}
               alt='Platform visualization'
               width={647}
               height={530}
-              style={{
-                width: '647px',
-                height: '530px',
-                aspectRatio: '647/530',
-              }}
+              style={{ width: '100%', height: 'auto', maxWidth: 647 }}
             />
           </Box>
         </Box>
@@ -827,35 +828,35 @@ const AboutUsPage: React.FC = () => {
       {/* Vision & Mission Section */}
       <Container
         maxWidth='xl'
-        sx={{ py: 8 }}>
+        sx={{ py: { xs: 4, md: 8 } }}>
         <Box
           ref={visionMissionRef}
           sx={{ maxWidth: '1280px', mx: 'auto' }}>
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <HeroBadge sx={{ mb: 6 }}>
+          <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }}>
+            <HeroBadge sx={{ mb: { xs: 2, md: 6 } }}>
               <Typography
                 variant='body2'
-                sx={{ color: '#FFF', fontSize: '15px' }}>
+                sx={{ color: '#FFF', fontSize: { xs: '13px', md: '15px' } }}>
                 Our Vision & Mission
               </Typography>
             </HeroBadge>
             <Typography
               sx={{
-                fontSize: '56px',
+                fontSize: { xs: '28px', md: '56px' },
                 fontWeight: 500,
-                lineHeight: '76.8px',
+                lineHeight: { xs: '36px', md: '76.8px' },
                 mb: 2,
                 textAlign: 'center',
               }}>
-              Aligned by <GradientText fontSize='56px'>Vision,</GradientText> United in <GradientText fontSize='56px'>Mission</GradientText>
+              Aligned by <GradientText fontSize={{ xs: '28px', md: '56px' }}>Vision,</GradientText> United in <GradientText fontSize={{ xs: '28px', md: '56px' }}>Mission</GradientText>
             </Typography>
 
             <Typography
               sx={{
                 color: '#DEDEDE',
-                fontSize: '16px',
-                lineHeight: '24px',
-                mb: 4,
+                fontSize: { xs: '14px', md: '16px' },
+                lineHeight: { xs: '20px', md: '24px' },
+                mb: { xs: 2, md: 4 },
               }}>
               Whether you&apos;re here to build intelligent agents or to use AI tools without coding, our platform is built for both.
             </Typography>
@@ -869,11 +870,11 @@ const AboutUsPage: React.FC = () => {
                 width: 'fit-content',
                 px: 4,
                 color: 'white',
-                fontSize: '15px',
+                fontSize: { xs: '13px', md: '15px' },
                 fontWeight: 500,
                 textTransform: 'none',
-                maxWidth: '896px',
-                mb: 9,
+                maxWidth: { xs: '100%', md: '896px' },
+                mb: { xs: 4, md: 9 },
                 '&:hover': {
                   background: '#5A2FA8',
                 },
@@ -884,9 +885,10 @@ const AboutUsPage: React.FC = () => {
 
           <Grid
             container
-            spacing={9}>
+            spacing={3}
+            sx={{ flexDirection: { xs: 'column', md: 'row' } }}>
             <Grid size={{ xs: 12, md: 6 }}>
-              <VisionMissionCard>
+              <VisionMissionCard sx={{ height: '100%' }}>
                 <IconContainer>
                   <VisionIcon />
                 </IconContainer>
@@ -894,9 +896,9 @@ const AboutUsPage: React.FC = () => {
                   <Typography
                     variant='h4'
                     sx={{
-                      fontSize: '32px',
+                      fontSize: { xs: '22px', md: '32px' },
                       fontWeight: 600,
-                      lineHeight: '41.6px',
+                      lineHeight: { xs: '28px', md: '41.6px' },
                       background: 'linear-gradient(143deg, #8E76FF 5.43%, #C1B0F1 94.57%)',
                       WebkitBackgroundClip: 'text',
                       backgroundClip: 'text',
@@ -909,9 +911,9 @@ const AboutUsPage: React.FC = () => {
                     variant='body1'
                     sx={{
                       color: '#F9FAFC',
-                      fontSize: '16px',
-                      lineHeight: '24px',
-                      width: '523px',
+                      fontSize: { xs: '14px', md: '16px' },
+                      lineHeight: { xs: '20px', md: '24px' },
+                      width: { xs: '100%', md: '523px' },
                     }}>
                     To deliver premier products that increase clinical trial success rates and reduce trial costs by automatically delivering proactive insights
                   </Typography>
@@ -920,7 +922,7 @@ const AboutUsPage: React.FC = () => {
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
-              <VisionMissionCard>
+              <VisionMissionCard sx={{ height: '100%' }}>
                 <IconContainer>
                   <MissionIcon />
                 </IconContainer>
@@ -928,9 +930,9 @@ const AboutUsPage: React.FC = () => {
                   <Typography
                     variant='h4'
                     sx={{
-                      fontSize: '32px',
+                      fontSize: { xs: '22px', md: '32px' },
                       fontWeight: 600,
-                      lineHeight: '41.6px',
+                      lineHeight: { xs: '28px', md: '41.6px' },
                       background: 'linear-gradient(143deg, #8E76FF 5.43%, #C1B0F1 94.57%)',
                       WebkitBackgroundClip: 'text',
                       backgroundClip: 'text',
@@ -943,8 +945,8 @@ const AboutUsPage: React.FC = () => {
                     variant='body1'
                     sx={{
                       color: '#F9FAFC',
-                      fontSize: '16px',
-                      lineHeight: '24px',
+                      fontSize: { xs: '14px', md: '16px' },
+                      lineHeight: { xs: '20px', md: '24px' },
                     }}>
                     To help our customers deliver the right products to the right patients, on time
                   </Typography>
@@ -958,14 +960,15 @@ const AboutUsPage: React.FC = () => {
       {/* Contact Form Section */}
       <Container
         maxWidth='xl'
-        sx={{ py: 8 }}>
+        sx={{ py: { xs: 4, md: 8 } }}>
         <Box
           ref={contactSectionRef}
           sx={{
             display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'center',
             alignItems: 'center',
-            gap: 4,
+            gap: { xs: 4, md: 4 },
             maxWidth: '1280px',
             mx: 'auto',
           }}>
@@ -973,7 +976,7 @@ const AboutUsPage: React.FC = () => {
             <HeroBadge>
               <Typography
                 variant='body2'
-                sx={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '15px' }}>
+                sx={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: { xs: '13px', md: '15px' } }}>
                 Contact Us
               </Typography>
             </HeroBadge>
@@ -981,15 +984,15 @@ const AboutUsPage: React.FC = () => {
             <Typography
               variant='h2'
               sx={{
-                fontSize: '56px',
+                fontSize: { xs: '28px', md: '56px' },
                 fontWeight: 500,
-                lineHeight: '76.8px',
-                width: '595px',
+                lineHeight: { xs: '36px', md: '76.8px' },
+                width: { xs: '100%', md: '595px' },
               }}>
               Curious About What{' '}
               <GradientText
-                fontSize='56px'
-                sx={{ fontWeight: 500, lineHeight: '76.8px' }}>
+                fontSize={{ xs: '28px', md: '56px' }}
+                sx={{ fontWeight: 500, lineHeight: { xs: '36px', md: '76.8px' } }}>
                 Maxis
               </GradientText>{' '}
               Can Do for You?
@@ -999,11 +1002,11 @@ const AboutUsPage: React.FC = () => {
               variant='body1'
               sx={{
                 color: '#DEDEDE',
-                fontSize: '20px',
+                fontSize: { xs: '15px', md: '20px' },
                 fontWeight: 400,
-                lineHeight: '28px',
-                width: '565px',
-                height: '124px',
+                lineHeight: { xs: '22px', md: '28px' },
+                width: { xs: '100%', md: '565px' },
+                height: { xs: 'auto', md: '124px' },
                 display: 'flex',
                 alignItems: 'center',
               }}>
@@ -1012,12 +1015,12 @@ const AboutUsPage: React.FC = () => {
           </Box>
 
           {/* Contact Form */}
-          <ContactForm onSubmit={handleSubmit}>
+          <ContactForm onSubmit={handleSubmit} sx={{ width: { xs: '100%', md: '644px' }, mt: { xs: 4, md: 0 } }}>
             <Typography
               variant='h6'
               sx={{
                 color: '#B7B4BF',
-                fontSize: '16px',
+                fontSize: { xs: '14px', md: '16px' },
                 fontWeight: 500,
                 lineHeight: '20px',
                 mb: 1,
@@ -1026,13 +1029,14 @@ const AboutUsPage: React.FC = () => {
             </Typography>
 
             {/* Name Fields */}
-            <Box sx={{ display: 'flex', gap: 1 }}>
+            <Box sx={{ display: 'flex', gap: 1, flexDirection: { xs: 'column', sm: 'row' } }}>
               <StyledTextField
                 placeholder='First Name*'
                 value={formData.firstName}
                 onChange={handleInputChange('firstName')}
                 fullWidth
                 required
+                sx={{ mb: { xs: 1, sm: 0 } }}
               />
               <StyledTextField
                 placeholder='Last Name*'
@@ -1040,6 +1044,7 @@ const AboutUsPage: React.FC = () => {
                 onChange={handleInputChange('lastName')}
                 fullWidth
                 required
+                sx={{ mb: { xs: 1, sm: 0 } }}
               />
             </Box>
 
@@ -1051,6 +1056,7 @@ const AboutUsPage: React.FC = () => {
               onChange={handleInputChange('email')}
               fullWidth
               required
+              sx={{ mb: 1 }}
             />
 
             {/* Phone Field */}
@@ -1066,6 +1072,7 @@ const AboutUsPage: React.FC = () => {
                   </InputAdornment>
                 ),
               }}
+              sx={{ mb: 1 }}
             />
 
             {/* Message Field */}
@@ -1076,6 +1083,7 @@ const AboutUsPage: React.FC = () => {
               value={formData.message}
               onChange={handleInputChange('message')}
               fullWidth
+              sx={{ mb: 1 }}
             />
 
             {/* Privacy Policy */}
@@ -1083,7 +1091,7 @@ const AboutUsPage: React.FC = () => {
               variant='caption'
               sx={{
                 color: '#96939F',
-                fontSize: '12px',
+                fontSize: { xs: '11px', md: '12px' },
                 fontWeight: 400,
                 lineHeight: '17.931px',
               }}>
@@ -1091,7 +1099,7 @@ const AboutUsPage: React.FC = () => {
             </Typography>
 
             {/* Submit Button */}
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
               <Button
                 type='submit'
                 variant='contained'
@@ -1102,7 +1110,7 @@ const AboutUsPage: React.FC = () => {
                   py: 2,
                   px: 4,
                   color: 'white',
-                  fontSize: '15px',
+                  fontSize: { xs: '13px', md: '15px' },
                   fontWeight: 500,
                   textTransform: 'none',
                   '&:hover': {

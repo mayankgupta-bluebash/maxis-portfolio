@@ -26,8 +26,10 @@ const ContactForm = styled(Card)({
   borderRadius: '18px',
   border: '1px solid rgba(141, 49, 245, 0.20)',
   background: 'rgba(37, 26, 73, 0.50)',
-  width: '644px',
-  height: '623px',
+  width: '100%',
+  maxWidth: '644px',
+  minWidth: 0,
+  height: 'auto',
   display: 'flex',
   flexDirection: 'column',
   gap: '24px',
@@ -131,7 +133,7 @@ const PhoneTextField = styled(TextField)({
 });
 
 const OfficeCard = styled(Card)({
-  padding: '32px 64px',
+  padding: '24px',
   borderRadius: '9px',
   border: '1px solid #523A97',
   background: 'rgba(37, 26, 73, 0.50)',
@@ -395,22 +397,23 @@ const ContactUsPage: React.FC = () => {
       {/* Contact Section */}
       <Container
         maxWidth='xl'
-        sx={{ py: 10 }}>
+        sx={{ py: { xs: 4, md: 10 } }}>
         <Box
-          display={{ md: 'flex' }}
           sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'center',
             alignItems: 'center',
-            gap: 4,
+            gap: { xs: 4, md: 4 },
             maxWidth: '1280px',
             mx: 'auto',
           }}>
           {/* Left Side - Contact Info */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, flex: 1 }}>
             <HeroBadge ref={heroBadgeRef}>
               <Typography
                 variant='body2'
-                sx={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '15px' }}>
+                sx={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: { xs: '13px', md: '15px' } }}>
                 Contact Us
               </Typography>
             </HeroBadge>
@@ -421,10 +424,10 @@ const ContactUsPage: React.FC = () => {
                 variant='h1'
                 sx={{
                   color: '#FFF',
-                  fontSize: '56px',
+                  fontSize: { xs: '28px', md: '56px' },
                   fontWeight: 500,
-                  lineHeight: '76.8px',
-                  width: '595px',
+                  lineHeight: { xs: '36px', md: '76.8px' },
+                  width: { xs: '100%', md: '595px' },
                 }}>
                 We&apos;d love to hear from you!
               </Typography>
@@ -436,10 +439,10 @@ const ContactUsPage: React.FC = () => {
                   variant='h5'
                   sx={{
                     color: '#DEDEDE',
-                    fontSize: '20px',
+                    fontSize: { xs: '15px', md: '20px' },
                     fontWeight: 500,
-                    lineHeight: '36px',
-                    width: '565px',
+                    lineHeight: { xs: '22px', md: '36px' },
+                    width: { xs: '100%', md: '565px' },
                   }}>
                   For General Enquiries
                 </Typography>
@@ -457,7 +460,7 @@ const ContactUsPage: React.FC = () => {
                     variant='body1'
                     sx={{
                       color: '#DEDEDE',
-                      fontSize: '16px',
+                      fontSize: { xs: '13px', md: '16px' },
                       fontWeight: 400,
                       lineHeight: '24px',
                     }}>
@@ -473,14 +476,16 @@ const ContactUsPage: React.FC = () => {
             ref={contactFormRef}
             onSubmit={handleSubmit}
             sx={{
-              padding: '20px',
+              padding: { xs: 2, md: '20px' },
               transform: 'perspective(1000px)',
+              width: { xs: '100%', md: '644px' },
+              mt: { xs: 4, md: 0 },
             }}>
             <Typography
               variant='h6'
               sx={{
                 color: '#B7B4BF',
-                fontSize: '16px',
+                fontSize: { xs: '14px', md: '16px' },
                 fontWeight: 500,
                 lineHeight: '20px',
                 mb: 1,
@@ -493,13 +498,14 @@ const ContactUsPage: React.FC = () => {
               ref={(el: HTMLDivElement | null) => {
                 formFieldsRef.current[0] = el;
               }}
-              sx={{ display: 'flex', gap: 1 }}>
+              sx={{ display: 'flex', gap: 1, flexDirection: { xs: 'column', sm: 'row' } }}>
               <StyledTextField
                 placeholder='First Name*'
                 value={formData.firstName}
                 onChange={handleInputChange('firstName')}
                 fullWidth
                 required
+                sx={{ mb: { xs: 1, sm: 0 } }}
               />
               <StyledTextField
                 placeholder='Last Name*'
@@ -507,6 +513,7 @@ const ContactUsPage: React.FC = () => {
                 onChange={handleInputChange('lastName')}
                 fullWidth
                 required
+                sx={{ mb: { xs: 1, sm: 0 } }}
               />
             </Box>
 
@@ -521,6 +528,7 @@ const ContactUsPage: React.FC = () => {
               onChange={handleInputChange('email')}
               fullWidth
               required
+              sx={{ mb: 1 }}
             />
 
             {/* Phone Field */}
@@ -539,6 +547,7 @@ const ContactUsPage: React.FC = () => {
                   </InputAdornment>
                 ),
               }}
+              sx={{ mb: 1 }}
             />
 
             {/* Message Field */}
@@ -552,6 +561,7 @@ const ContactUsPage: React.FC = () => {
               value={formData.message}
               onChange={handleInputChange('message')}
               fullWidth
+              sx={{ mb: 1 }}
             />
 
             {/* Privacy Policy */}
@@ -563,7 +573,7 @@ const ContactUsPage: React.FC = () => {
                 variant='caption'
                 sx={{
                   color: '#96939F',
-                  fontSize: '12px',
+                  fontSize: { xs: '11px', md: '12px' },
                   fontWeight: 400,
                   lineHeight: '17.931px',
                 }}>
@@ -574,7 +584,7 @@ const ContactUsPage: React.FC = () => {
             {/* Submit Button */}
             <Box
               ref={submitButtonRef}
-              sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+              sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
               <Button
                 type='submit'
                 variant='contained'
@@ -585,7 +595,7 @@ const ContactUsPage: React.FC = () => {
                   py: 2,
                   px: 4,
                   color: 'white',
-                  fontSize: '15px',
+                  fontSize: { xs: '13px', md: '15px' },
                   fontWeight: 500,
                   textTransform: 'none',
                   '&:hover': {
@@ -602,7 +612,7 @@ const ContactUsPage: React.FC = () => {
       {/* Global Footprint Section */}
       <Container
         maxWidth='xl'
-        sx={{ py: 8 }}>
+        sx={{ py: { xs: 4, md: 8 } }}>
         <Box
           ref={globalSectionRef}
           sx={{
@@ -610,14 +620,14 @@ const ContactUsPage: React.FC = () => {
             mx: 'auto',
             display: 'flex',
             flexDirection: 'column',
-            gap: 8,
+            gap: { xs: 4, md: 8 },
           }}>
           {/* Section Header */}
           <Box sx={{ textAlign: 'center' }}>
             <HeroBadge sx={{ mb: 2 }}>
               <Typography
                 variant='body2'
-                sx={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '15px' }}>
+                sx={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: { xs: '13px', md: '15px' } }}>
                 A Global Network
               </Typography>
             </HeroBadge>
@@ -625,7 +635,7 @@ const ContactUsPage: React.FC = () => {
               variant='h2'
               sx={{
                 color: '#FFF',
-                fontSize: '56px',
+                fontSize: { xs: '28px', md: '56px' },
                 fontWeight: 500,
                 textAlign: 'center',
               }}>
@@ -635,10 +645,12 @@ const ContactUsPage: React.FC = () => {
 
           {/* Office Cards */}
           <Box
-            display={{ md: 'flex' }}
-            flexDirection={{ md: 'row', xs: 'column' }}
-            gap={3}
-            sx={{ justifyContent: 'center', gap: 3 }}>
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', md: 'row' },
+              gap: { xs: 3, md: 3 },
+              justifyContent: 'center',
+            }}>
             {/* USA Office */}
             <OfficeCard
               ref={(el: HTMLDivElement | null) => {
@@ -647,6 +659,9 @@ const ContactUsPage: React.FC = () => {
               sx={{
                 transform: 'perspective(1000px)',
                 cursor: 'pointer',
+                minWidth: 0,
+                width: { xs: '100%', md: '392px' },
+                mb: { xs: 3, md: 0 },
               }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <USFlag />
@@ -654,7 +669,7 @@ const ContactUsPage: React.FC = () => {
                   variant='h5'
                   sx={{
                     color: 'rgba(255, 255, 255, 0.9)',
-                    fontSize: '23px',
+                    fontSize: { xs: '18px', md: '23px' },
                     fontWeight: 500,
                     lineHeight: '33.6px',
                   }}>
@@ -667,14 +682,14 @@ const ContactUsPage: React.FC = () => {
                   display: 'flex',
                   alignItems: 'flex-start',
                   gap: 0.5,
-                  width: '392px',
+                  width: { xs: '100%', md: '392px' },
                 }}>
                 <LocationOnIcon sx={{ color: '#E6E6E7', fontSize: '24px', mt: 0.5 }} />
                 <Typography
                   variant='body1'
                   sx={{
                     color: '#E6E6E7',
-                    fontSize: '16px',
+                    fontSize: { xs: '13px', md: '16px' },
                     lineHeight: '24px',
                   }}>
                   510 Thornall Street, Suite 180, Edison, NJ 08837
@@ -687,7 +702,7 @@ const ContactUsPage: React.FC = () => {
                   variant='body1'
                   sx={{
                     color: '#E6E6E7',
-                    fontSize: '16px',
+                    fontSize: { xs: '13px', md: '16px' },
                     lineHeight: '24px',
                     flex: 1,
                   }}>
@@ -706,6 +721,9 @@ const ContactUsPage: React.FC = () => {
               sx={{
                 transform: 'perspective(1000px)',
                 cursor: 'pointer',
+                minWidth: 0,
+                width: { xs: '100%', md: '392px' },
+                mb: { xs: 0, md: 0 },
               }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <IndiaFlag />
@@ -713,7 +731,7 @@ const ContactUsPage: React.FC = () => {
                   variant='h5'
                   sx={{
                     color: 'rgba(255, 255, 255, 0.9)',
-                    fontSize: '23px',
+                    fontSize: { xs: '18px', md: '23px' },
                     fontWeight: 500,
                     lineHeight: '33.6px',
                   }}>
@@ -726,16 +744,16 @@ const ContactUsPage: React.FC = () => {
                   display: 'flex',
                   alignItems: 'flex-start',
                   gap: 0.5,
-                  width: '392px',
+                  width: { xs: '100%', md: '392px' },
                 }}>
                 <LocationOnIcon sx={{ color: '#E6E6E7', fontSize: '24px', mt: 0.5 }} />
                 <Typography
                   variant='body1'
                   sx={{
                     color: '#E6E6E7',
-                    fontSize: '16px',
+                    fontSize: { xs: '13px', md: '16px' },
                     lineHeight: '24px',
-                    width: '367px',
+                    width: { xs: '100%', md: '367px' },
                     flexShrink: 0,
                   }}>
                   3rd Floor, BOSS Towers, Plot no. 102/11, 103/10 & 104/9, Patrika Nagar, Madhapur, Hyderabad 500081, Telangana, India
@@ -748,7 +766,7 @@ const ContactUsPage: React.FC = () => {
                   variant='body1'
                   sx={{
                     color: '#E6E6E7',
-                    fontSize: '16px',
+                    fontSize: { xs: '13px', md: '16px' },
                     lineHeight: '24px',
                     flex: 1,
                   }}>

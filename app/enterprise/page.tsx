@@ -463,22 +463,22 @@ const EnterprisePage: React.FC = () => {
       {/* Hero Section */}
       <Container
         maxWidth='xl'
-        sx={{ py: { xs: 8, md: 10 } }}>
+        sx={{ py: { xs: 5, md: 10 } }}>
         <Box
           sx={{
             display: 'flex',
-            alignItems: 'center',
-            gap: 16,
+            alignItems: { xs: 'flex-start', md: 'center' },
+            gap: { xs: 4, md: 16 },
             maxWidth: '1280px',
             mx: 'auto',
+            flexDirection: 'column',
           }}>
           <Grid
             container
-            spacing={5}>
-            <Grid
-              size={6}
-              sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <HeroBadge>
+            spacing={{ xs: 4, md: 5 }}
+            alignItems='center'>
+            <Grid  size={{xs: 12, md:6}} sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 3, md: 4 } }}>
+              <HeroBadge sx={{ mb: { xs: 1, md: 3 } }}>
                 <GradientText
                   variant='body2'
                   sx={{ fontSize: '15px', fontWeight: 400 }}>
@@ -491,7 +491,7 @@ const EnterprisePage: React.FC = () => {
                 <Typography
                   variant='h1'
                   sx={{
-                    fontSize: { xs: '48px', md: '64px' },
+                    fontSize: { xs: '32px', sm: '40px', md: '64px' },
                     fontWeight: 500,
                     lineHeight: 1.1,
                   }}>
@@ -500,7 +500,7 @@ const EnterprisePage: React.FC = () => {
                   <GradientText
                     variant='h1'
                     sx={{
-                      fontSize: { xs: '48px', md: '64px' },
+                      fontSize: { xs: '32px', sm: '40px', md: '64px' },
                       fontWeight: 500,
                       lineHeight: 1.1,
                     }}>
@@ -515,10 +515,10 @@ const EnterprisePage: React.FC = () => {
                 variant='h5'
                 sx={{
                   color: 'rgba(255, 255, 255, 0.7)',
-                  fontSize: '20px',
+                  fontSize: { xs: '16px', md: '20px' },
                   fontWeight: 400,
                   lineHeight: 1.5,
-                  maxWidth: '602px',
+                  maxWidth: { xs: '100%', md: '602px' },
                 }}>
                 Purpose-built for large organizations requiring enterprise-grade security, compliance, and scalability in their AI automation initiatives.
               </Typography>
@@ -545,19 +545,18 @@ const EnterprisePage: React.FC = () => {
                 Request Demo
               </Button>
             </Grid>
-            <Grid
-              size={6}
-              display='flex'
-              justifyContent='end'>
+            <Grid size={{xs:12, md: 6}} sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'end' }, alignItems: 'center' }}>
               {/* Image with ref */}
               <div ref={heroImgRef}>
-                <Image
-                  src={Interprice}
-                  alt='ai-expert'
-                  width={500}
-                  height={500}
-                  style={{ imageRendering: 'crisp-edges', objectFit: 'contain' }}
-                />
+                <Box sx={{ width: { xs: '100%', sm: 350, md: 500 }, maxWidth: '100%' }}>
+                  <Image
+                    src={Interprice}
+                    alt='ai-expert'
+                    width={500}
+                    height={500}
+                    style={{ width: '100%', height: 'auto', imageRendering: 'crisp-edges', objectFit: 'contain' }}
+                  />
+                </Box>
               </div>
             </Grid>
           </Grid>
@@ -826,11 +825,11 @@ const EnterprisePage: React.FC = () => {
       {/* Features Section */}
       <Container
         maxWidth='xl'
-        sx={{ py: 8 }}>
+        sx={{ py: { xs: 5, md: 8 } }}>
         <Box
           sx={{ maxWidth: '1280px', mx: 'auto' }}
           ref={featuresSectionRef}>
-          <Box sx={{ textAlign: 'center', mb: 8 }}>
+          <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 8 } }}>
             <HeroBadge sx={{ mb: 2 }}>
               <Typography
                 variant='body2'
@@ -841,16 +840,16 @@ const EnterprisePage: React.FC = () => {
             <Typography
               variant='h2'
               sx={{
-                fontSize: { xs: '40px', md: '56px' },
+                fontSize: { xs: '28px', sm: '32px', md: '56px' },
                 fontWeight: 500,
-                mb: 4,
+                mb: { xs: 2, md: 4 },
               }}>
               AI Handles the Process
               <br />
               <GradientText
                 variant='h2'
                 sx={{
-                  fontSize: { xs: '40px', md: '56px' },
+                  fontSize: { xs: '28px', sm: '32px', md: '56px' },
                   fontWeight: 500,
                 }}>
                 You Create the Progress
@@ -860,7 +859,7 @@ const EnterprisePage: React.FC = () => {
               variant='h5'
               sx={{
                 color: 'rgba(255, 255, 255, 0.7)',
-                fontSize: '20px',
+                fontSize: { xs: '15px', md: '20px' },
                 maxWidth: '1252px',
                 mx: 'auto',
               }}>
@@ -870,23 +869,23 @@ const EnterprisePage: React.FC = () => {
 
           <Grid
             container
-            spacing={3}>
+            spacing={{ xs: 2, md: 3 }}>
             {features.map((feature, index) => (
               <Grid
-                size={index === 0 || index === 1 ? 6 : 4}
+                size={{xs: 12, md: index === 0 || index === 1 ? 6 : 4, sm: 6}}
                 key={index}>
                 <div
                   ref={(el) => {
                     featureCardRefs.current[index] = el;
                   }}>
-                  <FeatureCard>
+                  <FeatureCard sx={{ height: '100%', minHeight: { xs: 180, md: 240 } }}>
                     <IconContainer>{feature.icon}</IconContainer>
                     <Box>
                       <Typography
                         variant='h5'
                         sx={{
                           color: 'white',
-                          fontSize: '24px',
+                          fontSize: { xs: '18px', md: '24px' },
                           fontWeight: 500,
                           mb: 2,
                         }}>
@@ -896,7 +895,7 @@ const EnterprisePage: React.FC = () => {
                         variant='body1'
                         sx={{
                           color: '#F9FAFC',
-                          fontSize: '16px',
+                          fontSize: { xs: '14px', md: '16px' },
                           lineHeight: 1.5,
                         }}>
                         {feature.description}
@@ -913,28 +912,29 @@ const EnterprisePage: React.FC = () => {
       {/* CTA Section */}
       <Container
         maxWidth='xl'
-        sx={{ py: 8 }}>
+        sx={{ py: { xs: 5, md: 8 } }}>
         <div ref={ctaSectionRef}>
-          <CTASection sx={{ maxWidth: '1280px', mx: 'auto', px: 6 }}>
+          <CTASection sx={{ maxWidth: '1280px', mx: 'auto', px: { xs: 2, md: 6 }, flexDirection: { xs: 'column', md: 'row' }, gap: { xs: 4, md: 0 } }}>
             <Box
               sx={{
-                width: '548px',
+                width: { xs: '100%', md: '548px' },
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                gap: 3,
+                gap: { xs: 2, md: 3 },
+                py: { xs: 3, md: 0 },
               }}>
               <Typography
                 variant='h3'
-                sx={{ fontSize: '40px', fontWeight: 500, lineHeight: 1.2 }}>
+                sx={{ fontSize: { xs: '24px', md: '40px' }, fontWeight: 500, lineHeight: 1.2 }}>
                 Ready to Scale Your
               </Typography>
 
-              <GradientText sx={{ fontSize: '40px', fontWeight: 500, lineHeight: 1.2 }}>Research with AI?</GradientText>
+              <GradientText sx={{ fontSize: { xs: '24px', md: '40px' }, fontWeight: 500, lineHeight: 1.2 }}>Research with AI?</GradientText>
 
               <Typography
                 variant='body1'
-                sx={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '16px' }}>
+                sx={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: { xs: '14px', md: '16px' } }}>
                 Let&apos;s bring intelligent automation to your team, without the complexity.
               </Typography>
               <Button
@@ -959,14 +959,18 @@ const EnterprisePage: React.FC = () => {
             </Box>
             <Box
               display='flex'
-              justifyContent='end'>
-              <Image
-                src={ResearchWithAi}
-                alt='ai-expert'
-                width={800}
-                height={300}
-                style={{ imageRendering: 'crisp-edges', objectFit: 'contain' }}
-              />
+              justifyContent={{ xs: 'center', md: 'end' }}
+              alignItems='center'
+              sx={{ width: { xs: '100%', md: 'auto' }, mt: { xs: 2, md: 0 } }}>
+              <Box sx={{ width: { xs: '100%', sm: 350, md: 800 }, maxWidth: '100%' }}>
+                <Image
+                  src={ResearchWithAi}
+                  alt='ai-expert'
+                  width={800}
+                  height={300}
+                  style={{ width: '100%', height: 'auto', imageRendering: 'crisp-edges', objectFit: 'contain' }}
+                />
+              </Box>
             </Box>
           </CTASection>
         </div>
@@ -975,11 +979,11 @@ const EnterprisePage: React.FC = () => {
       {/* Enterprise Capabilities */}
       <Container
         maxWidth='xl'
-        sx={{ py: 8 }}>
+        sx={{ py: { xs: 5, md: 8 } }}>
         <Box
           sx={{ maxWidth: '1280px', mx: 'auto' }}
           ref={capabilitiesSectionRef}>
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
+          <Box sx={{ textAlign: 'center', mb: { xs: 3, md: 6 } }}>
             <HeroBadge sx={{ mb: 2 }}>
               <Typography
                 variant='body2'
@@ -990,7 +994,7 @@ const EnterprisePage: React.FC = () => {
             <GradientText
               variant='h2'
               sx={{
-                fontSize: { xs: '40px', md: '56px' },
+                fontSize: { xs: '28px', sm: '32px', md: '56px' },
                 fontWeight: 500,
                 lineHeight: 1.1,
               }}>
@@ -1002,24 +1006,22 @@ const EnterprisePage: React.FC = () => {
 
           <Grid
             container
-            spacing={3}>
+            spacing={{ xs: 2, md: 3 }}>
             {capabilities.map((capability, index) => (
-              <Grid
-                size={{ xs: 12, md: 6, lg: 3 }}
-                key={index}>
+              <Grid size={{xs:12, sm:6, md: 3}}  key={index}>
                 <div
                   ref={(el) => {
                     capabilityCardRefs.current[index] = el;
                   }}>
-                  <CapabilityCard>
+                  <CapabilityCard sx={{ minHeight: { xs: 160, md: 200 } }}>
                     <Typography
                       variant='h6'
-                      sx={{ color: 'white', fontSize: '23px', fontWeight: 500 }}>
+                      sx={{ color: 'white', fontSize: { xs: '18px', md: '23px' }, fontWeight: 500 }}>
                       {capability.title}
                     </Typography>
                     <Typography
                       variant='body1'
-                      sx={{ color: 'white', fontSize: '16px', lineHeight: 1.5 }}>
+                      sx={{ color: 'white', fontSize: { xs: '14px', md: '16px' }, lineHeight: 1.5 }}>
                       {capability.description}
                     </Typography>
                   </CapabilityCard>
@@ -1032,29 +1034,35 @@ const EnterprisePage: React.FC = () => {
 
       {/* FAQ Section */}
       <div ref={faqSectionRef}>
-        <FAQSection>
+        <FAQSection sx={{
+          flexDirection: { xs: 'column', md: 'row' },
+          px: { xs: 2, md: 8 },
+          py: { xs: 4, md: 8 },
+          gap: { xs: 4, md: 8 },
+        }}>
           <Box
             sx={{
-              width: '453px',
+              width: { xs: '100%', md: '453px' },
               display: 'flex',
               flexDirection: 'column',
-              gap: 3,
+              gap: { xs: 2, md: 3 },
+              mb: { xs: 2, md: 0 },
             }}>
             <GradientText
               variant='h2'
-              sx={{ fontSize: '56px', fontWeight: 500 }}>
+              sx={{ fontSize: { xs: '28px', sm: '32px', md: '56px' }, fontWeight: 500 }}>
               Frequently
               <br />
               Asked Questions
             </GradientText>
             <Typography
               variant='h5'
-              sx={{ color: 'white', fontSize: '24px', fontWeight: 500 }}>
+              sx={{ color: 'white', fontSize: { xs: '18px', md: '24px' }, fontWeight: 500 }}>
               Having more questions?
             </Typography>
             <Typography
               variant='body1'
-              sx={{ color: 'white', fontSize: '16px' }}>
+              sx={{ color: 'white', fontSize: { xs: '14px', md: '16px' } }}>
               Contact our support team to get what you need.
             </Typography>
             <Button
@@ -1078,7 +1086,7 @@ const EnterprisePage: React.FC = () => {
             </Button>
           </Box>
 
-          <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: { xs: 2, md: 4 } }}>
             {faqs.map((faq, index) => (
               <div
                 ref={(el) => {
@@ -1093,25 +1101,26 @@ const EnterprisePage: React.FC = () => {
                     sx={{
                       '& .MuiAccordionSummary-content': {
                         alignItems: 'center',
-                        gap: 5,
+                        gap: 2,
+                        flexWrap: 'wrap',
                       },
                     }}>
                     <Typography
                       sx={{
                         color: 'white',
-                        fontSize: '20px',
+                        fontSize: { xs: '16px', md: '20px' },
                         fontWeight: 500,
                         minWidth: '40px',
                       }}>
                       {String(index + 1).padStart(2, '0')}
                     </Typography>
-                    <Typography sx={{ color: 'white', fontSize: '20px', fontWeight: 500 }}>{faq.question}</Typography>
+                    <Typography sx={{ color: 'white', fontSize: { xs: '16px', md: '20px' }, fontWeight: 500 }}>{faq.question}</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     <Typography
                       sx={{
                         color: 'white',
-                        fontSize: '20px',
+                        fontSize: { xs: '15px', md: '20px' },
                         lineHeight: 1.4,
                         whiteSpace: 'pre-line',
                       }}>
