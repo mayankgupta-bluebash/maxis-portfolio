@@ -691,6 +691,7 @@ const ContactUsPage: React.FC = () => {
                     color: '#E6E6E7',
                     fontSize: { xs: '13px', md: '16px' },
                     lineHeight: '24px',
+                    width: '330px',
                   }}>
                   510 Thornall Street, Suite 180, Edison, NJ 08837
                 </Typography>
@@ -753,7 +754,7 @@ const ContactUsPage: React.FC = () => {
                     color: '#E6E6E7',
                     fontSize: { xs: '13px', md: '16px' },
                     lineHeight: '24px',
-                    width: { xs: '100%', md: '367px' },
+                    width: { xs: '100%', md: '330px' },
                     flexShrink: 0,
                   }}>
                   3rd Floor, BOSS Towers, Plot no. 102/11, 103/10 & 104/9, Patrika Nagar, Madhapur, Hyderabad 500081, Telangana, India
