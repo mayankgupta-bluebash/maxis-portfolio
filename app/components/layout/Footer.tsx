@@ -60,7 +60,7 @@ export default function Footer() {
                 justifyContent: 'center',
               }}>
               <Link
-                href='#'
+                href='/about-us'
                 sx={{ color: 'white', textDecoration: 'none' }}>
                 <Typography variant='body2'>About Us</Typography>
               </Link>
@@ -68,7 +68,7 @@ export default function Footer() {
                 component='span'
                 sx={{ borderRight: '1px solid #ffffff' }}></Box>
               <Link
-                href='#'
+                href='/pricing'
                 sx={{ color: 'white', textDecoration: 'none' }}>
                 <Typography variant='body2'>Pricing</Typography>
               </Link>
@@ -76,7 +76,7 @@ export default function Footer() {
                 component='span'
                 sx={{ borderRight: '1px solid #ffffff' }}></Box>
               <Link
-                href='#'
+                href='/enterprise'
                 sx={{ color: 'white', textDecoration: 'none' }}>
                 <Typography variant='body2'>Enterprise</Typography>
               </Link>
@@ -84,7 +84,7 @@ export default function Footer() {
                 component='span'
                 sx={{ borderRight: '1px solid #ffffff' }}></Box>
               <Link
-                href='#'
+                href='/resources'
                 sx={{ color: 'white', textDecoration: 'none' }}>
                 <Typography variant='body2'>Resources</Typography>
               </Link>
@@ -92,9 +92,9 @@ export default function Footer() {
                 component='span'
                 sx={{ borderRight: '1px solid #ffffff' }}></Box>
               <Link
-                href='#'
+                href='/contact-us'
                 sx={{ color: 'white', textDecoration: 'none' }}>
-                <Typography variant='body2'>ContactUs</Typography>
+                <Typography variant='body2'>Contact Us</Typography>
               </Link>
             </Box>
           </Box>
@@ -109,19 +109,19 @@ export default function Footer() {
             }}>
             <Box sx={{ display: 'flex', gap: 2 }}>
               <IconButton
-                href='https://twitter.com'
+                href='https://x.com/MaxisITInc'
                 target='_blank'
                 sx={{ color: '#F9FAFC' }}>
                 <XIcon />
               </IconButton>
               <IconButton
-                href='https://linkedin.com'
+                href='https://www.linkedin.com/company/maxisit-inc-?trk=website_link'
                 target='_blank'
                 sx={{ color: '#F9FAFC' }}>
                 <LinkedInIcon />
               </IconButton>
               <IconButton
-                href='https://youtube.com'
+                href='https://www.youtube.com/@MaxisIT'
                 target='_blank'
                 sx={{ color: '#F9FAFC' }}>
                 <YouTubeIcon />
@@ -130,7 +130,7 @@ export default function Footer() {
             <Typography
               variant='body2'
               sx={{ color: '#F9FAFC' }}>
-              © 2025 Maxis. All rights reserved.
+              © {new Date().getFullYear()} Maxis. All rights reserved.
             </Typography>
           </Box>
         </Box>
