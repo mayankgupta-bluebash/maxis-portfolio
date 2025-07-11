@@ -15,6 +15,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import { usePathname } from 'next/navigation';
 
 const navLinks = [
   { href: '/about-us', label: 'About Us' },
@@ -31,6 +32,7 @@ const Header: React.FC = () => {
   const handleDrawerToggle = () => {
     setDrawerOpen((prev) => !prev);
   };
+  const pathname = usePathname();
 
   return (
     <div>
@@ -73,14 +75,26 @@ const Header: React.FC = () => {
               gap: 3,
               py: 1.4,
             }}>
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                passHref>
-                <Typography sx={{ fontSize: '14px', fontWeight: 500 }}>{link.label}</Typography>
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  passHref>
+                  <Typography
+                    sx={{
+                      fontSize: '14px',
+                      fontWeight: 500,
+                      // borderBottom: isActive ? '2px solid #6F41D2' : 'none',
+                      color: isActive ? '#ffffffff' : '#ffffffa3',
+                      pb: 0.5,
+                    }}>
+                    {link.label}
+                  </Typography>
+                </Link>
+              );
+            })}
           </Box>
           {/* Mobile Hamburger */}
           <IconButton
@@ -91,7 +105,7 @@ const Header: React.FC = () => {
             sx={{ display: { xs: 'flex', md: 'none' } }}>
             <MenuIcon />
           </IconButton>
-          <Box sx={{  display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 2 }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 2 }}>
             <Button
               variant='contained'
               sx={{
@@ -140,21 +154,27 @@ const Header: React.FC = () => {
             },
           }}>
           <Box sx={{ px: 2, pb: 2 }}>
-            <Link href='/' passHref>
+            <Link
+              href='/'
+              passHref>
               <Image
                 src={logoPng}
                 alt='Logo'
                 width={100}
                 height={22}
-                style={{ width: '100%', height: '22px', marginBottom: 16, imageRendering: 'crisp-edges',
-                  objectFit: 'contain', }}
+                style={{ width: '100%', height: '22px', marginBottom: 16, imageRendering: 'crisp-edges', objectFit: 'contain' }}
               />
             </Link>
           </Box>
           <List>
             {navLinks.map((link) => (
-              <ListItem key={link.label} disablePadding>
-                <ListItemButton component={Link} href={link.href} onClick={handleDrawerToggle}>
+              <ListItem
+                key={link.label}
+                disablePadding>
+                <ListItemButton
+                  component={Link}
+                  href={link.href}
+                  onClick={handleDrawerToggle}>
                   <ListItemText
                     primary={link.label}
                     primaryTypographyProps={{ fontSize: 15, fontWeight: 500 }}
@@ -162,8 +182,14 @@ const Header: React.FC = () => {
                 </ListItemButton>
               </ListItem>
             ))}
-            <ListItem disablePadding sx={{ mt: 1 }}>
-              <ListItemButton onClick={() => { open('chooseRole'); setDrawerOpen(false); }}>
+            <ListItem
+              disablePadding
+              sx={{ mt: 1 }}>
+              <ListItemButton
+                onClick={() => {
+                  open('chooseRole');
+                  setDrawerOpen(false);
+                }}>
                 <ListItemText
                   primary='Sign Up'
                   primaryTypographyProps={{ fontSize: 15, fontWeight: 600, color: '#6F41D2' }}
@@ -171,7 +197,11 @@ const Header: React.FC = () => {
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => { window?.open('https://www.maxis-ai.com/', '_blank'); setDrawerOpen(false); }}>
+              <ListItemButton
+                onClick={() => {
+                  window?.open('https://www.maxis-ai.com/', '_blank');
+                  setDrawerOpen(false);
+                }}>
                 <ListItemText
                   primary='Log In'
                   primaryTypographyProps={{ fontSize: 15, fontWeight: 600, color: 'white' }}

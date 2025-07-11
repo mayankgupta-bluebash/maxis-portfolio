@@ -265,6 +265,25 @@ const AboutUsPage: React.FC = () => {
     message: '',
   });
 
+  const stats = [
+    {
+      number: '3300',
+      label: 'Clinical Trials in the Cloud',
+    },
+    {
+      number: '22',
+      label: 'Clinical Systems Integrated',
+    },
+    {
+      number: '50%',
+      label: 'Demonstrated cost savings',
+    },
+    {
+      number: '40%',
+      label: 'Demonstrated time savings',
+    },
+  ];
+
   // Animation refs
   const heroBadgeRef = useRef<HTMLDivElement>(null);
   const heroTitleRef = useRef<HTMLHeadingElement>(null);
@@ -280,6 +299,9 @@ const AboutUsPage: React.FC = () => {
   const contactSectionRef = useRef<HTMLDivElement>(null);
   const contactFormRef = useRef<HTMLDivElement>(null);
   const formFieldsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  const [animatedStats, setAnimatedStats] = useState<(string | number)[]>(stats.map(() => 0));
+  const statsAnimatedRef = useRef(false);
 
   useEffect(() => {
     // Hero section animations
@@ -538,6 +560,37 @@ const AboutUsPage: React.FC = () => {
       }
     );
 
+    // Animate stat numbers when stats section comes into view
+    if (statsSectionRef.current) {
+      ScrollTrigger.create({
+        trigger: statsSectionRef.current,
+        start: 'top 80%',
+        once: true,
+        onEnter: () => {
+          if (statsAnimatedRef.current) return;
+          statsAnimatedRef.current = true;
+          stats.forEach((stat, i) => {
+            const target = parseFloat(stat.number.replace(/[^0-9.]/g, ''));
+            const isPercent = stat.number.includes('%');
+            gsap.to({}, {
+              duration: 1.5,
+              ease: 'power1.out',
+              onUpdate: function () {
+                setAnimatedStats(prev => {
+                  const newStats: (string | number)[] = [...prev];
+                  // Animate as integer or float, add % if needed
+                  newStats[i] = isPercent
+                    ? Math.round(this.progress() * target) + '%'
+                    : Math.round(this.progress() * target);
+                  return newStats;
+                });
+              },
+            });
+          });
+        }
+      });
+    }
+
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
@@ -554,25 +607,6 @@ const AboutUsPage: React.FC = () => {
     event.preventDefault();
     console.log('Form submitted:', formData);
   };
-
-  const stats = [
-    {
-      number: '1000',
-      label: 'Clinical Trials in the Cloud',
-    },
-    {
-      number: '01',
-      label: 'Clinical Systems Integrated',
-    },
-    {
-      number: '10%',
-      label: 'Demonstrated cost savings',
-    },
-    {
-      number: '10%',
-      label: 'Demonstrated time savings',
-    },
-  ];
 
   return (
     <Box sx={{ background: '#080411', minHeight: '100vh' }}>
@@ -726,7 +760,9 @@ const AboutUsPage: React.FC = () => {
                     statsCardsRef.current[index] = el;
                   }}
                   sx={{ width: '100%' }}>
-                  <StatNumber sx={{ fontSize: { xs: '32px', md: '48px' } }}>{stat.number}</StatNumber>
+                  <StatNumber sx={{ fontSize: { xs: '32px', md: '48px' } }}>
+                    {animatedStats[index] || stat.number}
+                  </StatNumber>
                   <Typography
                     sx={{
                       color: '#F9FAFC',
