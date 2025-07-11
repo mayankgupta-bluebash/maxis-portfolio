@@ -80,42 +80,59 @@ const ResourcesPage = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', minHeight: isFixed ? 'calc(100vh - 300px)' : '100vh', position: 'relative' }}>
+    <Box
+      sx={{
+        display: { xs: 'block', md: 'flex' },
+        flexDirection: { md: 'row' },
+        minHeight: isFixed ? { xs: 'auto', md: 'calc(100vh - 300px)' } : '100vh',
+        position: 'relative',
+        background: '#080411',
+      }}>
       {/* Sidebar */}
       <Box
         sx={{
-          width: '320px',
-          // bgcolor: '#1A103D',
-          borderRight: '1px solid rgba(141, 49, 245, 0.20)',
-          p: 3,
-          top: isFixed ? '60px' : '100%',
-          position: isFixed ? 'fixed' : 'sticky',
+          width: { xs: '100%', md: '320px' },
+          borderRight: { xs: 'none', md: '1px solid rgba(141, 49, 245, 0.20)' },
+          borderBottom: { xs: '1px solid rgba(141, 49, 245, 0.20)', md: 'none' },
+          p: { xs: 2, md: 3 },
+          top: isFixed ? { xs: '0px', md: '60px' } : { xs: '100%', md: '100%' },
+          position: { xs: 'static', md: isFixed ? 'fixed' : 'sticky' },
           transition: 'top 0.1s linear',
-          left: '0px',
-          height: '100%',
-          overflowY: 'auto',
+          left: { xs: '0px', md: '0px' },
+          height: { xs: 'auto', md: '100%' },
+          overflowX: { xs: 'auto', md: 'visible' },
+          overflowY: { xs: 'visible', md: 'auto' },
           zIndex: 1000,
+          bgcolor: 'transparent',
+          display: 'flex',
+          flexDirection: { xs: 'row', md: 'column' },
+          alignItems: { xs: 'center', md: 'flex-start' },
+          gap: { xs: 2, md: 0 },
         }}>
         <GradientText
           variant='h5'
-          sx={{ mb: 3, fontSize: '20px', fontWeight: 600 }}>
+          sx={{ mb: { xs: 0, md: 3 }, fontSize: { xs: '18px', md: '20px' }, fontWeight: 600, minWidth: 'max-content', mr: { xs: 2, md: 0 } }}>
           Categories
         </GradientText>
 
-        <List>
+        <List sx={{ display: 'flex', flexDirection: { xs: 'row', md: 'column' }, gap: { xs: 1, md: 0 }, p: 0, minWidth: 0 }}>
           {faqData.map((section) => (
             <ListItem
               key={section.id}
-              disablePadding>
+              disablePadding
+              sx={{ width: { xs: 'auto', md: '100%' } }}>
               <ListItemButton
                 selected={activeCategory === section.id}
                 onClick={() => handleCategoryClick(section.id)}
                 sx={{
                   borderRadius: '4px',
-                  mb: 1,
+                  mb: { xs: 0, md: 1 },
+                  mx: { xs: 0.5, md: 0 },
+                  minWidth: 0,
                   '&.Mui-selected': {
                     bgcolor: 'rgba(111, 65, 210, 0.2)',
-                    borderLeft: '3px solid #6F41D2',
+                    borderLeft: { xs: 'none', md: '3px solid #6F41D2' },
+                    borderBottom: { xs: '3px solid #6F41D2', md: 'none' },
                   },
                   '&.Mui-selected:hover': {
                     bgcolor: 'rgba(111, 65, 210, 0.25)',
@@ -125,8 +142,9 @@ const ResourcesPage = () => {
                   primary={section.title}
                   primaryTypographyProps={{
                     color: 'white',
-                    fontSize: '14px',
+                    fontSize: { xs: '13px', md: '14px' },
                     fontWeight: activeCategory === section.id ? 600 : 400,
+                    minWidth: 'max-content',
                   }}
                 />
               </ListItemButton>
@@ -136,7 +154,13 @@ const ResourcesPage = () => {
       </Box>
 
       {/* FAQ Content */}
-      <Box sx={{ flex: 1, marginLeft: isFixed ? '320px' : '0px', p: 5 }}>
+      <Box
+        sx={{
+          flex: 1,
+          marginLeft: { xs: 0, md: isFixed ? '320px' : '0px' },
+          p: { xs: 2, md: 5 },
+          pt: { xs: 3, md: 5 },
+        }}>
         {faqData.map((section) => (
           <Box
             key={section.id}
@@ -145,11 +169,11 @@ const ResourcesPage = () => {
               variant='h4'
               sx={{
                 color: 'white',
-                fontSize: '24px',
+                fontSize: { xs: '18px', md: '24px' },
                 fontWeight: 700,
-                mb: 3,
-                mt: 4,
-                paddingTop: '20px',
+                mb: 2,
+                mt: { xs: 3, md: 4 },
+                paddingTop: { xs: '10px', md: '20px' },
               }}>
               {section.title}
             </Typography>
@@ -166,25 +190,17 @@ const ResourcesPage = () => {
                       sx={{
                         '& .MuiAccordionSummary-content': {
                           alignItems: 'center',
-                          gap: 5,
+                          gap: 2,
+                          flexWrap: 'wrap',
                         },
                       }}>
-                      {/* <Typography
-                        sx={{
-                          color: 'white',
-                          fontSize: '16px',
-                          fontWeight: 600,
-                          minWidth: '40px',
-                        }}>
-                        {String(index + 1).padStart(2, '0')}
-                      </Typography> */}
-                      <Typography sx={{ color: 'white', fontSize: '16px', fontWeight: 600 }}>{faq.question}</Typography>
+                      <Typography sx={{ color: 'white', fontSize: { xs: '15px', md: '16px' }, fontWeight: 600 }}>{faq.question}</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                       <Typography
                         sx={{
                           color: 'white',
-                          fontSize: '16px',
+                          fontSize: { xs: '15px', md: '16px' },
                           lineHeight: 1.4,
                           whiteSpace: 'pre-line',
                         }}>

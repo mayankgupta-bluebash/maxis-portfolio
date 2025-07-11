@@ -471,26 +471,26 @@ const PricingPage: React.FC = () => {
       {/* Hero Section */}
       <Container
         maxWidth='xl'
-        sx={{ position: 'relative', zIndex: 1 }}>
+        sx={{ position: 'relative', zIndex: 1, px: { xs: 1, sm: 2, md: 4 } }}>
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            pt: { xs: '80px', md: '120px' },
-            pb: { xs: '40px', md: '60px' },
+            pt: { xs: '64px', md: '120px' },
+            pb: { xs: '32px', md: '60px' },
             textAlign: 'center',
           }}>
           <Typography
             ref={heroTitleRef}
             variant='h1'
             sx={{
-              fontSize: { xs: '48px', md: '64px' },
+              fontSize: { xs: '32px', sm: '40px', md: '64px' },
               fontWeight: 500,
-              lineHeight: { xs: '56px', md: '72px' },
+              lineHeight: { xs: '40px', sm: '48px', md: '72px' },
               color: 'rgba(255, 255, 255, 0.9)',
               mb: 2,
-              maxWidth: '730px',
+              maxWidth: { xs: '100%', md: '730px' },
             }}>
             The Fastest Way to Grow Your Business
           </Typography>
@@ -498,11 +498,11 @@ const PricingPage: React.FC = () => {
             ref={heroSubtitleRef}
             variant='body1'
             sx={{
-              fontSize: '22px',
-              lineHeight: '32px',
+              fontSize: { xs: '16px', sm: '18px', md: '22px' },
+              lineHeight: { xs: '24px', sm: '28px', md: '32px' },
               color: '#F9FAFC',
-              maxWidth: '678px',
-              mb: 5,
+              maxWidth: { xs: '100%', md: '678px' },
+              mb: { xs: 3, md: 5 },
             }}>
             From individual builders to enterprise organizations, we have the right plan to power your AI automation journey.
           </Typography>
@@ -517,8 +517,8 @@ const PricingPage: React.FC = () => {
               sm: 'repeat(2, 1fr)',
               lg: 'repeat(5, 1fr)',
             },
-            gap: 3,
-            mb: 8,
+            gap: { xs: 2, md: 3 },
+            mb: { xs: 5, md: 8 },
           }}>
           {plans.map((plan, index) => (
             <PricingCard
@@ -533,6 +533,8 @@ const PricingPage: React.FC = () => {
                 '&:hover': {
                   // CSS hover effects removed to avoid conflicts with GSAP
                 },
+                mb: { xs: 2, sm: 0 },
+                minWidth: 0,
               }}>
               {plan.featured && (
                 <Box
@@ -551,7 +553,7 @@ const PricingPage: React.FC = () => {
               <Box sx={{ textAlign: 'center', mb: 3 }}>
                 <Typography
                   variant='h6'
-                  sx={{ color: '#FFF', mb: 1 }}>
+                  sx={{ color: '#FFF', mb: 1, fontSize: { xs: '18px', md: '22px' } }}>
                   {plan.name}
                 </Typography>
                 <Box
@@ -564,7 +566,7 @@ const PricingPage: React.FC = () => {
                   <Typography
                     variant='h3'
                     sx={{
-                      fontSize: '48px',
+                      fontSize: { xs: '32px', md: '48px' },
                       fontWeight: 500,
                       color: '#FFF',
                     }}>
@@ -573,14 +575,14 @@ const PricingPage: React.FC = () => {
                   {plan.period && (
                     <Typography
                       variant='body2'
-                      sx={{ color: '#878787', ml: 1 }}>
+                      sx={{ color: '#878787', ml: 1, fontSize: { xs: '14px', md: '16px' } }}>
                       {plan.period}
                     </Typography>
                   )}
                 </Box>
                 <Typography
                   variant='body2'
-                  sx={{ color: '#878787' }}>
+                  sx={{ color: '#878787', fontSize: { xs: '14px', md: '16px' } }}>
                   {plan.description}
                 </Typography>
               </Box>
@@ -597,7 +599,7 @@ const PricingPage: React.FC = () => {
                     <CheckIcon />
                     <Typography
                       variant='body2'
-                      sx={{ color: '#878787', ml: 2 }}>
+                      sx={{ color: '#878787', ml: 2, fontSize: { xs: '13px', md: '15px' } }}>
                       {feature}
                     </Typography>
                   </Box>
@@ -610,6 +612,7 @@ const PricingPage: React.FC = () => {
                 sx={{
                   borderRadius: '12px',
                   py: 1.5,
+                  fontSize: { xs: '15px', md: '16px' },
                   ...(plan.featured
                     ? {
                         background: '#601EF9',
@@ -636,12 +639,12 @@ const PricingPage: React.FC = () => {
         {/* Feature Comparison Table */}
         <Box
           ref={featureTableRef}
-          sx={{ mb: 8 }}>
+          sx={{ mb: { xs: 5, md: 8 }, width: '100%', overflowX: 'auto' }}>
           <Box sx={{ textAlign: 'center', mb: 4 }}>
             <Typography
               variant='h2'
               sx={{
-                fontSize: { xs: '48px', md: '60px' },
+                fontSize: { xs: '28px', sm: '36px', md: '60px' },
                 fontWeight: 500,
                 color: '#FFF',
                 mb: 2,
@@ -651,8 +654,8 @@ const PricingPage: React.FC = () => {
             <Typography
               variant='body1'
               sx={{
-                fontSize: '16px',
-                lineHeight: '24px',
+                fontSize: { xs: '14px', md: '16px' },
+                lineHeight: { xs: '20px', md: '24px' },
                 color: '#878787',
               }}>
               Compare all features across our plans to find the perfect fit for your needs.
@@ -663,14 +666,15 @@ const PricingPage: React.FC = () => {
             sx={{
               border: '1px solid #3E3E3E',
               borderRadius: '10px',
-              overflow: 'hidden',
+              overflow: 'auto',
+              minWidth: { xs: '600px', sm: '100%' },
             }}>
             {/* Table Header */}
             <FeatureTableHeader>
               <FeatureLabelCell>
                 <Typography
                   variant='h6'
-                  sx={{ color: '#FFF', fontWeight: 600 }}>
+                  sx={{ color: '#FFF', fontWeight: 600, fontSize: { xs: '15px', md: '18px' } }}>
                   Features
                 </Typography>
               </FeatureLabelCell>
@@ -683,7 +687,7 @@ const PricingPage: React.FC = () => {
                   }}>
                   <Typography
                     variant='h6'
-                    sx={{ color: '#FFF', fontWeight: 600 }}>
+                    sx={{ color: '#FFF', fontWeight: 600, fontSize: { xs: '15px', md: '18px' } }}>
                     {plan.name}
                   </Typography>
                 </FeatureCell>
@@ -697,7 +701,7 @@ const PricingPage: React.FC = () => {
                   <SectionHeader>
                     <Typography
                       variant='h6'
-                      sx={{ color: '#FFF', fontWeight: 600 }}>
+                      sx={{ color: '#FFF', fontWeight: 600, fontSize: { xs: '15px', md: '18px' } }}>
                       {category.name}
                     </Typography>
                   </SectionHeader>
@@ -708,7 +712,7 @@ const PricingPage: React.FC = () => {
                     <FeatureLabelCell>
                       <Typography
                         variant='body1'
-                        sx={{ color: '#878787' }}>
+                        sx={{ color: '#878787', fontSize: { xs: '13px', md: '15px' } }}>
                         {feature.name}
                       </Typography>
                     </FeatureLabelCell>

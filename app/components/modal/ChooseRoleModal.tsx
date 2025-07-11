@@ -432,19 +432,30 @@ export default function ChooseRoleModal({ isOpen, handleClose, onNext, onRoleSel
             </Box>
           </Box>
 
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              alignSelf: 'stretch',
-              mb: 4,
-            }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
+            justifyContent: { xs: 'center', sm: 'space-between' },
+            alignItems: 'center',
+            alignSelf: 'stretch',
+            gap: { xs: 2, sm: 0 },
+            mb: { xs: 0, sm: 4 },
+            px: { xs: 2, sm: 0 },
+            py: { xs: 2, sm: 0 },
+            position: { xs: 'sticky', sm: 'static' },
+            bottom: { xs: 0, sm: 'auto' },
+            background: { xs: 'rgba(8,4,17,0.95)', sm: 'none' },
+            zIndex: 2,
+            borderTop: { xs: '1px solid rgba(255,255,255,0.08)', sm: 'none' },
+            boxShadow: { xs: '0 -2px 16px 0 rgba(0,0,0,0.12)', sm: 'none' },
+          }}>
             <Box
               onClick={handleClose}
               sx={{
                 display: 'flex',
                 maxWidth: '620px',
+                width: { xs: '100%', sm: 'auto' },
                 padding: '17px 33px',
                 justifyContent: 'center',
                 alignItems: 'flex-start',
@@ -453,6 +464,7 @@ export default function ChooseRoleModal({ isOpen, handleClose, onNext, onRoleSel
                 border: '1px solid rgba(255, 255, 255, 0.10)',
                 background: 'rgba(37, 26, 73, 0.50)',
                 cursor: 'pointer',
+                mb: { xs: 1, sm: 0 },
               }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                 <svg
@@ -483,6 +495,7 @@ export default function ChooseRoleModal({ isOpen, handleClose, onNext, onRoleSel
               sx={{
                 display: 'flex',
                 maxWidth: '620px',
+                width: { xs: '100%', sm: 'auto' },
                 padding: '17px 33px',
                 justifyContent: 'center',
                 alignItems: 'flex-start',
