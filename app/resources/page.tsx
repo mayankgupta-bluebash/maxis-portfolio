@@ -197,7 +197,7 @@ const ResourcesPage = () => {
                       <Typography sx={{ color: 'white', fontSize: { xs: '15px', md: '16px' }, fontWeight: 600 }}>{faq.question}</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                      <Typography
+                      <Box
                         sx={{
                           color: 'white',
                           fontSize: { xs: '15px', md: '16px' },
@@ -205,7 +205,7 @@ const ResourcesPage = () => {
                           whiteSpace: 'pre-line',
                         }}>
                         {renderAnswer(faq.answer)}
-                      </Typography>
+                      </Box>
                     </AccordionDetails>
                   </StyledAccordion>
                 </div>

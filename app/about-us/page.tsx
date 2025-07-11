@@ -854,8 +854,7 @@ const AboutUsPage: React.FC = () => {
                 mb: 2,
                 textAlign: 'center',
               }}>
-              Aligned by <GradientText fontSize={{ xs: '28px', md: '56px' }}>Vision,</GradientText> United in{' '}
-              <GradientText fontSize={{ xs: '28px', md: '56px' }}>Mission</GradientText>
+              Aligned by <GradientText as="span" fontSize={{ xs: '28px', md: '56px' }}>Vision,</GradientText> United in <GradientText as="span" fontSize={{ xs: '28px', md: '56px' }}>Mission</GradientText>
             </Typography>
 
             <Typography

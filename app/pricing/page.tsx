@@ -15,7 +15,9 @@ gsap.registerPlugin(ScrollTrigger);
 //   color: 'transparent',
 // });
 
-const PricingCard = styled(Box)<{ featured?: boolean }>(({ featured }) => ({
+const PricingCard = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'featured',
+})<{ featured?: boolean }>(({ featured }) => ({
   padding: '32px',
   borderRadius: '16px',
   border: featured ? '1px solid #262626' : '1px solid #3E3E3E',

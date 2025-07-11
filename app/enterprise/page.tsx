@@ -498,7 +498,7 @@ const EnterprisePage: React.FC = () => {
                   Scale AI Automation Across
                   <br />
                   <GradientText
-                    variant='h1'
+                    as="span"
                     sx={{
                       fontSize: { xs: '32px', sm: '40px', md: '64px' },
                       fontWeight: 500,
@@ -847,7 +847,7 @@ const EnterprisePage: React.FC = () => {
               AI Handles the Process
               <br />
               <GradientText
-                variant='h2'
+                as="span"
                 sx={{
                   fontSize: { xs: '28px', sm: '32px', md: '56px' },
                   fontWeight: 500,
