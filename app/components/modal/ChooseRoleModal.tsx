@@ -235,49 +235,30 @@ export default function ChooseRoleModal({ isOpen, handleClose, onNext, onRoleSel
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    gap: '8px',
-                    alignSelf: 'stretch',
+                    gap: 1.5,
+                    mb: 4,
+                    textAlign: 'left',
+                    fontSize: { xs: '0.95rem', md: '1rem' },
                   }}>
                   <Typography
-                    sx={{
-                      color: '#FFF',
-                      fontFamily: 'Inter',
-                      fontSize: { xs: '14px', md: '16px' },
-                      fontWeight: 400,
-                      lineHeight: { xs: '20px', md: '24px' },
-                    }}>
-                    • Visual agent builder with drag-and-drop
+                    variant='body2'
+                    sx={{ color: '#F9FAFC' }}>
+                    • Design agentic assets visually using an intuitive drag-and-drop interface
                   </Typography>
                   <Typography
-                    sx={{
-                      color: '#FFF',
-                      fontFamily: 'Inter',
-                      fontSize: { xs: '14px', md: '16px' },
-                      fontWeight: 400,
-                      lineHeight: { xs: '20px', md: '24px' },
-                    }}>
-                    • Pre-built components and integrations
+                    variant='body2'
+                    sx={{ color: '#F9FAFC' }}>
+                    • Use available nodes and set up integrations to leverage
                   </Typography>
                   <Typography
-                    sx={{
-                      color: '#FFF',
-                      fontFamily: 'Inter',
-                      fontSize: { xs: '14px', md: '16px' },
-                      fontWeight: 400,
-                      lineHeight: { xs: '20px', md: '24px' },
-                    }}>
-                    • Marketplace to sell your agents
+                    variant='body2'
+                    sx={{ color: '#F9FAFC' }}>
+                    • Publish your agentic assets on the marketplace for others to discover
                   </Typography>
                   <Typography
-                    sx={{
-                      color: '#FFF',
-                      fontFamily: 'Inter',
-                      fontSize: { xs: '14px', md: '16px' },
-                      fontWeight: 400,
-                      lineHeight: { xs: '20px', md: '24px' },
-                    }}>
-                    • Revenue sharing and analytics
+                    variant='body2'
+                    sx={{ color: '#F9FAFC' }}>
+                    • Track performance with built-in analytics and observability
                   </Typography>
                 </Box>
               </Box>
@@ -383,73 +364,54 @@ export default function ChooseRoleModal({ isOpen, handleClose, onNext, onRoleSel
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: 'flex-start',
-                    gap: '8px',
-                    alignSelf: 'stretch',
+                    gap: 1.5,
+                    mb: 4,
+                    textAlign: 'left',
+                    fontSize: { xs: '0.95rem', md: '1rem' },
                   }}>
                   <Typography
-                    sx={{
-                      color: '#FFF',
-                      fontFamily: 'Inter',
-                      fontSize: { xs: '14px', md: '16px' },
-                      fontWeight: 400,
-                      lineHeight: { xs: '20px', md: '24px' },
-                    }}>
-                    • Browse marketplace of ready-to-use agents
+                    variant='body2'
+                    sx={{ color: '#F9FAFC' }}>
+                    • Discover apps, agents, and orchestrations in the marketplace
                   </Typography>
                   <Typography
-                    sx={{
-                      color: '#FFF',
-                      fontFamily: 'Inter',
-                      fontSize: { xs: '14px', md: '16px' },
-                      fontWeight: 400,
-                      lineHeight: { xs: '20px', md: '24px' },
-                    }}>
-                    • Pre-built components and integrations
+                    variant='body2'
+                    sx={{ color: '#F9FAFC' }}>
+                    • Hire and run published agentic assets
                   </Typography>
                   <Typography
-                    sx={{
-                      color: '#FFF',
-                      fontFamily: 'Inter',
-                      fontSize: { xs: '14px', md: '16px' },
-                      fontWeight: 400,
-                      lineHeight: { xs: '20px', md: '24px' },
-                    }}>
-                    • Marketplace to sell your agents
+                    variant='body2'
+                    sx={{ color: '#F9FAFC' }}>
+                    • Upload and ingest relevant data and documents
                   </Typography>
                   <Typography
-                    sx={{
-                      color: '#FFF',
-                      fontFamily: 'Inter',
-                      fontSize: { xs: '14px', md: '16px' },
-                      fontWeight: 400,
-                      lineHeight: { xs: '20px', md: '24px' },
-                    }}>
-                    • Revenue sharing and analytics
+                    variant='body2'
+                    sx={{ color: '#F9FAFC' }}>
+                    • Execute hired agents using your ingested content and workflows
                   </Typography>
                 </Box>
               </Box>
             </Box>
           </Box>
 
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', sm: 'row' },
-            justifyContent: { xs: 'center', sm: 'space-between' },
-            alignItems: 'center',
-            alignSelf: 'stretch',
-            gap: { xs: 2, sm: 0 },
-            mb: { xs: 0, sm: 4 },
-            px: { xs: 2, sm: 0 },
-            py: { xs: 2, sm: 0 },
-            position: { xs: 'sticky', sm: 'static' },
-            bottom: { xs: 0, sm: 'auto' },
-            background: { xs: 'rgba(8,4,17,0.95)', sm: 'none' },
-            zIndex: 2,
-            borderTop: { xs: '1px solid rgba(255,255,255,0.08)', sm: 'none' },
-            boxShadow: { xs: '0 -2px 16px 0 rgba(0,0,0,0.12)', sm: 'none' },
-          }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
+              justifyContent: { xs: 'center', sm: 'space-between' },
+              alignItems: 'center',
+              alignSelf: 'stretch',
+              gap: { xs: 2, sm: 0 },
+              mb: { xs: 0, sm: 4 },
+              px: { xs: 2, sm: 0 },
+              py: { xs: 2, sm: 0 },
+              position: { xs: 'sticky', sm: 'static' },
+              bottom: { xs: 0, sm: 'auto' },
+              background: { xs: 'rgba(8,4,17,0.95)', sm: 'none' },
+              zIndex: 2,
+              borderTop: { xs: '1px solid rgba(255,255,255,0.08)', sm: 'none' },
+              boxShadow: { xs: '0 -2px 16px 0 rgba(0,0,0,0.12)', sm: 'none' },
+            }}>
             <Box
               onClick={handleClose}
               sx={{

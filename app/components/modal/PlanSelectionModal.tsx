@@ -59,18 +59,15 @@ const Header = styled(Box)({
   borderBottom: '1px solid rgba(255, 255, 255, 0.14)',
   background: 'rgba(255, 255, 255, 0.02)',
   backdropFilter: 'blur(16.5px)',
-  position: 'relative',
-  zIndex: 1,
-});
-
-const LogoSvg = styled('svg')({
-  width: '109.565px',
-  height: '30px',
+  position: 'sticky',
+  top: 0,
+  zIndex: 3,
 });
 
 const PlanCard = styled(Paper)(({ featured }: { featured?: boolean }) => ({
   display: 'flex',
   padding: '40px 32px',
+  paddingTop: '72px',
   flexDirection: 'column',
   alignItems: 'center',
   gap: '30px',
@@ -427,79 +424,7 @@ export default function PlanSelectionModal({ open, onClose, onBack, role }: Plan
         {/* Content */}
         <Container
           maxWidth={false}
-          sx={{ py: 10, px: 3, position: 'relative', zIndex: 1 }}>
-          {/* Logo */}
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 10 }}>
-            <LogoSvg
-              viewBox='0 0 110 30'
-              fill='none'
-              xmlns='http://www.w3.org/2000/svg'>
-              <g clipPath='url(#clip0_20692_75462)'>
-                <mask
-                  id='mask0_20692_75462'
-                  style={{ maskType: 'luminance' }}
-                  maskUnits='userSpaceOnUse'
-                  x='0'
-                  y='-4'
-                  width='126'
-                  height='34'>
-                  <path
-                    d='M125.435 -3.91309H0.217407V30H125.435V-3.91309Z'
-                    fill='white'
-                  />
-                </mask>
-                <g mask='url(#mask0_20692_75462)'>
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M17.1412 10.9629L6.46787 0.562988H3.76215H0.217407V30.002H6.43535V15.2201V9.70155L16.7769 20.292L25.3623 12.0864V7.65829V6.72542V3.24345L17.1412 10.9629Z'
-                    fill='#F1EEFB'
-                  />
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M48.3257 18.5835H34.7192V12.0335H48.3257V7.15875H33.1061L26.9728 30.0018H26.9728V6.72519C26.9728 5.02356 27.402 3.414 28.5663 2.20517C29.698 1.02918 31.1419 0.556152 32.7029 0.556152H46.4201L54.5047 10.0166V29.9952H48.3257V18.5704V18.5835Z'
-                    fill='#8F75DD'
-                  />
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M103.091 23.452V18.5772H89.3023C87.7673 18.5772 86.3234 18.1502 85.1722 17.0334C83.9559 15.8508 83.5721 14.1624 83.5721 12.4608V6.72542C83.5721 5.03039 83.9754 3.39456 85.1461 2.18572C86.2844 1.00974 87.7478 0.562988 89.3088 0.562988H107.996V7.15906H89.712V12.0338H103.501C105.088 12.0338 106.571 12.4937 107.728 13.7025C108.873 14.9048 109.322 16.4618 109.322 18.1502V23.8856C109.322 25.5609 108.952 27.2296 107.793 28.4253C106.636 29.621 105.074 30.002 103.507 30.002H83.9689V23.452H103.104H103.091Z'
-                    fill='#F1EEFB'
-                  />
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M75.8231 19.5562V0.562988H81.9565V27.0851L75.8231 19.5562Z'
-                    fill='#8F75DD'
-                  />
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M70.6075 15.7785L82.2044 30.002H73.7685L66.1522 21.0935L70.6075 15.7785ZM66.4773 8.54521L73.6905 0.562988H74.2173V9.24168L70.6726 13.2098L66.4773 8.54521Z'
-                    fill='#F1EEFB'
-                  />
-                  <path
-                    fillRule='evenodd'
-                    clipRule='evenodd'
-                    d='M60.808 14.8456L48.6063 0.562988H57.0616L69.543 14.4514L56.5153 30.002H56.1186V20.5416L60.808 14.8456Z'
-                    fill='#F1EEFB'
-                  />
-                </g>
-              </g>
-              <defs>
-                <clipPath id='clip0_20692_75462'>
-                  <rect
-                    width='109.565'
-                    height='30'
-                    fill='white'
-                    transform='translate(0.217407)'
-                  />
-                </clipPath>
-              </defs>
-            </LogoSvg>
-          </Box>
-
+          sx={{ py: 10, px: 3, position: 'relative', zIndex: 1, width: filteredPlans.length === 3 ? '75%' : '100%' }}>
           {/* Plan Cards */}
           <Box sx={{ display: 'flex', gap: 3, mb: 10, flexWrap: 'wrap' }}>
             {filteredPlans.map((plan) => (
@@ -534,6 +459,7 @@ export default function PlanSelectionModal({ open, onClose, onBack, role }: Plan
                       lineHeight: '150%',
                       textAlign: 'center',
                       mb: 3,
+                      mt: plan.name === 'Starter' ? '-38px' : 0,
                     }}>
                     {plan.name}
                   </Typography>
@@ -717,11 +643,9 @@ export default function PlanSelectionModal({ open, onClose, onBack, role }: Plan
                 <TableHead>
                   <TableRow>
                     <HeaderCell sx={{ width: '425.16px', textAlign: 'left' }}>Features</HeaderCell>
-                    <HeaderCell>Free</HeaderCell>
-                    <HeaderCell>Individual</HeaderCell>
-                    <StarterHeaderCell>Starter</StarterHeaderCell>
-                    <HeaderCell>Pro</HeaderCell>
-                    <HeaderCell>Enterprise</HeaderCell>
+                    {filteredPlans.map((plan) =>
+                      plan.name === 'Starter' ? <StarterHeaderCell key={plan.name}>{plan.name}</StarterHeaderCell> : <HeaderCell key={plan.name}>{plan.name}</HeaderCell>
+                    )}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -736,15 +660,21 @@ export default function PlanSelectionModal({ open, onClose, onBack, role }: Plan
                       {category.features.map((feature) => (
                         <TableRow key={feature.name}>
                           <FeatureCell sx={{ textAlign: 'left' }}>{feature.name}</FeatureCell>
-                          {feature.values.map((value, valueIndex) => (
-                            <React.Fragment key={valueIndex}>
-                              {valueIndex === 2 ? (
-                                <StarterFeatureCell sx={{ textAlign: 'center' }}>{renderFeatureValue(value)}</StarterFeatureCell>
-                              ) : (
-                                <FeatureCell sx={{ textAlign: 'center' }}>{renderFeatureValue(value)}</FeatureCell>
-                              )}
-                            </React.Fragment>
-                          ))}
+                          {filteredPlans.map((_, valueIndex) =>
+                            filteredPlans[valueIndex].name === 'Starter' ? (
+                              <StarterFeatureCell
+                                key={valueIndex}
+                                sx={{ textAlign: 'center' }}>
+                                {renderFeatureValue(feature.values[plans.findIndex((p) => p.name === filteredPlans[valueIndex].name)])}
+                              </StarterFeatureCell>
+                            ) : (
+                              <FeatureCell
+                                key={valueIndex}
+                                sx={{ textAlign: 'center' }}>
+                                {renderFeatureValue(feature.values[plans.findIndex((p) => p.name === filteredPlans[valueIndex].name)])}
+                              </FeatureCell>
+                            )
+                          )}
                         </TableRow>
                       ))}
                     </React.Fragment>

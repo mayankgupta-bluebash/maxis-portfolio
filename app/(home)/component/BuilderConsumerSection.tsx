@@ -230,24 +230,25 @@ export default function BuilderConsumerSection() {
                   <Typography
                     variant='body2'
                     sx={{ color: '#F9FAFC' }}>
-                    • Visual agent builder with drag-and-drop
+                    • Design agentic assets visually using an intuitive drag-and-drop interface
                   </Typography>
                   <Typography
                     variant='body2'
                     sx={{ color: '#F9FAFC' }}>
-                    • Pre-built components and integrations
+                    • Use available nodes and set up integrations to leverage
                   </Typography>
                   <Typography
                     variant='body2'
                     sx={{ color: '#F9FAFC' }}>
-                    • Marketplace to sell your agents
+                    • Publish your agentic assets on the marketplace for others to discover
                   </Typography>
                   <Typography
                     variant='body2'
                     sx={{ color: '#F9FAFC' }}>
-                    • Revenue sharing and analytics
+                    • Track performance with built-in analytics and observability
                   </Typography>
                 </Box>
+
                 <Button
                   variant='contained'
                   endIcon={<ArrowForwardIcon />}
@@ -338,30 +339,32 @@ export default function BuilderConsumerSection() {
                     flexDirection: 'column',
                     gap: 1.5,
                     mb: 4,
+                    height: '177px',
                     textAlign: 'left',
                     fontSize: { xs: '0.95rem', md: '1rem' },
                   }}>
                   <Typography
                     variant='body2'
                     sx={{ color: '#F9FAFC' }}>
-                    • Explore and search for apps, agents, or orchestrations in the Marketplace
+                    • Discover apps, agents, and orchestrations in the marketplace
                   </Typography>
                   <Typography
                     variant='body2'
                     sx={{ color: '#F9FAFC' }}>
-                    • Hire and use published agentic assets
+                    • Hire and run published agentic assets
                   </Typography>
                   <Typography
                     variant='body2'
                     sx={{ color: '#F9FAFC' }}>
-                    • Ingest data and documents
+                    • Upload and ingest relevant data and documents
                   </Typography>
                   <Typography
                     variant='body2'
                     sx={{ color: '#F9FAFC' }}>
-                    • Leverage ingested data and documents and run hired agentic assets
+                    • Execute hired agents using your ingested content and workflows
                   </Typography>
                 </Box>
+
                 <Button
                   variant='contained'
                   endIcon={<ArrowForwardIcon />}

@@ -1,8 +1,7 @@
 'use client';
-import { useState, useRef, useEffect } from 'react';
-import { Box, Typography, Container, Button, Card, Accordion, AccordionSummary, AccordionDetails, Grid } from '@mui/material';
+import { useRef, useEffect } from 'react';
+import { Box, Typography, Container, Button, Card, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Image from 'next/image';
 import Interprice from '../assets/images/ai_expertise.webp';
 import ResearchWithAi from '../assets/images/enterprice-research-with-ai.png';
@@ -66,30 +65,30 @@ const CTASection = styled(Box)({
   position: 'relative',
 });
 
-const StyledAccordion = styled(Accordion)({
-  borderRadius: '8px',
-  border: '2px solid rgba(141, 49, 245, 0.20)',
-  background: 'rgba(37, 26, 73, 0.50)',
-  backdropFilter: 'blur(7.5px)',
-  marginBottom: '16px',
-  '&:before': {
-    display: 'none',
-  },
-  '& .MuiAccordionSummary-root': {
-    // padding: '0 0 0 40px',
-    minHeight: '80px',
-  },
-  '& .MuiAccordionDetails-root': {
-    padding: '16px 10px 32px 67px',
-  },
-});
+// const StyledAccordion = styled(Accordion)({
+//   borderRadius: '8px',
+//   border: '2px solid rgba(141, 49, 245, 0.20)',
+//   background: 'rgba(37, 26, 73, 0.50)',
+//   backdropFilter: 'blur(7.5px)',
+//   marginBottom: '16px',
+//   '&:before': {
+//     display: 'none',
+//   },
+//   '& .MuiAccordionSummary-root': {
+//     // padding: '0 0 0 40px',
+//     minHeight: '80px',
+//   },
+//   '& .MuiAccordionDetails-root': {
+//     padding: '16px 10px 32px 67px',
+//   },
+// });
 
-const FAQSection = styled(Box)({
-  display: 'flex',
-  padding: '60px 80px',
-  // background: '#6F41D2',
-  gap: '20px',
-});
+// const FAQSection = styled(Box)({
+//   display: 'flex',
+//   padding: '60px 80px',
+//   // background: '#6F41D2',
+//   gap: '20px',
+// });
 
 const DatabaseIcon = () => (
   <svg
@@ -245,7 +244,7 @@ const MonitoringIcon = () => (
 );
 
 const EnterprisePage: React.FC = () => {
-  const [expandedFAQ, setExpandedFAQ] = useState<string | false>(false);
+  // const [expandedFAQ, setExpandedFAQ] = useState<string | false>(false);
 
   // GSAP refs for hero section
   const heroHeadingRef = useRef<HTMLDivElement>(null);
@@ -383,9 +382,9 @@ const EnterprisePage: React.FC = () => {
     }
   }, []);
 
-  const handleFAQChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-    setExpandedFAQ(isExpanded ? panel : false);
-  };
+  // const handleFAQChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+  //   setExpandedFAQ(isExpanded ? panel : false);
+  // };
 
   const features = [
     {
@@ -434,29 +433,29 @@ const EnterprisePage: React.FC = () => {
     },
   ];
 
-  const faqs = [
-    {
-      id: 'faq1',
-      question: 'Lorem ipsum dolor sit amet consectetur. Sagittis id.',
-      answer:
-        'Lorem ipsum dolor sit amet consectetur. In augue ipsum tellus ultrices. Ac pharetra ultrices consectetur consequat tellus massa. Nec aliquam cras sagittis duis sed euismod arcu hac. Ornare amet ligula ornare lacus aliquam aenean. Eu lacus imperdiet urna amet congue adipiscing. Faucibus magna nisl ullamcorper in facilibus consequat aliquam.\n\nId placerat dui habitasse quisque nisl tincidunt facilisi mi id. Dictum elit velit.',
-    },
-    {
-      id: 'faq2',
-      question: 'Lorem ipsum dolor sit amet consectetur. Viverra.',
-      answer: 'Lorem ipsum dolor sit amet consectetur. Answer content here.',
-    },
-    {
-      id: 'faq3',
-      question: 'Lorem ipsum dolor sit amet consectetur. Viverra.',
-      answer: 'Lorem ipsum dolor sit amet consectetur. Answer content here.',
-    },
-    {
-      id: 'faq4',
-      question: 'Lorem ipsum dolor sit amet consectetur. Viverra.',
-      answer: 'Lorem ipsum dolor sit amet consectetur. Answer content here.',
-    },
-  ];
+  // const faqs = [
+  //   {
+  //     id: 'faq1',
+  //     question: 'Lorem ipsum dolor sit amet consectetur. Sagittis id.',
+  //     answer:
+  //       'Lorem ipsum dolor sit amet consectetur. In augue ipsum tellus ultrices. Ac pharetra ultrices consectetur consequat tellus massa. Nec aliquam cras sagittis duis sed euismod arcu hac. Ornare amet ligula ornare lacus aliquam aenean. Eu lacus imperdiet urna amet congue adipiscing. Faucibus magna nisl ullamcorper in facilibus consequat aliquam.\n\nId placerat dui habitasse quisque nisl tincidunt facilisi mi id. Dictum elit velit.',
+  //   },
+  //   {
+  //     id: 'faq2',
+  //     question: 'Lorem ipsum dolor sit amet consectetur. Viverra.',
+  //     answer: 'Lorem ipsum dolor sit amet consectetur. Answer content here.',
+  //   },
+  //   {
+  //     id: 'faq3',
+  //     question: 'Lorem ipsum dolor sit amet consectetur. Viverra.',
+  //     answer: 'Lorem ipsum dolor sit amet consectetur. Answer content here.',
+  //   },
+  //   {
+  //     id: 'faq4',
+  //     question: 'Lorem ipsum dolor sit amet consectetur. Viverra.',
+  //     answer: 'Lorem ipsum dolor sit amet consectetur. Answer content here.',
+  //   },
+  // ];
 
   return (
     <Box sx={{ background: '#080411', minHeight: '100vh' }}>
@@ -1039,7 +1038,7 @@ const EnterprisePage: React.FC = () => {
       </Container>
 
       {/* FAQ Section */}
-      <div ref={faqSectionRef}>
+      {/* <div ref={faqSectionRef}>
         <FAQSection
           sx={{
             flexDirection: { xs: 'column', md: 'row' },
@@ -1139,7 +1138,7 @@ const EnterprisePage: React.FC = () => {
             ))}
           </Box>
         </FAQSection>
-      </div>
+      </div> */}
     </Box>
   );
 };
