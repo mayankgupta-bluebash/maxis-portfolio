@@ -1,6 +1,7 @@
-'use client'
-import { Box, Modal, Typography } from '@mui/material';
+'use client';
+import { Box, Modal, Typography, TextField, Button } from '@mui/material';
 import React, { useState, useEffect, useRef } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 interface EmailVerificationModalProps {
   isOpen: boolean;
@@ -8,12 +9,26 @@ interface EmailVerificationModalProps {
   onPrevious: () => void;
   onNext: () => void;
   email?: string;
+  organizationId?: string | null;
+  verifyOtpMutation?: {
+    mutateAsync: (params: { email: string; organizationId: string; otp: string }) => Promise<unknown>;
+  };
 }
 
-export default function EmailVerificationModal({ isOpen, handleClose, onPrevious, onNext, email = 'michael23@gmail.com' }: EmailVerificationModalProps) {
-  const [otp, setOtp] = useState(['', '', '', '']);
+export default function EmailVerificationModal({
+  isOpen,
+  handleClose,
+  onPrevious,
+  onNext,
+  email = 'michael23@gmail.com',
+  organizationId,
+  verifyOtpMutation,
+}: EmailVerificationModalProps) {
+  const [otp, setOtp] = useState(['', '', '', '', '', '']); // 6 digits
   const [timeLeft, setTimeLeft] = useState(54);
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const { setValue, watch } = useFormContext();
+  const formEmail = watch('email');
 
   // Countdown timer
   useEffect(() => {
@@ -29,7 +44,7 @@ export default function EmailVerificationModal({ isOpen, handleClose, onPrevious
   useEffect(() => {
     if (isOpen) {
       setTimeLeft(54);
-      setOtp(['', '', '', '']);
+      setOtp(['', '', '', '', '', '']); // 6 digits
     }
   }, [isOpen]);
 
@@ -40,8 +55,13 @@ export default function EmailVerificationModal({ isOpen, handleClose, onPrevious
     newOtp[index] = value;
     setOtp(newOtp);
 
+    // Update form with OTP
+    const otpString = newOtp.join('');
+    setValue('otp', otpString);
+
     // Auto-focus next input
-    if (value && index < 3) {
+    if (value && index < 5) {
+      // 6 digits (0-5)
       otpRefs.current[index + 1]?.focus();
     }
   };
@@ -54,8 +74,33 @@ export default function EmailVerificationModal({ isOpen, handleClose, onPrevious
 
   const handleResendCode = () => {
     setTimeLeft(54);
-    setOtp(['', '', '', '']);
+    setOtp(['', '', '', '', '', '']); // 6 digits
+    setValue('otp', '');
     // Add resend logic here
+  };
+
+  const handleVerify = async () => {
+    const otpString = otp.join('');
+    if (otpString.length === 6 && organizationId && verifyOtpMutation) {
+      try {
+        setValue('otp', otpString);
+
+        // Call the verify OTP API
+        await verifyOtpMutation.mutateAsync({
+          email: displayEmail,
+          organizationId,
+          otp: otpString,
+        });
+
+        onNext();
+      } catch (error) {
+        console.error('OTP verification failed:', error);
+      }
+    } else if (otpString.length === 6) {
+      // Fallback if no API integration
+      setValue('otp', otpString);
+      onNext();
+    }
   };
 
   const formatTime = (seconds: number) => {
@@ -63,6 +108,8 @@ export default function EmailVerificationModal({ isOpen, handleClose, onPrevious
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}s`;
   };
+
+  const displayEmail = formEmail || email;
 
   return (
     <Modal
@@ -98,26 +145,11 @@ export default function EmailVerificationModal({ isOpen, handleClose, onPrevious
             zIndex: 0,
           }}
         />
-        <Box
-          sx={{
-            position: 'absolute',
-            width: '678px',
-            height: '96px',
-            borderRadius: '592px',
-            opacity: 0.75,
-            background: 'linear-gradient(180deg, #601EF9 0%, rgba(96, 30, 249, 0.00) 100%)',
-            filter: 'blur(100px)',
-            left: '322px',
-            top: '-14px',
-            zIndex: 0,
-          }}
-        />
 
         {/* Header */}
         <Box
           sx={{
             display: 'flex',
-            width: '100%',
             padding: '20px 24px',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -149,14 +181,17 @@ export default function EmailVerificationModal({ isOpen, handleClose, onPrevious
               justifyContent: 'center',
             }}>
             <svg
-              width='14'
-              height='14'
-              viewBox='0 0 14 14'
+              width='24'
+              height='24'
+              viewBox='0 0 24 24'
               fill='none'
               xmlns='http://www.w3.org/2000/svg'>
               <path
-                d='M1.39994 13.6537L0.346191 12.5999L5.94619 6.99994L0.346191 1.39994L1.39994 0.346191L6.99994 5.94619L12.5999 0.346191L13.6537 1.39994L8.05369 6.99994L13.6537 12.5999L12.5999 13.6537L6.99994 8.05369L1.39994 13.6537Z'
-                fill='white'
+                d='M18 6L6 18M6 6L18 18'
+                stroke='#FFF'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
               />
             </svg>
           </Box>
@@ -165,265 +200,133 @@ export default function EmailVerificationModal({ isOpen, handleClose, onPrevious
         {/* Content */}
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            gap: '-2px',
             flex: 1,
+            padding: '40px',
+            overflow: 'auto',
             position: 'relative',
             zIndex: 1,
-            overflow: 'auto',
-            minHeight: 0,
           }}>
           <Box
             sx={{
               display: 'flex',
-              padding: '0px 24px',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: { xs: '40px', md: '110px' },
-              width: '100%',
+              gap: 3,
+              maxWidth: '500px',
+              margin: '0 auto',
             }}>
-            {/* Main Content */}
-            <Box
+            <Typography
               sx={{
-                display: 'flex',
-                width: { xs: '100%', md: '1148px' },
-                padding: { xs: '24px', md: '48px' },
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: { xs: '32px', md: '64px' },
-                borderRadius: '8px',
-                border: '1px solid #A18BE3',
-                background: 'rgba(37, 26, 73, 0.50)',
-                boxShadow: '0px 10px 15px -3px rgba(0, 41, 41, 0.08), 0px 4px 6px -4px rgba(0, 41, 41, 0.08)',
+                color: '#FFF',
+                fontSize: '32px',
+                fontWeight: 500,
+                textAlign: 'center',
+                mb: 2,
               }}>
-              {/* Text Content */}
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '24px',
-                }}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: '16px',
-                  }}>
-                  <Typography
-                    sx={{
-                      color: '#FFF',
-                      textAlign: 'center',
-                      fontFamily: 'Inter',
-                      fontSize: '20px',
-                      fontWeight: 500,
-                      lineHeight: '36px',
-                    }}>
-                    Please enter the One-Time Password to verify your account
-                  </Typography>
-                  <Typography
-                    sx={{
-                      color: '#FFF',
-                      textAlign: 'center',
-                      fontFamily: 'Inter',
-                      fontSize: '16px',
-                      fontWeight: 500,
-                      lineHeight: '20px',
-                    }}>
-                    A One-Time Password has been sent to{' '}
-                    <Box
-                      component='span'
-                      sx={{ color: '#8F75DD' }}>
-                      {email}
-                    </Box>
-                  </Typography>
-                </Box>
+              Verify your email
+            </Typography>
+            <Typography
+              sx={{
+                color: '#999',
+                fontSize: '16px',
+                textAlign: 'center',
+                mb: 4,
+              }}>
+              We&apos;ve sent a verification code to <strong>{displayEmail}</strong>
+            </Typography>
 
-                {/* OTP Input Fields */}
-                <Box
+            {/* OTP Input */}
+            <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
+              {otp.map((digit, index) => (
+                <TextField
+                  key={index}
+                  inputRef={(el) => (otpRefs.current[index] = el)}
+                  value={digit}
+                  onChange={(e) => handleOtpChange(index, e.target.value)}
+                  onKeyDown={(e) => handleKeyDown(index, e)}
+                  inputProps={{
+                    maxLength: 1,
+                    style: { textAlign: 'center', fontSize: '24px', fontWeight: 'bold' },
+                  }}
                   sx={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: { xs: '16px', md: '64px' },
-                    justifyContent: 'center',
-                  }}>
-                  {otp.map((digit, index) => (
-                    <Box
-                      key={index}
-                      component='input'
-                      ref={(el: HTMLInputElement | null) => {
-                        otpRefs.current[index] = el;
-                      }}
-                      value={digit}
-                      onChange={(e) => handleOtpChange(index, e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(index, e)}
-                      maxLength={1}
-                      sx={{
-                        width: { xs: '40px', md: '50px' },
-                        height: { xs: '40px', md: '50px' },
-                        borderRadius: '8px',
-                        border: '0.5px solid #F1EEFB',
-                        background: 'rgba(37, 26, 73, 0.50)',
+                    width: '60px',
+                    '& .MuiInputBase-root': {
+                      height: '60px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                      border: '1px solid rgba(255, 255, 255, 0.10)',
+                      borderRadius: '8px',
+                      '& fieldset': { border: 'none' },
+                      '& input': {
                         color: '#FFF',
-                        fontSize: { xs: '18px', md: '24px' },
-                        fontWeight: 500,
                         textAlign: 'center',
-                        fontFamily: 'Inter',
-                        outline: 'none',
-                        '&:focus': {
-                          border: '1px solid #8F75DD',
-                          boxShadow: '0 0 0 1px #8F75DD',
-                        },
-                        '&::placeholder': {
-                          color: 'rgba(255, 255, 255, 0.5)',
-                        },
-                      }}
-                    />
-                  ))}
-                </Box>
+                      },
+                    },
+                  }}
+                />
+              ))}
+            </Box>
 
-                {/* Timer and Resend */}
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: '8px',
-                  }}>
-                  <Typography
-                    sx={{
-                      color: '#FFF',
-                      textAlign: 'center',
-                      fontFamily: 'Inter',
-                      fontSize: '16px',
-                      fontWeight: 400,
-                      lineHeight: '24px',
-                    }}>
-                    Remaining Time: {formatTime(timeLeft)}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      color: '#FFF',
-                      textAlign: 'center',
-                      fontFamily: 'Inter',
-                      fontSize: '16px',
-                      fontWeight: 500,
-                      lineHeight: '20px',
-                    }}>
-                    Didn&apos;t got the code ?{' '}
-                    <Box
-                      component='span'
-                      onClick={handleResendCode}
-                      sx={{
-                        color: '#8F75DD',
-                        cursor: 'pointer',
-                        '&:hover': {
-                          textDecoration: 'underline',
-                        },
-                      }}>
-                      Resend Code
-                    </Box>
-                  </Typography>
-                </Box>
-              </Box>
-
-              {/* Bottom Navigation */}
-              <Box
+            {/* Timer and Resend */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, mb: 4 }}>
+              <Typography sx={{ color: '#999', fontSize: '14px' }}>{timeLeft > 0 ? `Resend code in ${formatTime(timeLeft)}` : 'Code expired'}</Typography>
+              <Button
+                onClick={handleResendCode}
+                disabled={timeLeft > 0}
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-start',
-                  width: '100%',
-                  flexDirection: { xs: 'column', md: 'row' },
-                  gap: { xs: '12px', md: 0 },
+                  color: '#8F75DD',
+                  textTransform: 'none',
+                  '&:disabled': {
+                    color: '#666',
+                  },
                 }}>
-                <Box
-                  onClick={onPrevious}
-                  sx={{
-                    display: 'flex',
-                    maxWidth: '620px',
-                    padding: { xs: '12px 24px', md: '17px 33px' },
-                    justifyContent: 'center',
-                    alignItems: 'flex-start',
-                    gap: '4px',
-                    borderRadius: '12px',
-                    border: '1px solid rgba(255, 255, 255, 0.10)',
-                    background: 'rgba(37, 26, 73, 0.50)',
-                    cursor: 'pointer',
-                  }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      xmlns='http://www.w3.org/2000/svg'>
-                      <path
-                        d='M3.373 8.75L9.06925 14.4462L8 15.5L0.5 8L8 0.5L9.06925 1.55375L3.373 7.25H15.5V8.75H3.373Z'
-                        fill='white'
-                      />
-                    </svg>
-                    <Typography
-                      sx={{
-                        color: '#FFF',
-                        fontFamily: 'Inter',
-                        fontSize: '15px',
-                        fontWeight: 500,
-                        lineHeight: '16px',
-                      }}>
-                      Previous
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box
-                  onClick={onNext}
-                  sx={{
-                    display: 'flex',
-                    maxWidth: '620px',
-                    padding: { xs: '12px 24px', md: '17px 33px' },
-                    justifyContent: 'center',
-                    alignItems: 'flex-start',
-                    borderRadius: '12px',
-                    border: '1px solid #6F41D2',
-                    background: '#080411',
-                    cursor: 'pointer',
-                    opacity: otp.every((digit) => digit !== '') ? 1 : 0.5,
-                    pointerEvents: otp.every((digit) => digit !== '') ? 'auto' : 'none',
-                  }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      gap: '4px',
-                    }}>
-                    <Typography
-                      sx={{
-                        color: '#FFF',
-                        fontFamily: 'Inter',
-                        fontSize: '15px',
-                        fontWeight: 500,
-                        lineHeight: '16px',
-                      }}>
-                      Next
-                    </Typography>
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      xmlns='http://www.w3.org/2000/svg'>
-                      <path
-                        d='M12.627 8.75L6.93075 14.4462L8 15.5L15.5 8L8 0.5L6.93075 1.55375L12.627 7.25H0.5V8.75H12.627Z'
-                        fill='white'
-                      />
-                    </svg>
-                  </Box>
-                </Box>
-              </Box>
+                Resend Code
+              </Button>
+            </Box>
+
+            {/* Navigation Buttons */}
+            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'space-between', width: '100%' }}>
+              <Button
+                onClick={onPrevious}
+                variant='outlined'
+                sx={{
+                  borderColor: '#8F75DD',
+                  color: '#8F75DD',
+                  px: 4,
+                  py: 1.5,
+                  fontSize: '16px',
+                  fontWeight: 500,
+                  borderRadius: '8px',
+                  textTransform: 'none',
+                  '&:hover': {
+                    borderColor: '#7A5FD9',
+                    backgroundColor: 'rgba(143, 117, 221, 0.1)',
+                  },
+                }}>
+                Previous
+              </Button>
+              <Button
+                onClick={handleVerify}
+                disabled={otp.join('').length !== 6}
+                variant='contained'
+                sx={{
+                  backgroundColor: '#8F75DD',
+                  color: '#FFF',
+                  px: 4,
+                  py: 1.5,
+                  fontSize: '16px',
+                  fontWeight: 500,
+                  borderRadius: '8px',
+                  textTransform: 'none',
+                  '&:hover': {
+                    backgroundColor: '#7A5FD9',
+                  },
+                  '&:disabled': {
+                    backgroundColor: '#4A4A4A',
+                    color: '#999',
+                  },
+                }}>
+                Verify
+              </Button>
             </Box>
           </Box>
         </Box>

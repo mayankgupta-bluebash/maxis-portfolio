@@ -1,37 +1,25 @@
 'use client';
 
-import { Box, Modal, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import { Box, Modal, TextField, Typography, Button } from '@mui/material';
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
 
 interface UserDetailsModalProps {
   isOpen: boolean;
   handleClose: () => void;
   onPrevious: () => void;
   onNext: () => void;
+  isSubmitting?: boolean;
 }
 
-export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNext }: UserDetailsModalProps) {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    email: '',
-    username: '',
-    password: '',
-    // organizationName: '',
-  });
-
-  // const [validationState, setValidationState] = useState({
-  //   email: 'valid',
-  //   username: 'valid',
-  // });
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
+export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNext, isSubmitting = false }: UserDetailsModalProps) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useFormContext();
+  const watchedValues = watch();
 
   const renderCheckIcon = () => (
     <svg
@@ -47,21 +35,30 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
     </svg>
   );
 
-  const renderTextField = (label: string, value: string, field: string, required = false, helperText = '', validation?: 'valid' | 'invalid', type = 'text') => (
+  const renderTextField = (label: string, field: string, required = false, helperText = '', type = 'text', validation?: 'valid' | 'invalid') => (
     <Box sx={{ position: 'relative', width: { xs: '100%', md: '526px' } }}>
       <TextField
-        value={value}
-        onChange={(e) => handleInputChange(field, e.target.value)}
+        {...register(field, {
+          required: required ? `${label} is required` : false,
+          minLength: type === 'password' ? { value: 6, message: 'Password must be at least 6 characters' } : undefined,
+          pattern:
+            type === 'email'
+              ? {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'Please enter a valid email address',
+                }
+              : undefined,
+        })}
         type={type}
         fullWidth
         variant='outlined'
+        error={!!errors[field]}
         InputProps={{
           endAdornment: validation === 'valid' ? <Box sx={{ display: 'flex', alignItems: 'center', pr: 1 }}>{renderCheckIcon()}</Box> : null,
           sx: {
             color: '#FFF',
             backgroundColor: 'radial-gradient(487.94% 102.17% at -4950% 100%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 90%)',
-            // border: validation === 'valid' ? '1px solid #02A367' : '1px solid rgba(255, 255, 255, 0.10)',
-            border: '1px solid rgba(255, 255, 255, 0.10)',
+            border: errors[field] ? '1px solid #FF6451' : '1px solid rgba(255, 255, 255, 0.10)',
             borderRadius: '4px',
             height: '56px',
             '& fieldset': { border: 'none' },
@@ -95,22 +92,32 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
             {label} {required && <span style={{ color: '#FF6451' }}>*</span>}
           </span>
         }
-        helperText={helperText}
+        helperText={(errors[field]?.message as string) || helperText}
         FormHelperTextProps={{
           sx: {
-            color: validation === 'valid' ? '#02A367' : '#878787',
+            color: errors[field] ? '#FF6451' : '#999',
             fontSize: '12px',
-            fontFamily: validation === 'valid' ? 'Roboto' : 'Inter',
+            fontFamily: 'Inter',
             fontWeight: 400,
             lineHeight: '16px',
             letterSpacing: '0.4px',
-            marginTop: '4px',
-            marginLeft: '16px',
+            margin: '4px 0 0 0',
           },
         }}
       />
     </Box>
   );
+
+  const onSubmit = (data: Record<string, string>) => {
+    console.log('User details form data:', data);
+    onNext();
+  };
+
+  // Check if all required fields are filled
+  const isFormValid = () => {
+    const requiredFields = ['firstName', 'lastName', 'email', 'username', 'password'];
+    return requiredFields.every((field) => watchedValues[field] && watchedValues[field].trim() !== '');
+  };
 
   return (
     <Modal
@@ -136,13 +143,13 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
           sx={{
             position: 'absolute',
             width: '678px',
-            height: '390px',
+            height: '370px',
             borderRadius: '592px',
             opacity: 0.75,
             background: 'linear-gradient(180deg, #601EF9 0%, rgba(96, 30, 249, 0.00) 100%)',
             filter: 'blur(100px)',
-            left: '271px',
-            top: '-139px',
+            left: '201px',
+            top: '-89px',
             zIndex: 0,
           }}
         />
@@ -150,13 +157,13 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
           sx={{
             position: 'absolute',
             width: '678px',
-            height: '96px',
+            height: '91px',
             borderRadius: '592px',
             opacity: 0.75,
             background: 'linear-gradient(180deg, #601EF9 0%, rgba(96, 30, 249, 0.00) 100%)',
             filter: 'blur(100px)',
-            left: '322px',
-            top: '-14px',
+            left: '296px',
+            top: '1px',
             zIndex: 0,
           }}
         />
@@ -165,7 +172,6 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
         <Box
           sx={{
             display: 'flex',
-            width: '100%',
             padding: '20px 24px',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -184,7 +190,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
               fontWeight: 500,
               lineHeight: '36px',
             }}>
-            Tell us about yourself
+            User Details
           </Typography>
           <Box
             onClick={handleClose}
@@ -197,14 +203,17 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
               justifyContent: 'center',
             }}>
             <svg
-              width='14'
-              height='14'
-              viewBox='0 0 14 14'
+              width='24'
+              height='24'
+              viewBox='0 0 24 24'
               fill='none'
               xmlns='http://www.w3.org/2000/svg'>
               <path
-                d='M1.39994 13.6537L0.346191 12.5999L5.94619 6.99994L0.346191 1.39994L1.39994 0.346191L6.99994 5.94619L12.5999 0.346191L13.6537 1.39994L8.05369 6.99994L13.6537 12.5999L12.5999 13.6537L6.99994 8.05369L1.39994 13.6537Z'
-                fill='white'
+                d='M18 6L6 18M6 6L18 18'
+                stroke='#FFF'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
               />
             </svg>
           </Box>
@@ -212,21 +221,18 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
 
         {/* Content */}
         <Box
+          component='form'
+          onSubmit={handleSubmit(onSubmit)}
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            gap: '-2px',
             flex: 1,
+            padding: '40px',
+            overflow: 'auto',
             position: 'relative',
             zIndex: 1,
-            overflow: 'auto',
-            minHeight: 0,
           }}>
           <Box
             sx={{
               display: 'flex',
-              padding: '0px 24px',
               flexDirection: 'column',
               alignItems: 'center',
               gap: { xs: '20px', md: '40px' },
@@ -256,8 +262,8 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                   width: '100%',
                   flexDirection: { xs: 'column', md: 'row' },
                 }}>
-                {renderTextField('First Name', formData.firstName, 'firstName', true, 'Max 20 char.')}
-                {renderTextField('Middle Name', formData.middleName, 'middleName', false, 'Max 20 char.')}
+                {renderTextField('First Name', 'firstName', true, 'Max 20 char.')}
+                {renderTextField('Middle Name', 'middleName', false, 'Max 20 char.')}
               </Box>
 
               {/* Second Row: Last Name, Email */}
@@ -269,8 +275,8 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                   width: '100%',
                   flexDirection: { xs: 'column', md: 'row' },
                 }}>
-                {renderTextField('Last Name', formData.lastName, 'lastName', true, 'Max 20 char.')}
-                {renderTextField('Email Address', formData.email, 'email', false)}
+                {renderTextField('Last Name', 'lastName', true, 'Max 20 char.')}
+                {renderTextField('Email Address', 'email', true, '', 'email')}
               </Box>
 
               {/* Third Row: Username, Password */}
@@ -282,121 +288,9 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                   width: '100%',
                   flexDirection: { xs: 'column', md: 'row' },
                 }}>
-                {renderTextField('User Name', formData.username, 'username', true)}
-                {renderTextField('Password', formData.password, 'password', false)}
+                {renderTextField('User Name', 'username', true)}
+                {renderTextField('Password', 'password', true, 'Minimum 6 characters', 'password')}
               </Box>
-
-              {/* Fourth Row: Organization */}
-              {/* <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: { xs: '12px', md: '24px' },
-                  width: '100%',
-                  flexDirection: { xs: 'column', md: 'row' },
-                }}>
-                <Box sx={{ width: { xs: '100%', md: '526px' }, position: 'relative' }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      height: '56px',
-                      borderRadius: '4px',
-                      border: '1px solid rgba(255, 255, 255, 0.10)',
-                      background: 'radial-gradient(487.94% 102.17% at -4950% 100%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 90%)',
-                      position: 'relative',
-                    }}>
-                    <Box
-                      sx={{
-                        width: '98px',
-                        height: '56px',
-                        borderRadius: '4px 0px 0px 4px',
-                        border: '1px solid rgba(255, 255, 255, 0.10)',
-                        background: 'rgba(37, 26, 73, 0.50)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        paddingLeft: '16px',
-                      }}>
-                      <Typography
-                        sx={{
-                          color: '#F9FAFC',
-                          fontFamily: 'Inter',
-                          fontSize: '16px',
-                          fontWeight: 400,
-                        }}>
-                        https://
-                      </Typography>
-                    </Box>
-
-                    <TextField
-                      value={formData.organizationName}
-                      onChange={(e) => handleInputChange('organizationName', e.target.value)}
-                      variant='standard'
-                      sx={{
-                        flex: 1,
-                        '& .MuiInput-root': {
-                          color: '#F9FAFC',
-                          fontSize: '16px',
-                          fontFamily: 'Inter',
-                          fontWeight: 400,
-                          height: '56px',
-                          paddingLeft: '16px',
-                          paddingRight: '16px',
-                          alignItems: 'center',
-                          '&:before': { display: 'none' },
-                          '&:after': { display: 'none' },
-                        },
-                        '& input': {
-                          padding: 0,
-                        },
-                      }}
-                    />
-
-                    <Box
-                      sx={{
-                        width: '128px',
-                        height: '56px',
-                        borderRadius: '0px 4px 4px 0px',
-                        border: '1px solid rgba(255, 255, 255, 0.10)',
-                        background: 'rgba(37, 26, 73, 0.50)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        paddingLeft: '12px',
-                      }}>
-                      <Typography
-                        sx={{
-                          color: '#F9FAFC',
-                          fontFamily: 'Inter',
-                          fontSize: '16px',
-                          fontWeight: 400,
-                        }}>
-                        .maxisai.com
-                      </Typography>
-                    </Box>
-                  </Box>
-
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      top: '-8px',
-                      left: '13px',
-                      padding: '0 4px',
-                      background: 'rgba(37, 26, 73, 0.50)',
-                    }}>
-                    <Typography
-                      sx={{
-                        color: '#FFF',
-                        fontFamily: 'Inter',
-                        fontSize: '12px',
-                        fontWeight: 400,
-                        lineHeight: '16px',
-                        letterSpacing: '0.4px',
-                      }}>
-                      Organisation Name
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box sx={{ width: { xs: '100%', md: '526px' } }}></Box>
-              </Box> */}
             </Box>
 
             {/* Bottom Navigation */}
@@ -410,87 +304,48 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                 flexDirection: { xs: 'column', md: 'row' },
                 gap: { xs: '12px', md: 0 },
               }}>
-              <Box
+              <Button
                 onClick={onPrevious}
+                variant='outlined'
                 sx={{
-                  display: 'flex',
-                  maxWidth: '620px',
-                  padding: { xs: '12px 24px', md: '17px 33px' },
-                  justifyContent: 'center',
-                  alignItems: 'flex-start',
-                  gap: '4px',
-                  borderRadius: '12px',
-                  border: '1px solid rgba(255, 255, 255, 0.10)',
-                  background: 'rgba(37, 26, 73, 0.50)',
-                  cursor: 'pointer',
+                  borderColor: '#8F75DD',
+                  color: '#8F75DD',
+                  px: 4,
+                  py: 1.5,
+                  fontSize: '16px',
+                  fontWeight: 500,
+                  borderRadius: '8px',
+                  textTransform: 'none',
+                  '&:hover': {
+                    borderColor: '#7A5FD9',
+                    backgroundColor: 'rgba(143, 117, 221, 0.1)',
+                  },
                 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <svg
-                    width='16'
-                    height='16'
-                    viewBox='0 0 16 16'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      d='M3.373 8.75L9.06925 14.4462L8 15.5L0.5 8L8 0.5L9.06925 1.55375L3.373 7.25H15.5V8.75H3.373Z'
-                      fill='white'
-                    />
-                  </svg>
-                  <Typography
-                    sx={{
-                      color: '#FFF',
-                      fontFamily: 'Inter',
-                      fontSize: '15px',
-                      fontWeight: 500,
-                      lineHeight: '16px',
-                    }}>
-                    Previous
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                onClick={onNext}
+                Previous
+              </Button>
+              <Button
+                type='submit'
+                disabled={!isFormValid() || isSubmitting}
+                variant='contained'
                 sx={{
-                  display: 'flex',
-                  maxWidth: '620px',
-                  padding: { xs: '12px 24px', md: '17px 33px' },
-                  justifyContent: 'center',
-                  alignItems: 'flex-start',
-                  borderRadius: '12px',
-                  border: '1px solid #6F41D2',
-                  background: '#080411',
-                  cursor: 'pointer',
+                  backgroundColor: isFormValid() ? '#8F75DD' : '#4A4A4A',
+                  color: '#FFF',
+                  px: 4,
+                  py: 1.5,
+                  fontSize: '16px',
+                  fontWeight: 500,
+                  borderRadius: '8px',
+                  textTransform: 'none',
+                  '&:hover': {
+                    backgroundColor: isFormValid() ? '#7A5FD9' : '#4A4A4A',
+                  },
+                  '&:disabled': {
+                    backgroundColor: '#4A4A4A',
+                    color: '#999',
+                  },
                 }}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: '4px',
-                  }}>
-                  <Typography
-                    sx={{
-                      color: '#FFF',
-                      fontFamily: 'Inter',
-                      fontSize: '15px',
-                      fontWeight: 500,
-                      lineHeight: '16px',
-                    }}>
-                    Next
-                  </Typography>
-                  <svg
-                    width='16'
-                    height='16'
-                    viewBox='0 0 16 16'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'>
-                    <path
-                      d='M12.627 8.75L6.93075 14.4462L8 15.5L15.5 8L8 0.5L6.93075 1.55375L12.627 7.25H0.5V8.75H12.627Z'
-                      fill='white'
-                    />
-                  </svg>
-                </Box>
-              </Box>
+                {isSubmitting ? 'Submitting...' : 'Next'}
+              </Button>
             </Box>
           </Box>
         </Box>
