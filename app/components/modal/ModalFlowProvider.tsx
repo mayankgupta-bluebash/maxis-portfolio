@@ -44,7 +44,7 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
   const signupMutation = useSignupMutation();
   const verifyOtpMutation = useVerifyOtpMutation();
   const createSubscriptionMutation = useCreateSubscriptionMutation();
-  const { data: plans, isLoading: plansLoading, error: plansError } = usePlansQuery();
+  const { data: plans, isLoading: plansLoading, error: plansError } = usePlansQuery(selectedRole, step === 'planSelection');
 
   // Initialize react-hook-form
   const methods = useForm<FormData>({

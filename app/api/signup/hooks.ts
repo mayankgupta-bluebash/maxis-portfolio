@@ -57,11 +57,11 @@ export const useCreateSubscriptionMutation = () => {
 };
 
 // Hook to fetch plans
-export const usePlansQuery = () => {
+export const usePlansQuery = (role: string, enabled: boolean = false) => {
   return useQuery({
-    queryKey: ['plans'],
+    queryKey: ['plans', role],
     queryFn: async (): Promise<Plan[]> => {
-      const response = await signupApi.getPlans();
+      const response = await signupApi.getPlans(role);
 
       // Only return plans if we have data
       if (response.data && response.data.length > 0) {
@@ -76,5 +76,6 @@ export const usePlansQuery = () => {
     gcTime: 10 * 60 * 1000, // 10 minutes
     retry: 1,
     refetchOnWindowFocus: false,
+    enabled: enabled && !!role, // Only fetch when enabled and role is available
   });
 };

@@ -49,8 +49,31 @@ export default function EmailVerificationModal({
   }, [isOpen]);
 
   const handleOtpChange = (index: number, value: string) => {
-    if (value.length > 1) return; // Only allow single digit
+    // Handle paste of multiple digits
+    if (value.length > 1) {
+      const digits = value.split('').slice(0, 6); // Take only first 6 digits
+      const newOtp = [...otp];
 
+      // Fill the digits starting from current index
+      for (let i = 0; i < digits.length && index + i < 6; i++) {
+        newOtp[index + i] = digits[i];
+      }
+
+      setOtp(newOtp);
+
+      // Update form with OTP
+      const otpString = newOtp.join('');
+      setValue('otp', otpString);
+
+      // Focus the next empty field or the last field
+      const nextIndex = Math.min(index + digits.length, 5);
+      if (nextIndex < 6) {
+        otpRefs.current[nextIndex]?.focus();
+      }
+      return;
+    }
+
+    // Handle single digit input
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
@@ -69,6 +92,33 @@ export default function EmailVerificationModal({
   const handleKeyDown = (index: number, e: React.KeyboardEvent) => {
     if (e.key === 'Backspace' && !otp[index] && index > 0) {
       otpRefs.current[index - 1]?.focus();
+    }
+  };
+
+  const handlePaste = (e: React.ClipboardEvent) => {
+    e.preventDefault();
+    const pastedData = e.clipboardData.getData('text');
+    const digits = pastedData.replace(/\D/g, '').slice(0, 6); // Only numbers, max 6 digits
+
+    if (digits.length > 0) {
+      const newOtp = [...otp];
+
+      // Fill the digits starting from the first field
+      for (let i = 0; i < digits.length && i < 6; i++) {
+        newOtp[i] = digits[i];
+      }
+
+      setOtp(newOtp);
+
+      // Update form with OTP
+      const otpString = newOtp.join('');
+      setValue('otp', otpString);
+
+      // Focus the next empty field or the last field
+      const nextIndex = Math.min(digits.length, 5);
+      if (nextIndex < 6) {
+        otpRefs.current[nextIndex]?.focus();
+      }
     }
   };
 
@@ -244,6 +294,7 @@ export default function EmailVerificationModal({
                   value={digit}
                   onChange={(e) => handleOtpChange(index, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(index, e)}
+                  onPaste={index === 0 ? handlePaste : undefined}
                   inputProps={{
                     maxLength: 1,
                     style: { textAlign: 'center', fontSize: '24px', fontWeight: 'bold' },

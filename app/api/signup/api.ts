@@ -46,8 +46,8 @@ export const signupApi = {
   },
 
   // Get plans
-  getPlans: async (): Promise<PlansResponse> => {
-    const response = await api.get<PlansResponse>('/public/plans');
+  getPlans: async (role: string): Promise<PlansResponse> => {
+    const response = await api.get<PlansResponse>(`/public/plans?role=${role}`);
     return response.data;
   },
 
