@@ -73,6 +73,21 @@ export const useResendCodeMutation = () => {
   });
 };
 
+// Hook to validate field
+export const useValidateFieldMutation = () => {
+  return useMutation({
+    mutationFn: async ({ type, value }: { type: 'email' | 'username' | 'subdomain'; value: string }) => {
+      return await signupApi.validateField(type, value);
+    },
+    onSuccess: (data) => {
+      console.log('Field validation successful:', data);
+    },
+    onError: (error) => {
+      console.error('Field validation failed:', error);
+    },
+  });
+};
+
 // Hook to fetch plans
 export const usePlansQuery = (role: string, enabled: boolean = false) => {
   return useQuery({

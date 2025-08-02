@@ -339,25 +339,19 @@ export default function EmailVerificationModal({
 
               <Typography sx={{ color: '#fff', fontSize: '16px', textAlign: 'center' }}>
                 Didn’t got the code?{' '}
-                <Typography
-                  component='span'
-                  sx={{ color: '#A78BFA', fontSize: '16px', cursor: 'pointer' }}>
-                  Resend Code
-                </Typography>
+                <Button
+                  onClick={handleResendCode}
+                  disabled={timeLeft > 0 || resendCodeMutation?.isPending}
+                  sx={{
+                    color: '#8F75DD',
+                    textTransform: 'none',
+                    '&:disabled': {
+                      color: '#666',
+                    },
+                  }}>
+                  {resendCodeMutation?.isPending ? 'Sending...' : 'Resend Code'}
+                </Button>
               </Typography>
-
-              <Button
-                onClick={handleResendCode}
-                disabled={timeLeft > 0 || resendCodeMutation?.isPending}
-                sx={{
-                  color: '#8F75DD',
-                  textTransform: 'none',
-                  '&:disabled': {
-                    color: '#666',
-                  },
-                }}>
-                {resendCodeMutation?.isPending ? 'Sending...' : 'Resend Code'}
-              </Button>
             </Box>
 
             {/* Navigation Buttons */}

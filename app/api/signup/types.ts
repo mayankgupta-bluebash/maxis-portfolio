@@ -128,3 +128,10 @@ export interface ResendCodeResponse {
   };
   error?: string;
 }
+
+// Validation Types
+export interface ValidationResponse {
+  success: boolean;
+  message: string;
+  data: null;
+}

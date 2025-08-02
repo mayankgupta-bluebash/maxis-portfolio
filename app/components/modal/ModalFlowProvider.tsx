@@ -200,7 +200,7 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
         <PlanSelectionModal
           open={step === 'planSelection'}
           onClose={close}
-          onBack={() => setStep('otpSuccess')}
+          onBack={() => setStep('userDetails')}
           role={selectedRole}
           onSubmit={submitForm}
           isSubmitting={signupMutation.isPending}
