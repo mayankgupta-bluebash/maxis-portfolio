@@ -182,6 +182,7 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
         />
         <OtpSuccessModal
           isOpen={step === 'otpSuccess'}
+          handleClose={close}
           onComplete={() => setStep('planSelection')}
         />
         <PlanSelectionModal
