@@ -231,6 +231,36 @@ export default function ChooseRoleModal({ isOpen, handleClose, onNext, onRoleSel
                   Create and deploy AI agents for your business needs
                 </Typography>
               </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1.5,
+                  mb: 4,
+                  textAlign: 'left',
+                  fontSize: { xs: '0.95rem', md: '1rem' },
+                }}>
+                <Typography
+                  variant='body2'
+                  sx={{ color: '#F9FAFC' }}>
+                  • Design agentic assets visually using an intuitive drag-and-drop interface
+                </Typography>
+                <Typography
+                  variant='body2'
+                  sx={{ color: '#F9FAFC' }}>
+                  • Use available nodes and set up integrations to leverage
+                </Typography>
+                <Typography
+                  variant='body2'
+                  sx={{ color: '#F9FAFC' }}>
+                  • Publish your agentic assets on the marketplace for others to discover
+                </Typography>
+                <Typography
+                  variant='body2'
+                  sx={{ color: '#F9FAFC' }}>
+                  • Track performance with built-in analytics and observability
+                </Typography>
+              </Box>
             </Box>
 
             <Box
@@ -320,6 +350,37 @@ export default function ChooseRoleModal({ isOpen, handleClose, onNext, onRoleSel
                     lineHeight: '150%',
                   }}>
                   Use pre-built AI agents and solutions
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1.5,
+                  mb: 4,
+                  // height: '177px',
+                  textAlign: 'left',
+                  fontSize: { xs: '0.95rem', md: '1rem' },
+                }}>
+                <Typography
+                  variant='body2'
+                  sx={{ color: '#F9FAFC' }}>
+                  • Discover apps, agents, and orchestrations in the marketplace
+                </Typography>
+                <Typography
+                  variant='body2'
+                  sx={{ color: '#F9FAFC' }}>
+                  • Hire and run published agentic assets
+                </Typography>
+                <Typography
+                  variant='body2'
+                  sx={{ color: '#F9FAFC' }}>
+                  • Upload and ingest relevant data and documents
+                </Typography>
+                <Typography
+                  variant='body2'
+                  sx={{ color: '#F9FAFC' }}>
+                  • Execute hired agents using your ingested content and workflows
                 </Typography>
               </Box>
             </Box>

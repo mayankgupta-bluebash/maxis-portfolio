@@ -37,7 +37,7 @@ interface ModalFlowContextType {
 const ModalFlowContext = createContext<ModalFlowContextType | undefined>(undefined);
 
 const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
-  const [step, setStep] = useState<ModalStep | null>(null);
+  const [step, setStep] = useState<ModalStep | null>('emailVerification');
   const [selectedRole, setSelectedRole] = useState<UserRole>('builder');
   const [organizationId, setOrganizationId] = useState<string | null>(null);
   const isOpen = step !== null;

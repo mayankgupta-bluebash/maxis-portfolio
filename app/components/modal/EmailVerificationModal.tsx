@@ -284,12 +284,12 @@ export default function EmailVerificationModal({
             <Typography
               sx={{
                 color: '#FFF',
-                fontSize: '32px',
+                fontSize: '20px',
                 fontWeight: 500,
                 textAlign: 'center',
                 mb: 2,
               }}>
-              Verify your email
+              Please enter the One-Time Password to verify your account
             </Typography>
             <Typography
               sx={{
@@ -298,7 +298,7 @@ export default function EmailVerificationModal({
                 textAlign: 'center',
                 mb: 4,
               }}>
-              We&apos;ve sent a verification code to <strong>{displayEmail}</strong>
+              A One-Time Password has been sent to<span color='#6F41D2'>{displayEmail}</span>
             </Typography>
 
             {/* OTP Input */}
@@ -335,7 +335,17 @@ export default function EmailVerificationModal({
 
             {/* Timer and Resend */}
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, mb: 4 }}>
-              <Typography sx={{ color: '#999', fontSize: '14px' }}>{timeLeft > 0 ? `Resend code in ${formatTime(timeLeft)}` : 'Code expired'}</Typography>
+              <Typography sx={{ color: '#fff', fontSize: '16px', textAlign: 'center', mb: 1 }}>Remaining Time: {formatTime(timeLeft)}</Typography>
+
+              <Typography sx={{ color: '#fff', fontSize: '16px', textAlign: 'center' }}>
+                Didn’t got the code?{' '}
+                <Typography
+                  component='span'
+                  sx={{ color: '#A78BFA', fontSize: '16px', cursor: 'pointer' }}>
+                  Resend Code
+                </Typography>
+              </Typography>
+
               <Button
                 onClick={handleResendCode}
                 disabled={timeLeft > 0 || resendCodeMutation?.isPending}

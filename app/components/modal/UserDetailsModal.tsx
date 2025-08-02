@@ -186,7 +186,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
             sx={{
               color: '#FFF',
               fontFamily: 'Inter',
-              fontSize: '20px',
+              fontSize: '16px',
               fontWeight: 500,
               lineHeight: '36px',
             }}>
@@ -290,6 +290,84 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                 }}>
                 {renderTextField('User Name', 'username', true)}
                 {renderTextField('Password', 'password', true, 'Minimum 6 characters', 'password')}
+              </Box>
+
+              {/* Fourth Row: Sub-Domain */}
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: { xs: '12px', md: '24px' },
+                  width: '100%',
+                  flexDirection: { xs: 'column', md: 'row' },
+                }}>
+                <Box sx={{ display: 'flex', width: '49%' }}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      px: 2,
+                      border: '1px solid rgba(255, 255, 255, 0.10)',
+                      borderRight: 'none',
+                      borderRadius: '4px 0 0 4px',
+                      backgroundColor: '#251A49 · 50%',
+                      color: '#FFF',
+                      fontSize: '16px',
+                      fontWeight: 500,
+                      width: '140px',
+                    }}>
+                    https://
+                  </Box>
+                  <TextField
+                    {...register('subDomain', {
+                      required: 'Sub-domain is required',
+                      pattern: {
+                        value: /^[a-zA-Z0-9-]+$/,
+                        message: 'Only alphanumeric and hyphens allowed',
+                      },
+                    })}
+                    fullWidth
+                    variant='outlined'
+                    error={!!errors['subDomain']}
+                    helperText={errors['subDomain']?.message as string}
+                    InputProps={{
+                      sx: {
+                        color: '#FFF',
+                        backgroundColor: 'radial-gradient(487.94% 102.17% at -4950% 100%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 90%)',
+                        border: errors['subDomain'] ? '1px solid #FF6451' : '1px solid rgba(255, 255, 255, 0.10)',
+                        borderRadius: 0,
+                        height: '56px',
+                        '& fieldset': { border: 'none' },
+                        '& input': {
+                          color: '#FFF',
+                          fontSize: '16px',
+                          fontFamily: 'Inter',
+                          fontWeight: 400,
+                          lineHeight: '24px',
+                          letterSpacing: '0.5px',
+                        },
+                      },
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      px: 2,
+                      border: '1px solid rgba(255, 255, 255, 0.10)',
+                      borderLeft: 'none',
+                      borderRadius: '0 4px 4px 0',
+                      backgroundColor: '#251A49 · 50%',
+                      color: '#FFF',
+                      fontSize: '16px',
+                      fontWeight: 500,
+                      width: '180px',
+                    }}>
+                    .maxisai.com
+                  </Box>
+                </Box>
               </Box>
             </Box>
 
