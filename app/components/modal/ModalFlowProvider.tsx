@@ -1,6 +1,7 @@
 'use client';
 import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import ChooseRoleModal from './ChooseRoleModal';
@@ -9,15 +10,16 @@ import EmailVerificationModal from './EmailVerificationModal';
 import OtpSuccessModal from './OtpSuccessModal';
 import PlanSelectionModal from './PlanSelectionModal';
 import { useSignupMutation, useVerifyOtpMutation, usePlansQuery, useCreateSubscriptionMutation, useResendCodeMutation } from '@/app/api/signup/hooks';
-import { SignupFormData, SignupResponse } from '@/app/api/signup/types';
+import { SignupResponse } from '@/app/api/signup/types';
 import { getModalStateFromUrl, clearModalStateFromUrl } from '@/app/utils/urlParams';
+import { signupFormSchema, SignupFormData as ZodSignupFormData } from '@/app/utils/validationSchemas';
 
 // Modal flow steps
 type ModalStep = 'chooseRole' | 'userDetails' | 'emailVerification' | 'otpSuccess' | 'planSelection' | null;
 type UserRole = 'builder' | 'consumer';
 
-// Use SignupFormData directly
-type FormData = SignupFormData;
+// Use Zod schema type
+type FormData = ZodSignupFormData;
 
 interface ModalFlowContextType {
   open: (startStep?: ModalStep) => void;
@@ -37,7 +39,7 @@ interface ModalFlowContextType {
 const ModalFlowContext = createContext<ModalFlowContextType | undefined>(undefined);
 
 const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
-  const [step, setStep] = useState<ModalStep | null>('emailVerification');
+  const [step, setStep] = useState<ModalStep | null>(null);
   const [selectedRole, setSelectedRole] = useState<UserRole>('builder');
   const [organizationId, setOrganizationId] = useState<string | null>(null);
   const isOpen = step !== null;
@@ -49,8 +51,10 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
   const resendCodeMutation = useResendCodeMutation();
   const { data: plans, isLoading: plansLoading, error: plansError } = usePlansQuery(selectedRole, step === 'planSelection');
 
-  // Initialize react-hook-form
+  // Initialize react-hook-form with Zod validation
   const methods = useForm<FormData>({
+    resolver: zodResolver(signupFormSchema),
+    mode: 'onChange', // Enable real-time validation
     defaultValues: {
       role: 'builder',
       firstName: '',
@@ -113,14 +117,20 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
 
   const submitForm = useCallback(async () => {
     const formData = methods.getValues();
-
+    debugger;
     if (!formData.subdomain) {
       formData.subdomain = formData.username.toLowerCase();
     }
 
-    console.log('Submitting form data:', formData);
+    // Ensure middleName is a string (not undefined)
+    const submitData = {
+      ...formData,
+      middleName: formData.middleName || '',
+    };
 
-    const response = await signupMutation.mutateAsync(formData);
+    console.log('Submitting form data:', submitData);
+
+    const response = await signupMutation.mutateAsync(submitData);
 
     // Store the organization ID for OTP verification
     if (response.data?.id) {

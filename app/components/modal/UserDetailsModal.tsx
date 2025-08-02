@@ -17,9 +17,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useFormContext();
-  const watchedValues = watch();
 
   const renderCheckIcon = () => (
     <svg
@@ -38,17 +36,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
   const renderTextField = (label: string, field: string, required = false, helperText = '', type = 'text', validation?: 'valid' | 'invalid') => (
     <Box sx={{ position: 'relative', width: { xs: '100%', md: '526px' } }}>
       <TextField
-        {...register(field, {
-          required: required ? `${label} is required` : false,
-          minLength: type === 'password' ? { value: 6, message: 'Password must be at least 6 characters' } : undefined,
-          pattern:
-            type === 'email'
-              ? {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: 'Please enter a valid email address',
-                }
-              : undefined,
-        })}
+        {...register(field)}
         type={type}
         fullWidth
         variant='outlined'
@@ -113,11 +101,8 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
     onNext();
   };
 
-  // Check if all required fields are filled
-  const isFormValid = () => {
-    const requiredFields = ['firstName', 'lastName', 'email', 'username', 'password'];
-    return requiredFields.every((field) => watchedValues[field] && watchedValues[field].trim() !== '');
-  };
+  // Always enable the submit button
+  const isFormValid = () => true;
 
   return (
     <Modal
@@ -301,43 +286,52 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                   width: '100%',
                   flexDirection: { xs: 'column', md: 'row' },
                 }}>
-                <Box sx={{ display: 'flex', width: '49%' }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      px: 2,
-                      border: '1px solid rgba(255, 255, 255, 0.10)',
-                      borderRight: 'none',
-                      borderRadius: '4px 0 0 4px',
-                      backgroundColor: '#251A49 · 50%',
-                      color: '#FFF',
-                      fontSize: '16px',
-                      fontWeight: 500,
-                      width: '140px',
-                    }}>
-                    https://
-                  </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', width: '49%' }}>
                   <TextField
-                    {...register('subDomain', {
-                      required: 'Sub-domain is required',
-                      pattern: {
-                        value: /^[a-zA-Z0-9-]+$/,
-                        message: 'Only alphanumeric and hyphens allowed',
-                      },
-                    })}
+                    {...register('subdomain')}
                     fullWidth
                     variant='outlined'
-                    error={!!errors['subDomain']}
-                    helperText={errors['subDomain']?.message as string}
+                    error={!!errors['subdomain']}
                     InputProps={{
+                      startAdornment: (
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            px: 2,
+                            backgroundColor: '#251A49',
+                            color: '#FFF',
+                            fontSize: '16px',
+                            fontWeight: 500,
+                            height: '100%',
+                          }}>
+                          https://
+                        </Box>
+                      ),
+                      endAdornment: (
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            px: 2,
+                            backgroundColor: '#251A49',
+                            color: '#FFF',
+                            fontSize: '16px',
+                            fontWeight: 500,
+                            height: '100%',
+                          }}>
+                          .maxisai.com
+                        </Box>
+                      ),
                       sx: {
                         color: '#FFF',
                         backgroundColor: 'radial-gradient(487.94% 102.17% at -4950% 100%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 90%)',
-                        border: errors['subDomain'] ? '1px solid #FF6451' : '1px solid rgba(255, 255, 255, 0.10)',
-                        borderRadius: 0,
+                        border: errors['subdomain'] ? '1px solid #FF6451' : '1px solid rgba(255, 255, 255, 0.10)',
+                        borderRadius: '4px',
                         height: '56px',
+                        padding: 0,
                         '& fieldset': { border: 'none' },
                         '& input': {
                           color: '#FFF',
@@ -347,26 +341,31 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                           lineHeight: '24px',
                           letterSpacing: '0.5px',
                         },
+                        '&.Mui-focused': {
+                          border: errors['subdomain'] ? '1px solid #FF6451' : '1px solid #8F75DD',
+                        },
+                        '&.Mui-error': {
+                          border: '1px solid #FF6451',
+                        },
                       },
                     }}
                   />
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      px: 2,
-                      border: '1px solid rgba(255, 255, 255, 0.10)',
-                      borderLeft: 'none',
-                      borderRadius: '0 4px 4px 0',
-                      backgroundColor: '#251A49 · 50%',
-                      color: '#FFF',
-                      fontSize: '16px',
-                      fontWeight: 500,
-                      width: '180px',
-                    }}>
-                    .maxisai.com
-                  </Box>
+                  {/* Error message below the input field */}
+                  {errors['subdomain'] && (
+                    <Typography
+                      sx={{
+                        color: '#FF6451',
+                        fontSize: '12px',
+                        fontFamily: 'Inter',
+                        fontWeight: 400,
+                        lineHeight: '16px',
+                        letterSpacing: '0.4px',
+                        margin: '4px 0 0 0',
+                        textAlign: 'left',
+                      }}>
+                      {errors['subdomain']?.message as string}
+                    </Typography>
+                  )}
                 </Box>
               </Box>
             </Box>

@@ -93,13 +93,13 @@ export interface Plan {
 export interface SignupFormData {
   role: 'builder' | 'consumer';
   firstName: string;
-  middleName: string;
+  middleName?: string;
   lastName: string;
   email: string;
   username: string;
   password: string;
-  otp: string;
-  selectedPlan: string;
+  otp?: string;
+  selectedPlan?: string;
   subdomain: string;
 }
 
