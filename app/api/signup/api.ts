@@ -52,12 +52,17 @@ export const signupApi = {
   },
 
   // Create subscription
-  createSubscription: async (organizationId: string, planId: string): Promise<SubscriptionResponse> => {
+  createSubscription: async (organizationId: string, planId: string, role: string): Promise<SubscriptionResponse> => {
+    // Create URLs with query parameters to restore modal state
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://maxis-ai.com';
+    const cancelUrl = `${baseUrl}/?modal=planSelection&role=${role}&orgId=${organizationId}`;
+    const successUrl = `https://maxis-ai.com`;
+
     const requestData: SubscriptionRequest = {
       organization_id: organizationId,
       plan_id: planId,
-      cancel_url: 'https://maxis-ai.com/',
-      success_url: 'https://maxis-ai.com/',
+      cancel_url: cancelUrl,
+      success_url: successUrl,
     };
 
     console.log('Subscription API request:', requestData);

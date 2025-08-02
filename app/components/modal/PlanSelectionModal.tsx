@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Container, Typography, Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -23,7 +23,7 @@ interface PlanSelectionModalProps {
   plansError?: Error | null;
   organizationId?: string | null;
   createSubscriptionMutation?: {
-    mutateAsync: (params: { organizationId: string; planId: string }) => Promise<{ checkout_url: string }>;
+    mutateAsync: (params: { organizationId: string; planId: string; role: string }) => Promise<{ checkout_url: string }>;
     isPending: boolean;
   };
 }
@@ -348,15 +348,14 @@ export default function PlanSelectionModal({
   onClose,
   onBack,
   role,
-  onSubmit,
-  isSubmitting,
   plans = [],
   plansLoading = false,
   plansError = null,
   organizationId,
   createSubscriptionMutation,
 }: PlanSelectionModalProps) {
-  const filteredPlans = role === 'consumer' ? plans.filter((plan) => !['Free', 'Individual'].includes(plan.name)) : plans;
+  // Track which plan is currently being processed
+  const [processingPlanId, setProcessingPlanId] = useState<string | null>(null);
   return (
     <StyledModal
       open={open}
@@ -483,13 +482,13 @@ export default function PlanSelectionModal({
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '200px' }}>
                 <Typography sx={{ color: '#FF6451' }}>Error loading plans: {plansError.message}</Typography>
               </Box>
-            ) : filteredPlans.length === 0 ? (
+            ) : plans.length === 0 ? (
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '200px' }}>
                 <Typography sx={{ color: '#FFF' }}>No plans available from API</Typography>
               </Box>
             ) : (
               <>
-                {filteredPlans.map((plan) => (
+                {plans.map((plan) => (
                   <PlanCard
                     key={plan.name}
                     featured={plan.featured}>
@@ -639,22 +638,21 @@ export default function PlanSelectionModal({
                       <Button
                         onClick={async () => {
                           if (organizationId && createSubscriptionMutation && plan.id) {
-                            console.log('Creating subscription with:', {
-                              organizationId,
-                              planId: plan.id,
-                              planName: plan.name,
-                            });
                             try {
+                              setProcessingPlanId(plan.id);
                               await createSubscriptionMutation.mutateAsync({
                                 organizationId,
                                 planId: plan.id,
+                                role,
                               });
                             } catch (error) {
                               console.error('Failed to create subscription:', error);
+                            } finally {
+                              setProcessingPlanId(null);
                             }
                           }
                         }}
-                        disabled={!organizationId || createSubscriptionMutation?.isPending}
+                        disabled={!organizationId || processingPlanId === plan.id}
                         variant={plan.buttonVariant}
                         fullWidth
                         sx={{
@@ -664,24 +662,13 @@ export default function PlanSelectionModal({
                           fontSize: '16px',
                           fontWeight: 500,
                           lineHeight: '169%',
-                          ...(plan.buttonVariant === 'contained'
-                            ? {
-                                backgroundColor: '#694BC2',
-                                color: '#FFF',
-                                '&:hover': {
-                                  backgroundColor: '#5940B8',
-                                },
-                              }
-                            : {
-                                borderColor: plan.name === 'Individual' ? 'rgba(111, 65, 210, 0.50)' : '#7352D5',
-                                backgroundColor: plan.name === 'Individual' ? 'rgba(111, 65, 210, 0.10)' : 'transparent',
-                                color: '#8F75DD',
-                                '&:hover': {
-                                  backgroundColor: 'rgba(111, 65, 210, 0.15)',
-                                },
-                              }),
+                          backgroundColor: '#694BC2',
+                          color: '#FFF',
+                          '&:hover': {
+                            backgroundColor: '#5940B8',
+                          },
                         }}>
-                        {createSubscriptionMutation?.isPending ? 'Processing...' : plan.buttonText}
+                        {processingPlanId === plan.id ? 'Processing...' : plan.buttonText}
                       </Button>
                     </Box>
                   </PlanCard>
@@ -760,35 +747,6 @@ export default function PlanSelectionModal({
               </Table>
             </FeatureTable>
           </Box>
-
-          {/* Submit Button */}
-          {onSubmit && (
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, mb: 2 }}>
-              <Button
-                onClick={onSubmit}
-                disabled={isSubmitting}
-                variant='contained'
-                sx={{
-                  backgroundColor: '#8F75DD',
-                  color: '#FFF',
-                  px: 4,
-                  py: 1.5,
-                  fontSize: '16px',
-                  fontWeight: 500,
-                  borderRadius: '8px',
-                  textTransform: 'none',
-                  '&:hover': {
-                    backgroundColor: '#7A5FD9',
-                  },
-                  '&:disabled': {
-                    backgroundColor: '#4A4A4A',
-                    color: '#999',
-                  },
-                }}>
-                {isSubmitting ? 'Submitting...' : 'Complete Registration'}
-              </Button>
-            </Box>
-          )}
         </Container>
       </ModalContent>
     </StyledModal>

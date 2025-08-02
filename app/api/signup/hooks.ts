@@ -39,14 +39,14 @@ export const useVerifyOtpMutation = () => {
 // Hook to create subscription
 export const useCreateSubscriptionMutation = () => {
   return useMutation({
-    mutationFn: async ({ organizationId, planId }: { organizationId: string; planId: string }) => {
-      return await signupApi.createSubscription(organizationId, planId);
+    mutationFn: async ({ organizationId, planId, role }: { organizationId: string; planId: string; role: string }) => {
+      return await signupApi.createSubscription(organizationId, planId, role);
     },
     onSuccess: (data) => {
       console.log('Subscription created successfully:', data);
-      // Open checkout URL in new window
+      // Open checkout URL on same page
       if (data.checkout_url) {
-        window.open(data.checkout_url, '_blank');
+        window.location.href = data.checkout_url;
       }
     },
     onError: (error) => {

@@ -1,17 +1,19 @@
 'use client';
-import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import ChooseRoleModal from './ChooseRoleModal';
 import UserDetailsModal from './UserDetailsModal';
 import EmailVerificationModal from './EmailVerificationModal';
+import OtpSuccessModal from './OtpSuccessModal';
 import PlanSelectionModal from './PlanSelectionModal';
 import { useSignupMutation, useVerifyOtpMutation, usePlansQuery, useCreateSubscriptionMutation } from '@/app/api/signup/hooks';
 import { SignupFormData, SignupResponse } from '@/app/api/signup/types';
+import { getModalStateFromUrl, clearModalStateFromUrl } from '@/app/utils/urlParams';
 
 // Modal flow steps
-type ModalStep = 'chooseRole' | 'userDetails' | 'emailVerification' | 'planSelection' | null;
+type ModalStep = 'chooseRole' | 'userDetails' | 'emailVerification' | 'otpSuccess' | 'planSelection' | null;
 type UserRole = 'builder' | 'consumer';
 
 // Use SignupFormData directly
@@ -62,6 +64,21 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
     },
   });
 
+  // Handle URL parameters to restore modal state
+  useEffect(() => {
+    const urlParams = getModalStateFromUrl();
+
+    if (urlParams.modal && urlParams.role && urlParams.orgId) {
+      // Restore modal state from URL parameters
+      setSelectedRole(urlParams.role);
+      setOrganizationId(urlParams.orgId);
+      setStep(urlParams.modal as ModalStep);
+
+      // Clear URL parameters after restoring state
+      clearModalStateFromUrl();
+    }
+  }, [setSelectedRole, setOrganizationId]);
+
   const open = useCallback((startStep: ModalStep = 'chooseRole') => setStep(startStep), []);
   const close = useCallback(() => setStep(null), []);
 
@@ -69,14 +86,16 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
     setStep((prev) => {
       if (prev === 'chooseRole') return 'userDetails';
       if (prev === 'userDetails') return 'emailVerification';
-      if (prev === 'emailVerification') return 'planSelection';
+      if (prev === 'emailVerification') return 'otpSuccess';
+      if (prev === 'otpSuccess') return 'planSelection';
       return null;
     });
   }, []);
 
   const prev = useCallback(() => {
     setStep((prev) => {
-      if (prev === 'planSelection') return 'emailVerification';
+      if (prev === 'planSelection') return 'otpSuccess';
+      if (prev === 'otpSuccess') return 'emailVerification';
       if (prev === 'emailVerification') return 'userDetails';
       if (prev === 'userDetails') return 'chooseRole';
       return null;
@@ -156,15 +175,19 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
           isOpen={step === 'emailVerification'}
           handleClose={close}
           onPrevious={() => setStep('userDetails')}
-          onNext={() => setStep('planSelection')}
+          onNext={() => setStep('otpSuccess')}
           organizationId={organizationId}
           verifyOtpMutation={verifyOtpMutation}
           email={methods.watch('email')}
         />
+        <OtpSuccessModal
+          isOpen={step === 'otpSuccess'}
+          onComplete={() => setStep('planSelection')}
+        />
         <PlanSelectionModal
           open={step === 'planSelection'}
           onClose={close}
-          onBack={() => setStep('emailVerification')}
+          onBack={() => setStep('otpSuccess')}
           role={selectedRole}
           onSubmit={submitForm}
           isSubmitting={signupMutation.isPending}
