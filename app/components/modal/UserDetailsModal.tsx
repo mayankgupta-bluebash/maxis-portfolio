@@ -1,9 +1,27 @@
 'use client';
 
 import { Box, Modal, TextField, Typography, Button } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useValidateFieldMutation } from '@/app/api/signup/hooks';
+import { z } from 'zod';
+
+// Custom hook for debouncing
+const useDebounce = (value: string, delay: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
 
 interface UserDetailsModalProps {
   isOpen: boolean;
@@ -17,30 +35,73 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useFormContext();
 
   const validateFieldMutation = useValidateFieldMutation();
   const [validationMessages, setValidationMessages] = useState<{
     email?: string;
-    username?: string;
     subdomain?: string;
   }>({});
 
   const [validationStates, setValidationStates] = useState<{
     email?: 'success' | 'error' | 'neutral';
-    username?: 'success' | 'error' | 'neutral';
     subdomain?: 'success' | 'error' | 'neutral';
   }>({});
 
-  const handleFieldBlur = async (type: 'email' | 'username' | 'subdomain', value: string) => {
-    if (!value.trim()) return;
+  // Refs to track previous values and prevent infinite loops
+  const prevEmailRef = useRef<string>('');
+  const prevSubdomainRef = useRef<string>('');
+
+  // Watch the fields for onChange validation
+  const emailValue = watch('email');
+  const subdomainValue = watch('subdomain');
+
+  // Debounce the values
+  const debouncedEmail = useDebounce(emailValue, 500);
+  const debouncedSubdomain = useDebounce(subdomainValue, 500);
+
+  // Validation function
+  const validateField = useCallback(async (type: 'email' | 'subdomain', value: string) => {
+    if (!value.trim()) {
+      // Clear validation state if field is empty
+      setValidationMessages((prev) => ({
+        ...prev,
+        [type]: undefined,
+      }));
+      setValidationStates((prev) => ({
+        ...prev,
+        [type]: 'neutral',
+      }));
+      return;
+    }
 
     try {
       const response = await validateFieldMutation.mutateAsync({ type, value });
 
       const isError = response.message.includes('already taken');
       const isSuccess = response.message.includes('Ready to go');
+
+      // For email field, also check Zod validation when API returns success
+      if (type === 'email' && isSuccess) {
+        try {
+          // Import and use the email validation from Zod schema
+          const emailSchema = z.string().email('Please enter a valid email address');
+          emailSchema.parse(value);
+        } catch {
+          // If Zod validation fails, treat as error even if API says ready
+          setValidationMessages((prev) => ({
+            ...prev,
+            [type]: 'Please enter a valid email address',
+          }));
+          setValidationStates((prev) => ({
+            ...prev,
+            [type]: 'error',
+          }));
+          return;
+        }
+      }
 
       setValidationMessages((prev) => ({
         ...prev,
@@ -53,8 +114,33 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
       }));
     } catch (error) {
       console.error('Validation failed:', error);
+      // Set error state on API failure
+      setValidationMessages((prev) => ({
+        ...prev,
+        [type]: 'Validation failed. Please try again.',
+      }));
+      setValidationStates((prev) => ({
+        ...prev,
+        [type]: 'error',
+      }));
     }
-  };
+  }, []);
+
+  // Effect for email validation
+  useEffect(() => {
+    if (debouncedEmail !== undefined && debouncedEmail !== prevEmailRef.current) {
+      prevEmailRef.current = debouncedEmail;
+      validateField('email', debouncedEmail);
+    }
+  }, [debouncedEmail, validateField]);
+
+  // Effect for subdomain validation
+  useEffect(() => {
+    if (debouncedSubdomain !== undefined && debouncedSubdomain !== prevSubdomainRef.current) {
+      prevSubdomainRef.current = debouncedSubdomain;
+      validateField('subdomain', debouncedSubdomain);
+    }
+  }, [debouncedSubdomain, validateField]);
 
   const renderCheckIcon = () => (
     <svg
@@ -71,7 +157,6 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
   );
 
   const renderTextField = (label: string, field: string, required = false, helperText = '', type = 'text', validation?: 'valid' | 'invalid') => {
-    const isValidationField = field === 'email' || field === 'username' || field === 'subdomain';
     const validationMessage = validationMessages[field as keyof typeof validationMessages];
     const validationState = validationStates[field as keyof typeof validationStates];
 
@@ -93,11 +178,6 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
           fullWidth
           variant='outlined'
           error={!!errors[field] || validationState === 'error'}
-          onBlur={(e) => {
-            if (isValidationField) {
-              handleFieldBlur(field as 'email' | 'username' | 'subdomain', e.target.value);
-            }
-          }}
           InputProps={{
             endAdornment: validation === 'valid' ? <Box sx={{ display: 'flex', alignItems: 'center', pr: 1 }}>{renderCheckIcon()}</Box> : null,
             sx: {
@@ -115,11 +195,14 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                 lineHeight: '24px',
                 letterSpacing: '0.5px',
               },
+              '&.Mui-error': {
+                border: validationState === 'success' ? '1px solid #4CAF50' : '1px solid #FF6451',
+              },
             },
           }}
           InputLabelProps={{
             sx: {
-              color: '#FFF',
+              color: validationState === 'success' ? '#4CAF50' : '#FFF',
               fontSize: '12px',
               fontFamily: 'Inter',
               fontWeight: 400,
@@ -128,7 +211,10 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
               backgroundColor: 'rgba(37, 26, 73, 0.50)',
               padding: '0 4px',
               '&.Mui-focused': {
-                color: '#FFF',
+                color: validationState === 'success' ? '#4CAF50' : '#FFF',
+              },
+              '&.Mui-error': {
+                color: validationState === 'success' ? '#4CAF50' : '#FF6451',
               },
             },
           }}
@@ -147,6 +233,9 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
               lineHeight: '16px',
               letterSpacing: '0.4px',
               margin: '4px 0 0 0',
+              '&.Mui-error': {
+                color: validationState === 'success' ? '#4CAF50' : '#FF6451',
+              },
             },
           }}
         />
@@ -350,7 +439,6 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                     fullWidth
                     variant='outlined'
                     error={!!errors['subdomain'] || validationStates.subdomain === 'error'}
-                    onBlur={(e) => handleFieldBlur('subdomain', e.target.value)}
                     InputProps={{
                       startAdornment: (
                         <Box
@@ -413,7 +501,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                           })(),
                         },
                         '&.Mui-error': {
-                          border: '1px solid #FF6451',
+                          border: validationStates.subdomain === 'success' ? '1px solid #4CAF50' : '1px solid #FF6451',
                         },
                       },
                     }}
