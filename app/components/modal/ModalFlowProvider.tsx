@@ -8,7 +8,7 @@ import UserDetailsModal from './UserDetailsModal';
 import EmailVerificationModal from './EmailVerificationModal';
 import OtpSuccessModal from './OtpSuccessModal';
 import PlanSelectionModal from './PlanSelectionModal';
-import { useSignupMutation, useVerifyOtpMutation, usePlansQuery, useCreateSubscriptionMutation } from '@/app/api/signup/hooks';
+import { useSignupMutation, useVerifyOtpMutation, usePlansQuery, useCreateSubscriptionMutation, useResendCodeMutation } from '@/app/api/signup/hooks';
 import { SignupFormData, SignupResponse } from '@/app/api/signup/types';
 import { getModalStateFromUrl, clearModalStateFromUrl } from '@/app/utils/urlParams';
 
@@ -46,6 +46,7 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
   const signupMutation = useSignupMutation();
   const verifyOtpMutation = useVerifyOtpMutation();
   const createSubscriptionMutation = useCreateSubscriptionMutation();
+  const resendCodeMutation = useResendCodeMutation();
   const { data: plans, isLoading: plansLoading, error: plansError } = usePlansQuery(selectedRole, step === 'planSelection');
 
   // Initialize react-hook-form
@@ -178,6 +179,7 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
           onNext={() => setStep('otpSuccess')}
           organizationId={organizationId}
           verifyOtpMutation={verifyOtpMutation}
+          resendCodeMutation={resendCodeMutation}
           email={methods.watch('email')}
         />
         <OtpSuccessModal

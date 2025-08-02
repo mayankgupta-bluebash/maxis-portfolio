@@ -10,6 +10,8 @@ import {
   Plan,
   SubscriptionRequest,
   SubscriptionResponse,
+  ResendCodeRequest,
+  ResendCodeResponse,
 } from './types';
 
 // API Functions
@@ -68,6 +70,18 @@ export const signupApi = {
     console.log('Subscription API request:', requestData);
 
     const response = await api.post<SubscriptionResponse>('/subscriptions', requestData);
+    return response.data;
+  },
+
+  // Resend OTP code
+  resendCode: async (organizationId: string): Promise<ResendCodeResponse> => {
+    const requestData: ResendCodeRequest = {
+      organization_id: organizationId,
+    };
+
+    console.log('Resend code API request:', requestData);
+
+    const response = await api.post<ResendCodeResponse>('/public/resend-code', requestData);
     return response.data;
   },
 };

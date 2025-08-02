@@ -13,6 +13,10 @@ interface EmailVerificationModalProps {
   verifyOtpMutation?: {
     mutateAsync: (params: { email: string; organizationId: string; otp: string }) => Promise<unknown>;
   };
+  resendCodeMutation?: {
+    mutateAsync: (organizationId: string) => Promise<unknown>;
+    isPending: boolean;
+  };
 }
 
 export default function EmailVerificationModal({
@@ -23,6 +27,7 @@ export default function EmailVerificationModal({
   email = 'michael23@gmail.com',
   organizationId,
   verifyOtpMutation,
+  resendCodeMutation,
 }: EmailVerificationModalProps) {
   const [otp, setOtp] = useState(['', '', '', '', '', '']); // 6 digits
   const [timeLeft, setTimeLeft] = useState(54);
@@ -122,11 +127,22 @@ export default function EmailVerificationModal({
     }
   };
 
-  const handleResendCode = () => {
-    setTimeLeft(54);
-    setOtp(['', '', '', '', '', '']); // 6 digits
-    setValue('otp', '');
-    // Add resend logic here
+  const handleResendCode = async () => {
+    if (organizationId && resendCodeMutation) {
+      try {
+        await resendCodeMutation.mutateAsync(organizationId);
+        setTimeLeft(54);
+        setOtp(['', '', '', '', '', '']); // 6 digits
+        setValue('otp', '');
+      } catch (error) {
+        console.error('Failed to resend code:', error);
+      }
+    } else {
+      // Fallback if no API integration
+      setTimeLeft(54);
+      setOtp(['', '', '', '', '', '']); // 6 digits
+      setValue('otp', '');
+    }
   };
 
   const handleVerify = async () => {
@@ -322,7 +338,7 @@ export default function EmailVerificationModal({
               <Typography sx={{ color: '#999', fontSize: '14px' }}>{timeLeft > 0 ? `Resend code in ${formatTime(timeLeft)}` : 'Code expired'}</Typography>
               <Button
                 onClick={handleResendCode}
-                disabled={timeLeft > 0}
+                disabled={timeLeft > 0 || resendCodeMutation?.isPending}
                 sx={{
                   color: '#8F75DD',
                   textTransform: 'none',
@@ -330,7 +346,7 @@ export default function EmailVerificationModal({
                     color: '#666',
                   },
                 }}>
-                Resend Code
+                {resendCodeMutation?.isPending ? 'Sending...' : 'Resend Code'}
               </Button>
             </Box>
 

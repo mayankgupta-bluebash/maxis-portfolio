@@ -56,6 +56,23 @@ export const useCreateSubscriptionMutation = () => {
   });
 };
 
+// Hook to resend OTP code
+export const useResendCodeMutation = () => {
+  return useMutation({
+    mutationFn: async (organizationId: string) => {
+      return await signupApi.resendCode(organizationId);
+    },
+    onSuccess: (data) => {
+      console.log('Resend code successful:', data);
+      // Toast message will be shown via axios interceptor
+    },
+    onError: (error) => {
+      console.error('Resend code failed:', error);
+      // You can add error handling here (show error toast, etc.)
+    },
+  });
+};
+
 // Hook to fetch plans
 export const usePlansQuery = (role: string, enabled: boolean = false) => {
   return useQuery({

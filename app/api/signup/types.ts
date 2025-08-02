@@ -114,3 +114,17 @@ export interface SubscriptionRequest {
 export interface SubscriptionResponse {
   checkout_url: string;
 }
+
+// Resend Code Types
+export interface ResendCodeRequest {
+  organization_id: string;
+}
+
+export interface ResendCodeResponse {
+  success: boolean;
+  message: string;
+  data?: {
+    organization_id: string;
+  };
+  error?: string;
+}
