@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, ReactNode, useCallback, use
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Toaster } from 'react-hot-toast';
+// import { Toaster } from 'react-hot-toast';
 import ChooseRoleModal from './ChooseRoleModal';
 import UserDetailsModal from './UserDetailsModal';
 import EmailVerificationModal from './EmailVerificationModal';
@@ -212,7 +212,7 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
           createSubscriptionMutation={createSubscriptionMutation}
         />
       </FormProvider>
-      <Toaster position='top-right' />
+      {/* <Toaster position='top-right' /> */}
     </ModalFlowContext.Provider>
   );
 };

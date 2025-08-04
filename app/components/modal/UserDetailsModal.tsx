@@ -164,9 +164,8 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
     [validateFieldMutation]
   );
 
-  // Effect for email validation
   useEffect(() => {
-    if (debouncedEmail !== undefined && debouncedEmail !== prevEmailRef.current) {
+    if (debouncedEmail !== undefined && debouncedEmail.length >= 3 && debouncedEmail !== prevEmailRef.current) {
       prevEmailRef.current = debouncedEmail;
       validateField('email', debouncedEmail);
     }
@@ -571,9 +570,8 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                       sx={{
                         color: (() => {
                           if (validationMessages.subdomain) {
-                            return validationMessages.subdomain.includes('already taken') ? '#FF6451' : '#FF6451';
+                            return validationMessages.subdomain.includes('already taken') ? '#FF6451' : 'green';
                           }
-                          return '#FF6451';
                         })(),
                         fontSize: '12px',
                         fontFamily: 'Inter',
