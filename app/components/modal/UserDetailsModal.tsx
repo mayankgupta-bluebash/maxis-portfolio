@@ -126,9 +126,10 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
     }
   }, []);
 
-  // Effect for email validation
   useEffect(() => {
-    if (debouncedEmail !== undefined && debouncedEmail !== prevEmailRef.current) {
+    if (debouncedEmail.length < 3) return;
+
+    if (debouncedEmail !== prevEmailRef.current) {
       prevEmailRef.current = debouncedEmail;
       validateField('email', debouncedEmail);
     }
@@ -436,9 +437,29 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                 <Box sx={{ display: 'flex', flexDirection: 'column', width: '49%' }}>
                   <TextField
                     {...register('subdomain')}
+                    label={
+                      <Box component='span'>
+                        Sub-Domain{' '}
+                        <Box
+                          component='span'
+                          sx={{ color: '#FF6451' }}>
+                          *
+                        </Box>
+                      </Box>
+                    }
                     fullWidth
                     variant='outlined'
                     error={!!errors['subdomain'] || validationStates.subdomain === 'error'}
+                    InputLabelProps={{
+                      shrink: true, // Ensure label is always visible
+                      style: {
+                        color: '#FFF',
+                        fontSize: '12.5px',
+                        fontFamily: 'Inter',
+                        position: 'relative',
+                        top: '16.5px',
+                      },
+                    }}
                     InputProps={{
                       startAdornment: (
                         <Box
@@ -506,6 +527,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                       },
                     }}
                   />
+
                   {/* Error message below the input field */}
                   {(errors['subdomain'] || validationMessages.subdomain) && (
                     <Typography

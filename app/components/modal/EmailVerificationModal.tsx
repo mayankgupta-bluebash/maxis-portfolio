@@ -293,12 +293,16 @@ export default function EmailVerificationModal({
             </Typography>
             <Typography
               sx={{
-                color: '#999',
                 fontSize: '16px',
                 textAlign: 'center',
                 mb: 4,
               }}>
-              A One-Time Password has been sent to<span color='#6F41D2'>{displayEmail}</span>
+              A One-Time Password has been sent to
+              <span
+                color='#8F75DD'
+                style={{ marginLeft: '4.5px' }}>
+                {displayEmail}
+              </span>
             </Typography>
 
             {/* OTP Input */}
