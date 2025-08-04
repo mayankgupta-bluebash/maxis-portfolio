@@ -300,7 +300,7 @@ export default function EmailVerificationModal({
               A One-Time Password has been sent to
               <span
                 color='#8F75DD'
-                style={{ marginLeft: '4.5px' }}>
+                style={{ marginLeft: '4.5px', color: '#8F75DD' }}>
                 {displayEmail}
               </span>
             </Typography>

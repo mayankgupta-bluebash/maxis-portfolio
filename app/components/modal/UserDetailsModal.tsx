@@ -63,68 +63,106 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
   const debouncedSubdomain = useDebounce(subdomainValue, 1000);
 
   // Validation function
-  const validateField = useCallback(async (type: 'email' | 'subdomain', value: string) => {
-    if (!value.trim()) {
-      // Clear validation state if field is empty
-      setValidationMessages((prev) => ({
-        ...prev,
-        [type]: undefined,
-      }));
-      setValidationStates((prev) => ({
-        ...prev,
-        [type]: 'neutral',
-      }));
-      return;
-    }
-
-    try {
-      const response = await validateFieldMutation.mutateAsync({ type, value });
-
-      const isError = response.message.includes('already taken');
-      const isSuccess = response.message.includes('Ready to go');
-
-      // For email field, also check Zod validation when API returns success
-      if (type === 'email' && isSuccess) {
-        try {
-          // Import and use the email validation from Zod schema
-          const emailSchema = z.string().email('Please enter a valid email address');
-          emailSchema.parse(value);
-        } catch {
-          // If Zod validation fails, treat as error even if API says ready
-          setValidationMessages((prev) => ({
-            ...prev,
-            [type]: 'Please enter a valid email address',
-          }));
-          setValidationStates((prev) => ({
-            ...prev,
-            [type]: 'error',
-          }));
-          return;
-        }
+  // Updated validateField function to handle API error responses properly
+  const validateField = useCallback(
+    async (type: 'email' | 'subdomain', value: string) => {
+      if (!value.trim()) {
+        // Clear validation state if field is empty
+        setValidationMessages((prev) => ({
+          ...prev,
+          [type]: undefined,
+        }));
+        setValidationStates((prev) => ({
+          ...prev,
+          [type]: 'neutral',
+        }));
+        return;
       }
 
-      setValidationMessages((prev) => ({
-        ...prev,
-        [type]: response.message,
-      }));
+      try {
+        const response = await validateFieldMutation.mutateAsync({ type, value });
 
-      setValidationStates((prev) => ({
-        ...prev,
-        [type]: isError ? 'error' : isSuccess ? 'success' : 'neutral',
-      }));
-    } catch (error) {
-      console.error('Validation failed:', error);
-      // Set error state on API failure
-      setValidationMessages((prev) => ({
-        ...prev,
-        [type]: 'Validation failed. Please try again.',
-      }));
-      setValidationStates((prev) => ({
-        ...prev,
-        [type]: 'error',
-      }));
-    }
-  }, []);
+        const isError = response.message.includes('already taken');
+        const isSuccess = response.message.includes('Ready to go');
+
+        // For email field, also check Zod validation when API returns success
+        if (type === 'email' && isSuccess) {
+          try {
+            // Import and use the email validation from Zod schema
+            const emailSchema = z.string().email('Please enter a valid email address');
+            emailSchema.parse(value);
+          } catch {
+            // If Zod validation fails, treat as error even if API says ready
+            setValidationMessages((prev) => ({
+              ...prev,
+              [type]: 'Please enter a valid email address',
+            }));
+            setValidationStates((prev) => ({
+              ...prev,
+              [type]: 'error',
+            }));
+            return;
+          }
+        }
+
+        setValidationMessages((prev) => ({
+          ...prev,
+          [type]: response.message,
+        }));
+
+        setValidationStates((prev) => ({
+          ...prev,
+          [type]: isError ? 'error' : isSuccess ? 'success' : 'neutral',
+        }));
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        console.error('Validation failed:', error);
+
+        // Handle different types of error responses
+        let errorMessage = 'Validation failed. Please try again.';
+
+        // Check if error has response data (API error response)
+        if (error?.response?.data) {
+          const errorData = error.response.data;
+          if (errorData.error) {
+            errorMessage = errorData.error;
+          } else if (errorData.message) {
+            errorMessage = errorData.message;
+          }
+        }
+        // Check if error is directly the response object
+        else if (error?.error) {
+          errorMessage = error.error;
+        }
+        // Check if error has a message property
+        else if (error?.message) {
+          errorMessage = error.message;
+        }
+        // Handle string responses
+        else if (typeof error === 'string') {
+          try {
+            const parsedError = JSON.parse(error);
+            if (parsedError.error) {
+              errorMessage = parsedError.error;
+            }
+          } catch {
+            errorMessage = error;
+          }
+        }
+
+        // Set error state with the extracted message
+        setValidationMessages((prev) => ({
+          ...prev,
+          [type]: errorMessage,
+        }));
+        setValidationStates((prev) => ({
+          ...prev,
+          [type]: 'error',
+        }));
+      }
+    },
+    [validateFieldMutation]
+  );
 
   // Effect for email validation
   useEffect(() => {
@@ -533,7 +571,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                       sx={{
                         color: (() => {
                           if (validationMessages.subdomain) {
-                            return validationMessages.subdomain.includes('already taken') ? '#FF6451' : '#4CAF50';
+                            return validationMessages.subdomain.includes('already taken') ? '#FF6451' : '#FF6451';
                           }
                           return '#FF6451';
                         })(),
