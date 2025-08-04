@@ -59,8 +59,8 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
   const subdomainValue = watch('subdomain');
 
   // Debounce the values
-  const debouncedEmail = useDebounce(emailValue, 500);
-  const debouncedSubdomain = useDebounce(subdomainValue, 500);
+  const debouncedEmail = useDebounce(emailValue, 1800);
+  const debouncedSubdomain = useDebounce(subdomainValue, 1000);
 
   // Validation function
   const validateField = useCallback(async (type: 'email' | 'subdomain', value: string) => {
@@ -126,10 +126,9 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
     }
   }, []);
 
+  // Effect for email validation
   useEffect(() => {
-    if (debouncedEmail.length < 3) return;
-
-    if (debouncedEmail !== prevEmailRef.current) {
+    if (debouncedEmail !== undefined && debouncedEmail !== prevEmailRef.current) {
       prevEmailRef.current = debouncedEmail;
       validateField('email', debouncedEmail);
     }
