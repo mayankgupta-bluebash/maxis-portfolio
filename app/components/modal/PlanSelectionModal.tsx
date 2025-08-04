@@ -22,8 +22,9 @@ interface PlanSelectionModalProps {
   plansLoading?: boolean;
   plansError?: Error | null;
   organizationId?: string | null;
+  subdomain?: string;
   createSubscriptionMutation?: {
-    mutateAsync: (params: { organizationId: string; planId: string; role: string }) => Promise<{ checkout_url: string }>;
+    mutateAsync: (params: { organizationId: string; planId: string; role: string; subdomain: string }) => Promise<{ checkout_url: string }>;
     isPending: boolean;
   };
 }
@@ -352,6 +353,7 @@ export default function PlanSelectionModal({
   plansLoading = false,
   plansError = null,
   organizationId,
+  subdomain,
   createSubscriptionMutation,
 }: PlanSelectionModalProps) {
   // Track which plan is currently being processed
@@ -644,6 +646,7 @@ export default function PlanSelectionModal({
                                 organizationId,
                                 planId: plan.id,
                                 role,
+                                subdomain: subdomain || '',
                               });
                             } catch (error) {
                               console.error('Failed to create subscription:', error);

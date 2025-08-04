@@ -208,6 +208,7 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
           plansLoading={plansLoading}
           plansError={plansError}
           organizationId={organizationId}
+          subdomain={methods.watch('subdomain')}
           createSubscriptionMutation={createSubscriptionMutation}
         />
       </FormProvider>

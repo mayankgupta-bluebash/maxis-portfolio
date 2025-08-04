@@ -39,8 +39,8 @@ export const useVerifyOtpMutation = () => {
 // Hook to create subscription
 export const useCreateSubscriptionMutation = () => {
   return useMutation({
-    mutationFn: async ({ organizationId, planId, role }: { organizationId: string; planId: string; role: string }) => {
-      return await signupApi.createSubscription(organizationId, planId, role);
+    mutationFn: async ({ organizationId, planId, role, subdomain }: { organizationId: string; planId: string; role: string; subdomain: string }) => {
+      return await signupApi.createSubscription(organizationId, planId, role, subdomain);
     },
     onSuccess: (data) => {
       console.log('Subscription created successfully:', data);
