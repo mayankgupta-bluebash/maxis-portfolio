@@ -59,8 +59,8 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
   const subdomainValue = watch('subdomain');
 
   // Debounce the values
-  const debouncedEmail = useDebounce(emailValue, 1800);
-  const debouncedSubdomain = useDebounce(subdomainValue, 1000);
+  const debouncedEmail = useDebounce(emailValue, 500);
+  const debouncedSubdomain = useDebounce(subdomainValue, 500);
 
   // Validation function
   // Updated validateField function to handle API error responses properly
