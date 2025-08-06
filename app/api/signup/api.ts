@@ -88,7 +88,12 @@ export const signupApi = {
 
   // Validate field
   validateField: async (type: 'email' | 'username' | 'subdomain', value: string): Promise<ValidationResponse> => {
-    const response = await api.post(`/public/validate?type=${type}&value=${encodeURIComponent(value)}`);
+    const requestData = {
+      type,
+      value,
+    };
+
+    const response = await api.post<ValidationResponse>('/public/validate', requestData);
     return response.data;
   },
 };
