@@ -39,7 +39,7 @@ interface ModalFlowContextType {
 const ModalFlowContext = createContext<ModalFlowContextType | undefined>(undefined);
 
 const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
-  const [step, setStep] = useState<ModalStep | null>('planSelection');
+  const [step, setStep] = useState<ModalStep | null>(null);
   const [selectedRole, setSelectedRole] = useState<UserRole>('builder');
   const [billingInterval, setBillingInterval] = useState<'monthly' | 'yearly'>('yearly');
   const [organizationId, setOrganizationId] = useState<string | null>(null);
