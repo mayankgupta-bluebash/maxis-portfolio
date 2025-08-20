@@ -27,7 +27,8 @@ export const userDetailsSchema = z.object({
     .min(1, 'Username is required')
     .min(3, 'Username must be at least 3 characters')
     .max(30, 'Username must be 30 characters or less')
-    .regex(/^[a-zA-Z0-9_-]+$/, 'Username can only contain letters, numbers, hyphens, and underscores'),
+    .regex(/^[a-zA-Z0-9_.-]+$/, 'Username can only contain letters, numbers, hyphens, underscores, and periods')
+    .regex(/^(?!\.)[a-zA-Z0-9_.-]+$/, 'Username cannot start with a period'),
 
   password: z
     .string()

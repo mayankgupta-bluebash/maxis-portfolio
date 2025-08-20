@@ -49,8 +49,8 @@ export const signupApi = {
   },
 
   // Get plans
-  getPlans: async (role: string): Promise<PlansResponse> => {
-    const response = await api.get<PlansResponse>(`/public/plans?role=${role}`);
+  getPlans: async (role: string, interval: 'monthly' | 'yearly' = 'yearly'): Promise<PlansResponse> => {
+    const response = await api.get<PlansResponse>(`/public/plans?role=${role}&interval=${interval}`);
     return response.data;
   },
 
@@ -99,12 +99,12 @@ export const signupApi = {
 };
 
 // Utility function to transform API plans to UI format
-export const transformApiPlans = (apiPlans: ApiPlan[]): Plan[] => {
+export const transformApiPlans = (apiPlans: ApiPlan[], interval: 'monthly' | 'yearly' = 'yearly'): Plan[] => {
   return apiPlans.map((apiPlan) => ({
     id: apiPlan.id,
     name: apiPlan.plan_type,
     price: apiPlan.is_free ? '$0' : apiPlan.plan_type === 'Enterprise' ? 'Custom' : `$${apiPlan.plan_pricing}`,
-    period: '/month',
+    period: interval === 'monthly' ? '/month' : '/year',
     description: getPlanDescription(apiPlan.plan_type),
     acuCredits: apiPlan.plan_type === 'Enterprise' ? 'Unlimited' : apiPlan.acu_credits_limit.toString(),
     users: apiPlan.plan_type === 'Enterprise' ? 'Unlimited' : apiPlan.users_limit.toString(),

@@ -65,7 +65,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
   // Validation function
   // Updated validateField function to handle API error responses properly
   const validateField = useCallback(
-    async (type: 'email' | 'subdomain', value: string) => {
+    async (type: 'email' | 'username' | 'subdomain', value: string) => {
       if (!value.trim()) {
         // Clear validation state if field is empty
         setValidationMessages((prev) => ({
@@ -102,6 +102,33 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
               [type]: 'error',
             }));
             return;
+          }
+        }
+
+        // For subdomain field, also check Zod validation when API returns success
+        if (type === 'subdomain' && isSuccess) {
+          try {
+            // Import and use the subdomain validation from Zod schema
+            const subdomainSchema = z
+              .string()
+              .min(3, 'Subdomain must be at least 3 characters')
+              .regex(/^[a-z0-9-]+$/, 'Subdomain can only contain lowercase letters, numbers, and hyphens')
+              .regex(/^(?!-)[a-z0-9-]+(?<!-)$/, 'Subdomain cannot start or end with a hyphen');
+            subdomainSchema.parse(value);
+          } catch (error) {
+            // If Zod validation fails, treat as error even if API says ready
+            if (error instanceof z.ZodError) {
+              const errorMessage = error.issues[0]?.message || 'Subdomain validation failed';
+              setValidationMessages((prev) => ({
+                ...prev,
+                [type]: errorMessage,
+              }));
+              setValidationStates((prev) => ({
+                ...prev,
+                [type]: 'error',
+              }));
+              return;
+            }
           }
         }
 
@@ -569,9 +596,16 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                     <Typography
                       sx={{
                         color: (() => {
-                          if (validationMessages.subdomain) {
-                            return validationMessages.subdomain.includes('already taken') ? '#FF6451' : 'green';
+                          // If there's a Zod validation error, always show in red
+                          if (errors['subdomain']) {
+                            return '#FF6451';
                           }
+                          // If there's an API validation message
+                          if (validationMessages.subdomain) {
+                            return validationMessages.subdomain.includes('already taken') ? '#FF6451' : '#4CAF50';
+                          }
+                          // Default color
+                          return '#FF6451';
                         })(),
                         fontSize: '12px',
                         fontFamily: 'Inter',

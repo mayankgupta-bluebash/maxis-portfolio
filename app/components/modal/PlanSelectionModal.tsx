@@ -2,7 +2,24 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Modal, Container, Typography, Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box } from '@mui/material';
+import {
+  Modal,
+  Container,
+  Typography,
+  Button,
+  IconButton,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Box,
+  ToggleButton,
+  ToggleButtonGroup,
+  Switch,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CloseIcon from '@mui/icons-material/Close';
@@ -16,6 +33,8 @@ interface PlanSelectionModalProps {
   onClose: () => void;
   onBack: () => void;
   role: 'builder' | 'consumer';
+  billingInterval?: 'monthly' | 'yearly';
+  onBillingIntervalChange?: (interval: 'monthly' | 'yearly') => void;
   onSubmit?: () => Promise<any>;
   isSubmitting?: boolean;
   plans?: Plan[];
@@ -27,6 +46,7 @@ interface PlanSelectionModalProps {
     mutateAsync: (params: { organizationId: string; planId: string; role: string; subdomain: string }) => Promise<{ checkout_url: string }>;
     isPending: boolean;
   };
+  onRoleChange?: (newRole: 'builder' | 'consumer') => void;
 }
 
 const StyledModal = styled(Modal)({
@@ -344,20 +364,94 @@ const renderFeatureValue = (value: any) => {
   return <Typography sx={{ color: '#999', fontSize: '13.26px', textAlign: 'center' }}>{value}</Typography>;
 };
 
+const RoleSwitcher = styled(Box)({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '16px',
+  marginBottom: '40px',
+  position: 'relative',
+  zIndex: 1,
+});
+
+const RoleToggleButton = styled(ToggleButton)({
+  color: '#8F75DD',
+  borderColor: '#8F75DD',
+  backgroundColor: 'transparent',
+  textTransform: 'none',
+  '&.Mui-selected': {
+    backgroundColor: '#8F75DD',
+    color: '#FFF',
+    '&:hover': {
+      backgroundColor: '#7A5FD9',
+    },
+  },
+  '&:hover': {
+    backgroundColor: 'rgba(143, 117, 221, 0.1)',
+  },
+});
+
+const BillingToggleContainer = styled(Box)({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '16px',
+  marginBottom: '40px',
+  position: 'relative',
+  zIndex: 1,
+});
+
+const BillingToggleLabel = styled(Typography)({
+  color: '#FFF',
+  fontSize: '16px',
+  fontWeight: 500,
+});
+
+const StyledSwitch = styled(Switch)({
+  '& .MuiSwitch-switchBase': {
+    color: '#8F75DD',
+    '&.Mui-checked': {
+      color: '#8F75DD',
+      '& + .MuiSwitch-track': {
+        backgroundColor: '#8F75DD',
+      },
+    },
+  },
+  '& .MuiSwitch-track': {
+    backgroundColor: 'rgba(143, 117, 221, 0.3)',
+  },
+});
+
 export default function PlanSelectionModal({
   open,
   onClose,
   onBack,
   role,
+  billingInterval = 'yearly',
+  onBillingIntervalChange,
   plans = [],
   plansLoading = false,
   plansError = null,
   organizationId,
   subdomain,
   createSubscriptionMutation,
+  onRoleChange,
 }: PlanSelectionModalProps) {
-  // Track which plan is currently being processed
   const [processingPlanId, setProcessingPlanId] = useState<string | null>(null);
+  const [currentRole, setCurrentRole] = useState<'builder' | 'consumer'>(role);
+
+  const handleRoleChange = (event: React.MouseEvent<HTMLElement>, newRole: 'builder' | 'consumer' | null) => {
+    if (newRole !== null && newRole !== currentRole) {
+      setCurrentRole(newRole);
+      onRoleChange?.(newRole);
+    }
+  };
+
+  const handleIntervalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newInterval = event.target.checked ? 'yearly' : 'monthly';
+    onBillingIntervalChange?.(newInterval);
+  };
+
   return (
     <StyledModal
       open={open}
@@ -474,19 +568,52 @@ export default function PlanSelectionModal({
             </LogoSvg>
           </Box>
 
+          {/* Role Switcher */}
+          <RoleSwitcher>
+            <ToggleButtonGroup
+              value={currentRole}
+              exclusive
+              onChange={handleRoleChange}
+              aria-label='role selection'>
+              <RoleToggleButton
+                value='builder'
+                aria-label='builder'>
+                Builder
+              </RoleToggleButton>
+              <RoleToggleButton
+                value='consumer'
+                aria-label='consumer'>
+                Consumer
+              </RoleToggleButton>
+            </ToggleButtonGroup>
+          </RoleSwitcher>
+
+          {/* Billing Interval Toggle */}
+          <BillingToggleContainer>
+            <BillingToggleLabel>Monthly</BillingToggleLabel>
+            <StyledSwitch
+              checked={billingInterval === 'yearly'}
+              onChange={handleIntervalChange}
+              aria-label='billing interval toggle'
+            />
+            <BillingToggleLabel>Annually</BillingToggleLabel>
+          </BillingToggleContainer>
+
           {/* Plan Cards */}
           <Box sx={{ display: 'flex', gap: 3, mb: 10, flexWrap: 'wrap' }}>
             {plansLoading ? (
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '200px' }}>
-                <Typography sx={{ color: '#FFF' }}>Loading plans...</Typography>
+                <Typography sx={{ color: '#FFF' }}>Loading {currentRole} plans...</Typography>
               </Box>
             ) : plansError ? (
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '200px' }}>
-                <Typography sx={{ color: '#FF6451' }}>Error loading plans: {plansError.message}</Typography>
+                <Typography sx={{ color: '#FF6451' }}>
+                  Error loading {currentRole} plans: {plansError.message}
+                </Typography>
               </Box>
             ) : plans.length === 0 ? (
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '200px' }}>
-                <Typography sx={{ color: '#FFF' }}>No plans available from API</Typography>
+                <Typography sx={{ color: '#FFF' }}>No {currentRole} plans available</Typography>
               </Box>
             ) : (
               <>
@@ -525,6 +652,28 @@ export default function PlanSelectionModal({
                         }}>
                         {plan.name}
                       </Typography>
+
+                      {/* Role Badge */}
+                      {/* <Box
+                        sx={{
+                          display: 'inline-block',
+                          backgroundColor: 'rgba(143, 117, 221, 0.2)',
+                          border: '1px solid #8F75DD',
+                          borderRadius: '16px',
+                          px: 2,
+                          py: 0.5,
+                          mb: 3,
+                        }}>
+                        <Typography
+                          sx={{
+                            color: '#8F75DD',
+                            fontSize: '12px',
+                            fontWeight: 500,
+                            textTransform: 'capitalize',
+                          }}>
+                          {currentRole} Plan
+                        </Typography>
+                      </Box> */}
 
                       {/* Divider */}
                       <Box
@@ -645,7 +794,7 @@ export default function PlanSelectionModal({
                               await createSubscriptionMutation.mutateAsync({
                                 organizationId,
                                 planId: plan.id,
-                                role,
+                                role: currentRole,
                                 subdomain: subdomain || '',
                               });
                             } catch (error) {
@@ -704,7 +853,7 @@ export default function PlanSelectionModal({
                   fontSize: '16px',
                   lineHeight: '150%',
                 }}>
-                Compare all features across our plans to find the perfect fit for your needs.
+                Compare all {currentRole} plan features to find the perfect fit for your needs.
               </Typography>
             </Box>
 

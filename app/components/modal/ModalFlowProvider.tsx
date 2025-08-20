@@ -39,8 +39,9 @@ interface ModalFlowContextType {
 const ModalFlowContext = createContext<ModalFlowContextType | undefined>(undefined);
 
 const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
-  const [step, setStep] = useState<ModalStep | null>(null);
+  const [step, setStep] = useState<ModalStep | null>('planSelection');
   const [selectedRole, setSelectedRole] = useState<UserRole>('builder');
+  const [billingInterval, setBillingInterval] = useState<'monthly' | 'yearly'>('yearly');
   const [organizationId, setOrganizationId] = useState<string | null>(null);
   const isOpen = step !== null;
 
@@ -49,7 +50,7 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
   const verifyOtpMutation = useVerifyOtpMutation();
   const createSubscriptionMutation = useCreateSubscriptionMutation();
   const resendCodeMutation = useResendCodeMutation();
-  const { data: plans, isLoading: plansLoading, error: plansError } = usePlansQuery(selectedRole, step === 'planSelection');
+  const { data: plans, isLoading: plansLoading, error: plansError } = usePlansQuery(selectedRole, billingInterval, step === 'planSelection');
 
   // Initialize react-hook-form with Zod validation
   const methods = useForm<FormData>({
@@ -114,6 +115,10 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
     },
     [methods]
   );
+
+  const handleSetBillingInterval = useCallback((interval: 'monthly' | 'yearly') => {
+    setBillingInterval(interval);
+  }, []);
 
   const submitForm = useCallback(async () => {
     const formData = methods.getValues();
@@ -202,6 +207,9 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
           onClose={close}
           onBack={() => setStep('userDetails')}
           role={selectedRole}
+          onRoleChange={handleSetSelectedRole}
+          billingInterval={billingInterval}
+          onBillingIntervalChange={handleSetBillingInterval}
           onSubmit={submitForm}
           isSubmitting={signupMutation.isPending}
           plans={plans}

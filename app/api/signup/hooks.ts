@@ -89,15 +89,15 @@ export const useValidateFieldMutation = () => {
 };
 
 // Hook to fetch plans
-export const usePlansQuery = (role: string, enabled: boolean = false) => {
+export const usePlansQuery = (role: string, interval: 'monthly' | 'yearly' = 'yearly', enabled: boolean = false) => {
   return useQuery({
-    queryKey: ['plans', role],
+    queryKey: ['plans', role, interval],
     queryFn: async (): Promise<Plan[]> => {
-      const response = await signupApi.getPlans(role);
+      const response = await signupApi.getPlans(role, interval);
 
       // Only return plans if we have data
       if (response.data && response.data.length > 0) {
-        return transformApiPlans(response.data);
+        return transformApiPlans(response.data, interval);
       } else {
         // Return empty array if no plans from API
         console.warn('API returned empty plans data');
