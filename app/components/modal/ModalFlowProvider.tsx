@@ -41,7 +41,7 @@ const ModalFlowContext = createContext<ModalFlowContextType | undefined>(undefin
 const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
   const [step, setStep] = useState<ModalStep | null>(null);
   const [selectedRole, setSelectedRole] = useState<UserRole>('builder');
-  const [billingInterval, setBillingInterval] = useState<'monthly' | 'yearly'>('yearly');
+  const [billingInterval, setBillingInterval] = useState<'month' | 'year'>('year');
   const [organizationId, setOrganizationId] = useState<string | null>(null);
   const isOpen = step !== null;
 
@@ -116,7 +116,7 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
     [methods]
   );
 
-  const handleSetBillingInterval = useCallback((interval: 'monthly' | 'yearly') => {
+  const handleSetBillingInterval = useCallback((interval: 'month' | 'year') => {
     setBillingInterval(interval);
   }, []);
 
@@ -207,7 +207,6 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
           onClose={close}
           onBack={() => setStep('userDetails')}
           role={selectedRole}
-          onRoleChange={handleSetSelectedRole}
           billingInterval={billingInterval}
           onBillingIntervalChange={handleSetBillingInterval}
           onSubmit={submitForm}
