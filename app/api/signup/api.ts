@@ -136,20 +136,11 @@ export const getPlanDescription = (planType: string): string => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function validateTenant(subdomain: string): Promise<any> {
-  const protocol = window.location.protocol;
-  const baseUrl = process.env.MAIN_API_BASE_URL || 'lvh.me:5000/';
-  const apiVersion = process.env.API_VERSION || 'api/v1/';
-
-  let apiBaseUrl: string;
-  if (baseUrl.includes('://')) {
-    apiBaseUrl = `${baseUrl}${apiVersion}`;
-  } else {
-    apiBaseUrl = `${protocol}//${baseUrl}${apiVersion}`;
-  }
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000/api/v1';
 
   const client = axios.create({
-    baseURL: apiBaseUrl,
+    baseURL: baseUrl,
   });
 
-  return await client.post(`public/validate`, { subdomain });
+  return await client.post(`/public/validate`, { subdomain });
 }
