@@ -3,11 +3,9 @@ export const changeToSubdomain = (subdomain: string): void => {
   const currentProtocol = window.location.protocol;
 
   let newHostname: string;
-  let portToUse: string | null = null;
 
   if (process.env.REACT_APP_ENV === 'development') {
-    newHostname = `${subdomain}.lvh.me`;
-    portToUse = '8080';
+    newHostname = `${subdomain}.lvh.me:8080`; // include port only in dev
   } else {
     const domainParts = currentHostname.split('.');
     if (domainParts.length > 2) {
@@ -16,10 +14,8 @@ export const changeToSubdomain = (subdomain: string): void => {
     } else {
       newHostname = `${subdomain}.${currentHostname}`;
     }
-    portToUse = '8080';
   }
 
-  const newUrl = `${currentProtocol}//${newHostname}${portToUse ? `:${portToUse}` : ''}/login`;
-
+  const newUrl = `${currentProtocol}//${newHostname}/login`;
   window.location.href = newUrl;
 };
