@@ -122,7 +122,6 @@ const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
 
   const submitForm = useCallback(async () => {
     const formData = methods.getValues();
-    debugger;
     if (!formData.subdomain) {
       formData.subdomain = formData.username.toLowerCase();
     }

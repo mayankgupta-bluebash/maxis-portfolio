@@ -1,6 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { signupApi, transformApiPlans } from './api';
+import { signupApi, transformApiPlans, validateTenant } from './api';
 import { SignupFormData, Plan } from './types';
+import { changeToSubdomain } from '@/app/utils/domainutils';
+import { ApiError } from 'next/dist/server/api-utils';
 
 // Hook to register user
 export const useSignupMutation = () => {
@@ -40,7 +44,7 @@ export const useVerifyOtpMutation = () => {
 export const useCreateSubscriptionMutation = () => {
   return useMutation({
     mutationFn: async ({ organizationId, planId, role, subdomain }: { organizationId: string; planId: string; role: string; subdomain: string }) => {
-      return await signupApi.createSubscription(organizationId, planId, role, subdomain);
+      return await signupApi.createSubscription(organizationId, planId, role);
     },
     onSuccess: (data) => {
       console.log('Subscription created successfully:', data);
@@ -111,3 +115,26 @@ export const usePlansQuery = (role: string, interval: 'month' | 'year' = 'year',
     enabled: enabled && !!role, // Only fetch when enabled and role is available
   });
 };
+
+export function useValidateTenant() {
+  return useMutation({
+    mutationFn: (subdomain: string) => validateTenant(subdomain),
+    onSuccess: (data: any, subdomain: string) => {
+      if (data?.data?.success) {
+        changeToSubdomain(subdomain);
+      }
+    },
+    onError: (error: any) => {
+      console.error('Tenant validation failed:', error);
+      const errorMessage = error?.response?.data?.error || 'Organization not found';
+      window.dispatchEvent(
+        new CustomEvent('show-snackbar', {
+          detail: {
+            message: errorMessage,
+            severity: 'error',
+          },
+        })
+      );
+    },
+  });
+}

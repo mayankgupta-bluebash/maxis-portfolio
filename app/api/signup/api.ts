@@ -14,6 +14,7 @@ import {
   ResendCodeResponse,
   ValidationResponse,
 } from './types';
+import axios from 'axios';
 
 // API Functions
 export const signupApi = {
@@ -55,11 +56,11 @@ export const signupApi = {
   },
 
   // Create subscription
-  createSubscription: async (organizationId: string, planId: string, role: string, subdomain: string): Promise<SubscriptionResponse> => {
+  createSubscription: async (organizationId: string, planId: string, role: string): Promise<SubscriptionResponse> => {
     // Create URLs with query parameters to restore modal state
     const baseUrl = typeof window !== 'undefined' ? window.location.origin : process.env.NEXT_PUBLIC_BASE_URL;
     const cancelUrl = `${baseUrl}/?modal=planSelection&role=${role}&orgId=${organizationId}`;
-    const successUrl = `${process.env.NEXT_PUBLIC_APP_BASE_URL}/validate-tenant?tenant=${subdomain}`;
+    const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/validate-tenant`;
 
     const requestData: SubscriptionRequest = {
       organization_id: organizationId,
@@ -132,3 +133,23 @@ export const getPlanDescription = (planType: string): string => {
       return 'Professional';
   }
 };
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function validateTenant(subdomain: string): Promise<any> {
+  const protocol = window.location.protocol;
+  const baseUrl = process.env.MAIN_API_BASE_URL || 'lvh.me:5000/';
+  const apiVersion = process.env.API_VERSION || 'api/v1/';
+
+  let apiBaseUrl: string;
+  if (baseUrl.includes('://')) {
+    apiBaseUrl = `${baseUrl}${apiVersion}`;
+  } else {
+    apiBaseUrl = `${protocol}//${baseUrl}${apiVersion}`;
+  }
+
+  const client = axios.create({
+    baseURL: apiBaseUrl,
+  });
+
+  return await client.post(`public/validate`, { subdomain });
+}
