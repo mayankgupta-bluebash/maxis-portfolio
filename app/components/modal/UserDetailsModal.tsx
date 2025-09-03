@@ -312,8 +312,20 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
     onNext();
   };
 
-  // Always enable the submit button
-  const isFormValid = () => true;
+  // Check if form is valid - prevent submission if there are API validation errors
+  const isFormValid = () => {
+    // Check for Zod validation errors
+    const hasZodErrors = Object.keys(errors).length > 0;
+
+    // Check for API validation errors
+    const hasApiErrors = Object.values(validationStates).some((state) => state === 'error');
+
+    // Check if required fields have validation success or are neutral (not error)
+    const emailValid = validationStates.email !== 'error';
+    const subdomainValid = validationStates.subdomain !== 'error';
+
+    return !hasZodErrors && !hasApiErrors && emailValid && subdomainValid;
+  };
 
   return (
     <Modal
