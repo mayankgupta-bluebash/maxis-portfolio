@@ -180,7 +180,10 @@ export default function EmailVerificationModal({
   return (
     <Modal
       open={isOpen}
-      onClose={handleClose}
+      onClose={(event, reason) => {
+        if (reason === 'backdropClick') return; // ⛔ stop closing on outside click
+        handleClose();
+      }}
       aria-labelledby='email-verification-title'
       sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Box
