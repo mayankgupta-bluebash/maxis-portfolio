@@ -7,7 +7,7 @@ export const changeToSubdomain = (subdomain: string): void => {
   if (process.env.NEXT_PUBLIC_ENV === 'development') {
     newHostname = `${subdomain}.lvh.me:8080`; // include port only in dev
   } else if (process.env.NEXT_PUBLIC_ENV === 'staging') {
-    newHostname = `${subdomain}.bluebash-ai.com/login`;
+    newHostname = `${subdomain}.bluebash-ai.com`;
   } else {
     const domainParts = currentHostname.split('.');
     if (domainParts.length > 2) {
