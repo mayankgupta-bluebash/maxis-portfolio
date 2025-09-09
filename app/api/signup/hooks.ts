@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { signupApi, transformApiPlans, validateTenant } from './api';
-import { SignupFormData, Plan } from './types';
+import { SignupFormData, Plan, CreateSubscriptionParams } from './types';
 import { changeToSubdomain } from '@/app/utils/domainutils';
 import { ApiError } from 'next/dist/server/api-utils';
 
@@ -40,22 +40,24 @@ export const useVerifyOtpMutation = () => {
   });
 };
 
-// Hook to create subscription
 export const useCreateSubscriptionMutation = () => {
   return useMutation({
-    mutationFn: async ({ organizationId, planId, role, subdomain }: { organizationId: string; planId: string; role: string; subdomain: string }) => {
-      return await signupApi.createSubscription(organizationId, planId, role);
+    mutationFn: async ({ organizationId, planId, role, subdomain }: CreateSubscriptionParams) => {
+      return await signupApi.createSubscription(organizationId, planId, role, subdomain);
     },
-    onSuccess: (data) => {
+
+    onSuccess: (data, variables) => {
       console.log('Subscription created successfully:', data);
-      // Open checkout URL on same page
-      if (data.checkout_url) {
+
+      if (data?.checkout_url) {
         window.location.href = data.checkout_url;
+      } else {
+        window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/validate-tenant?tenant=${variables.subdomain}`;
       }
     },
-    onError: (error) => {
+
+    onError: (error: unknown) => {
       console.error('Subscription creation failed:', error);
-      // You can add error handling here (show error toast, etc.)
     },
   });
 };

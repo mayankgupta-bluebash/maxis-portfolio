@@ -136,3 +136,9 @@ export interface ValidationResponse {
   data: null;
   error: string;
 }
+export interface CreateSubscriptionParams {
+  organizationId: string;
+  planId: string;
+  role: string;
+  subdomain: string;
+}

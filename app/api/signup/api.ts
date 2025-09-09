@@ -56,11 +56,11 @@ export const signupApi = {
   },
 
   // Create subscription
-  createSubscription: async (organizationId: string, planId: string, role: string): Promise<SubscriptionResponse> => {
+  createSubscription: async (organizationId: string, planId: string, role: string, subdomain: string): Promise<SubscriptionResponse> => {
     // Create URLs with query parameters to restore modal state
     const baseUrl = typeof window !== 'undefined' ? window.location.origin : process.env.NEXT_PUBLIC_BASE_URL;
     const cancelUrl = `${baseUrl}/?modal=planSelection&role=${role}&orgId=${organizationId}`;
-    const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/validate-tenant`;
+    const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/validate-tenant?tenant=${subdomain}`;
 
     const requestData: SubscriptionRequest = {
       organization_id: organizationId,
