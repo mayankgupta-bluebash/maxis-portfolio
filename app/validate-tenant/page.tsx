@@ -1,24 +1,23 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Box, InputAdornment, TextField, Typography } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Button from '@mui/material/Button';
 import LoginImage from '../assets/images/login.png';
 import Logo from '../assets/images/maxis.svg';
 
 import { useValidateTenant } from '../api/signup/hooks';
+
 // Define form data shape
 type TenantFormValues = {
   tenant: string;
 };
 
-// Define custom navigation event
-
 const ValidateTenantPage = () => {
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, setValue } = useForm<TenantFormValues>({
     defaultValues: {
       tenant: '',
     },
@@ -26,26 +25,20 @@ const ValidateTenantPage = () => {
 
   const { mutateAsync: handleValidateTenant } = useValidateTenant();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const onSubmit = async (data: TenantFormValues) => {
     console.log(data);
     await handleValidateTenant(data.tenant);
   };
 
-  // Prefill tenant from URL param
-  //   useEffect(() => {
-  //     const tenantParam = searchParams.get('tenant');
-  //     if (tenantParam) {
-  //       setValue('tenant', tenantParam);
-  //     }
-
-  //     // Optional: if you still want to support custom navigation events
-  //     const handleNavigation = (event: NavigationEvent) => {
-  //       router.push(event.detail);
-  //     };
-  //     window.addEventListener('navigate', handleNavigation);
-  //     return () => window.removeEventListener('navigate', handleNavigation);
-  //   }, [router, searchParams, setValue]);
+  // ✅ Prefill tenant from URL param
+  useEffect(() => {
+    const tenantParam = searchParams.get('tenant');
+    if (tenantParam) {
+      setValue('tenant', tenantParam);
+    }
+  }, [searchParams, setValue]);
 
   return (
     <Grid
@@ -94,6 +87,8 @@ const ValidateTenantPage = () => {
               rules={{ required: 'Sub-domain is required' }}
               render={({ field }) => (
                 <TextField
+                  {...field}
+                  fullWidth
                   sx={{
                     '& label.Mui-focused': {
                       color: '#7352d5',
@@ -104,8 +99,6 @@ const ValidateTenantPage = () => {
                       },
                     },
                   }}
-                  {...field}
-                  fullWidth
                   label={
                     <span>
                       Sub-Domain<span style={{ color: 'red' }}>*</span>
@@ -133,9 +126,15 @@ const ValidateTenantPage = () => {
               type='submit'
               fullWidth
               variant='contained'
-              disabled={false}
-              sx={{ mt: 3, mb: 2, fontSize: '16px', bgcolor: '#7352d5', color: '#ffffff', borderRadius: '30px' }}>
-              {false ? 'Processing...' : 'Next'}
+              sx={{
+                mt: 3,
+                mb: 2,
+                fontSize: '16px',
+                bgcolor: '#7352d5',
+                color: '#ffffff',
+                borderRadius: '30px',
+              }}>
+              Next
             </Button>
           </form>
 
