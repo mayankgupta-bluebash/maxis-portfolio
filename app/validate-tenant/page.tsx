@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { Grid, Box, InputAdornment, TextField, Typography } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Button from '@mui/material/Button';
 import LoginImage from '../assets/images/login.png';
@@ -25,20 +25,22 @@ const ValidateTenantPage = () => {
 
   const { mutateAsync: handleValidateTenant } = useValidateTenant();
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   const onSubmit = async (data: TenantFormValues) => {
     console.log(data);
     await handleValidateTenant(data.tenant);
   };
 
-  // ✅ Prefill tenant from URL param
+  // ✅ Prefill tenant from URL without Suspense
   useEffect(() => {
-    const tenantParam = searchParams.get('tenant');
-    if (tenantParam) {
-      setValue('tenant', tenantParam);
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const tenantParam = params.get('tenant');
+      if (tenantParam) {
+        setValue('tenant', tenantParam);
+      }
     }
-  }, [searchParams, setValue]);
+  }, [setValue]);
 
   return (
     <Grid
