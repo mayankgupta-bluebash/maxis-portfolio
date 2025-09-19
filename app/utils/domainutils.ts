@@ -9,7 +9,7 @@ export const changeToSubdomain = (subdomain: string): void => {
   } else if (process.env.NEXT_PUBLIC_ENV === 'staging') {
     newHostname = `${subdomain}.bluebash-ai.com`;
   } else {
-    newHostname = `${subdomain}.maxis-ai.com/login`;
+    newHostname = `${subdomain}.maxis-ai.com`;
     // const domainParts = currentHostname.split('.');
     // if (domainParts.length > 2) {
     //   domainParts[0] = subdomain;
