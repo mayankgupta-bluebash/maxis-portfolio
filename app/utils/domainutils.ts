@@ -1,5 +1,5 @@
 export const changeToSubdomain = (subdomain: string): void => {
-  const currentHostname = window.location.hostname;
+  // const currentHostname = window.location.hostname;
   const currentProtocol = window.location.protocol;
 
   let newHostname: string;

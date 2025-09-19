@@ -572,29 +572,30 @@ const AboutUsPage: React.FC = () => {
           stats.forEach((stat, i) => {
             const target = parseFloat(stat.number.replace(/[^0-9.]/g, ''));
             const isPercent = stat.number.includes('%');
-            gsap.to({}, {
-              duration: 1.5,
-              ease: 'power1.out',
-              onUpdate: function () {
-                setAnimatedStats(prev => {
-                  const newStats: (string | number)[] = [...prev];
-                  // Animate as integer or float, add % if needed
-                  newStats[i] = isPercent
-                    ? Math.round(this.progress() * target) + '%'
-                    : Math.round(this.progress() * target);
-                  return newStats;
-                });
-              },
-            });
+            gsap.to(
+              {},
+              {
+                duration: 1.5,
+                ease: 'power1.out',
+                onUpdate: function () {
+                  setAnimatedStats((prev) => {
+                    const newStats: (string | number)[] = [...prev];
+                    // Animate as integer or float, add % if needed
+                    newStats[i] = isPercent ? Math.round(this.progress() * target) + '%' : Math.round(this.progress() * target);
+                    return newStats;
+                  });
+                },
+              }
+            );
           });
-        }
+        },
       });
     }
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, []);
+  }, [stats]);
 
   const handleInputChange = (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -760,9 +761,7 @@ const AboutUsPage: React.FC = () => {
                     statsCardsRef.current[index] = el;
                   }}
                   sx={{ width: '100%' }}>
-                  <StatNumber sx={{ fontSize: { xs: '32px', md: '48px' } }}>
-                    {animatedStats[index] || stat.number}
-                  </StatNumber>
+                  <StatNumber sx={{ fontSize: { xs: '32px', md: '48px' } }}>{animatedStats[index] || stat.number}</StatNumber>
                   <Typography
                     sx={{
                       color: '#F9FAFC',
@@ -890,7 +889,18 @@ const AboutUsPage: React.FC = () => {
                 mb: 2,
                 textAlign: 'center',
               }}>
-              Aligned by <GradientText as="span" fontSize={{ xs: '28px', md: '56px' }}>Vision,</GradientText> United in <GradientText as="span" fontSize={{ xs: '28px', md: '56px' }}>Mission</GradientText>
+              Aligned by{' '}
+              <GradientText
+                as='span'
+                fontSize={{ xs: '28px', md: '56px' }}>
+                Vision,
+              </GradientText>{' '}
+              United in{' '}
+              <GradientText
+                as='span'
+                fontSize={{ xs: '28px', md: '56px' }}>
+                Mission
+              </GradientText>
             </Typography>
 
             <Typography
