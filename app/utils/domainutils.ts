@@ -1,5 +1,5 @@
 export const changeToSubdomain = (subdomain: string): void => {
-  // const currentHostname = window.location.hostname;
+  const currentHostname = window.location.hostname;
   const currentProtocol = window.location.protocol;
 
   let newHostname: string;
@@ -9,14 +9,13 @@ export const changeToSubdomain = (subdomain: string): void => {
   } else if (process.env.NEXT_PUBLIC_ENV === 'staging') {
     newHostname = `${subdomain}.bluebash-ai.com`;
   } else {
-    newHostname = `${subdomain}.maxis-ai.com`;
-    // const domainParts = currentHostname.split('.');
-    // if (domainParts.length > 2) {
-    //   domainParts[0] = subdomain;
-    //   newHostname = domainParts.join('.');
-    // } else {
-    //   newHostname = `${subdomain}.${currentHostname}`;
-    // }
+    const domainParts = currentHostname.split('.');
+    if (domainParts.length > 2) {
+      domainParts[0] = subdomain;
+      newHostname = domainParts.join('.');
+    } else {
+      newHostname = `${subdomain}.${currentHostname}`;
+    }
   }
 
   const newUrl = `${currentProtocol}//${newHostname}/login`;
