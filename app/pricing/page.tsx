@@ -439,7 +439,7 @@ const PricingPage: React.FC = () => {
     return (
       <Typography
         variant='body2'
-        sx={{ color: '#878787', textAlign: 'center' }}>
+        sx={{ color: '#ffffff', textAlign: 'center' }}>
         {value}
       </Typography>
     );
@@ -577,14 +577,14 @@ const PricingPage: React.FC = () => {
                   {plan.period && (
                     <Typography
                       variant='body2'
-                      sx={{ color: '#878787', ml: 1, fontSize: { xs: '14px', md: '16px' } }}>
+                      sx={{ color: '#ffffff', ml: 1, fontSize: { xs: '14px', md: '16px' } }}>
                       {plan.period}
                     </Typography>
                   )}
                 </Box>
                 <Typography
                   variant='body2'
-                  sx={{ color: '#878787', fontSize: { xs: '14px', md: '16px' } }}>
+                  sx={{ color: '#ffffff', fontSize: { xs: '14px', md: '16px' } }}>
                   {plan.description}
                 </Typography>
               </Box>
@@ -601,7 +601,7 @@ const PricingPage: React.FC = () => {
                     <CheckIcon />
                     <Typography
                       variant='body2'
-                      sx={{ color: '#878787', ml: 2, fontSize: { xs: '13px', md: '15px' } }}>
+                      sx={{ color: '#ffffff', ml: 2, fontSize: { xs: '13px', md: '15px' } }}>
                       {feature}
                     </Typography>
                   </Box>
@@ -658,7 +658,7 @@ const PricingPage: React.FC = () => {
               sx={{
                 fontSize: { xs: '14px', md: '16px' },
                 lineHeight: { xs: '20px', md: '24px' },
-                color: '#878787',
+                color: '#ffffff',
               }}>
               Compare all features across our plans to find the perfect fit for your needs.
             </Typography>
@@ -714,7 +714,7 @@ const PricingPage: React.FC = () => {
                     <FeatureLabelCell>
                       <Typography
                         variant='body1'
-                        sx={{ color: '#878787', fontSize: { xs: '13px', md: '15px' } }}>
+                        sx={{ color: '#ffffff', fontSize: { xs: '13px', md: '15px' } }}>
                         {feature.name}
                       </Typography>
                     </FeatureLabelCell>
