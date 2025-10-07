@@ -1,6 +1,6 @@
 'use client';
-import React, { useState, useEffect, useRef } from 'react';
-import { Box, Typography, Container, Button, TextField, Card, InputAdornment } from '@mui/material';
+import React, { useEffect, useRef } from 'react';
+import { Box, Typography, Container, Button, TextField, Card } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -8,6 +8,29 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+import BaseSnackbar, { SnackbarState } from '../components/ui/BaseSnackbar';
+import { useContactUsMutation } from '../api/signup/hooks';
+import { Controller, useForm } from 'react-hook-form';
+// ADDED: zod + resolver
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+// If you already have a FormValues type and want to keep it, you can keep importing it.
+// For the demo below we infer the form type from the schema.
+type ContactFormValues = z.infer<typeof contactUsSchema>;
+
+// ZOD SCHEMA
+const contactUsSchema = z.object({
+  firstName: z.string().min(1, { message: 'First name is required' }),
+  lastName: z.string().min(1, { message: 'Last name is required' }),
+  email: z.string().email({ message: 'Invalid email address' }),
+  phone: z
+    .string()
+    .min(7, { message: 'Phone is required' })
+    .refine((val) => /\d/.test(val), { message: 'Phone must contain digits' }),
+  message: z.string().min(10, { message: 'Message must be at least 10 characters' }),
+});
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -72,6 +95,7 @@ const MessageTextField = styled(TextField)({
     backgroundColor: 'rgba(37, 26, 73, 0.50)',
     border: '1px solid #3E3E3E',
     borderRadius: '4px',
+    zIndex: 0,
     color: '#8B8698',
     fontSize: '14px',
     minHeight: '132px',
@@ -100,35 +124,91 @@ const MessageTextField = styled(TextField)({
   },
 });
 
-const PhoneTextField = styled(TextField)({
-  '& .MuiOutlinedInput-root': {
-    backgroundColor: 'rgba(37, 26, 73, 0.50)',
-    border: '1px solid #3E3E3E',
-    borderRadius: '4px',
-    color: '#8C8799',
-    fontSize: '14px',
-    height: '65px',
-    '& fieldset': {
-      border: 'none',
-    },
-    '&:hover fieldset': {
-      border: 'none',
-    },
-    '&.Mui-focused fieldset': {
-      border: 'none',
-    },
-  },
-  '& .MuiInputLabel-root': {
-    color: '#8C8799',
-    fontSize: '14px',
-    '&.Mui-focused': {
+// Custom styled PhoneInput component
+const StyledPhoneInput = styled(Box)({
+  '& .react-tel-input': {
+    fontFamily: 'inherit',
+
+    '& .form-control': {
+      width: '100%',
+      backgroundColor: 'rgba(37, 26, 73, 0.50)',
+      border: '1px solid #3E3E3E',
+      borderRadius: '4px',
       color: '#8C8799',
+      fontSize: '14px',
+      height: '60px',
+      paddingLeft: '48px',
+
+      '&:focus': {
+        borderColor: '#3E3E3E',
+        boxShadow: 'none',
+      },
+
+      '&:hover': {
+        borderColor: '#3E3E3E',
+      },
     },
-  },
-  '& .MuiOutlinedInput-input': {
-    padding: '20px 16px',
-    color: '#8C8799',
-    fontSize: '14px',
+
+    '& .flag-dropdown': {
+      backgroundColor: 'rgba(37, 26, 73, 0.50)',
+      border: '1px solid #3E3E3E',
+      borderRight: 'none',
+      borderRadius: '4px 0 0 4px',
+
+      '&.open': {
+        backgroundColor: 'rgba(37, 26, 73, 0.70)',
+      },
+
+      '& .selected-flag': {
+        backgroundColor: 'transparent',
+        borderRadius: '4px 0 0 4px',
+
+        '&:hover, &:focus': {
+          backgroundColor: 'rgba(82, 58, 151, 0.3)',
+        },
+      },
+    },
+
+    '& .country-list': {
+      backgroundColor: 'rgba(37, 26, 73, 0.95)',
+      border: '1px solid #523A97',
+      borderRadius: '4px',
+      marginTop: '4px',
+
+      '& .country': {
+        color: '#8C8799',
+
+        '&:hover': {
+          backgroundColor: 'rgba(82, 58, 151, 0.3)',
+        },
+
+        '&.highlight': {
+          backgroundColor: 'rgba(82, 58, 151, 0.5)',
+        },
+      },
+
+      '& .divider': {
+        borderBottomColor: '#523A97',
+      },
+
+      '& .search': {
+        backgroundColor: 'rgba(37, 26, 73, 0.50)',
+        borderBottom: '1px solid #523A97',
+        padding: '8px',
+
+        '& .search-box': {
+          backgroundColor: 'rgba(37, 26, 73, 0.50)',
+          border: '1px solid #3E3E3E',
+          borderRadius: '4px',
+          color: '#8C8799',
+          fontSize: '14px',
+
+          '&:focus': {
+            borderColor: '#523A97',
+          },
+        },
+      },
+    },
   },
 });
 
@@ -177,14 +257,6 @@ const IndiaFlag = () => (
 );
 
 const ContactUsPage: React.FC = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    message: '',
-  });
-
   // Animation refs
   const heroBadgeRef = useRef<HTMLDivElement>(null);
   const heroTitleRef = useRef<HTMLHeadingElement>(null);
@@ -194,6 +266,11 @@ const ContactUsPage: React.FC = () => {
   const submitButtonRef = useRef<HTMLDivElement>(null);
   const globalSectionRef = useRef<HTMLDivElement>(null);
   const officeCardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const [snackbar, setSnackbar] = React.useState<SnackbarState>({
+    open: false,
+    message: '',
+    severity: 'success',
+  });
 
   useEffect(() => {
     // Hero section animations
@@ -375,26 +452,66 @@ const ContactUsPage: React.FC = () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
+  const handleCloseSnackbar = () => setSnackbar((prev) => ({ ...prev, open: false }));
 
-  const handleInputChange = (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: event.target.value,
-    }));
-  };
+  // useForm with zod resolver
+  const { handleSubmit, control, reset } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactUsSchema),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      message: '',
+    },
+  });
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    console.log('Form submitted:', formData);
-  };
+  // Contact Us Mutation
+  const { mutate: submitContactUs } = useContactUsMutation({
+    onSuccess: (data) => {
+      setSnackbar({
+        open: true,
+        message: data.message || 'Message sent successfully!',
+        severity: 'success',
+      });
+
+      reset(); // Reset form after success
+    },
+    onError: (err: unknown) => {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to send message';
+
+      setSnackbar({
+        open: true,
+        message: errorMessage,
+        severity: 'error',
+      });
+    },
+  });
 
   const copyEmail = () => {
     navigator.clipboard.writeText('connect@maxisit.com');
   };
 
+  const onSubmit = (data: ContactFormValues) => {
+    const digitsOnly = data.phone.replace(/\D/g, '');
+    const phoneNumber = digitsOnly ? Number(digitsOnly) : 0;
+
+    submitContactUs({
+      first_name: data.firstName,
+      last_name: data.lastName,
+      email: data.email,
+      phone: phoneNumber,
+      message: data.message,
+    });
+  };
+
   return (
     <Box sx={{ background: '#080411', minHeight: '100vh' }}>
       {/* Contact Section */}
+      <BaseSnackbar
+        snackbar={snackbar}
+        onClose={handleCloseSnackbar}
+      />
       <Container
         maxWidth='xl'
         sx={{ py: { xs: 4, md: 10 } }}>
@@ -474,137 +591,123 @@ const ContactUsPage: React.FC = () => {
           {/* Right Side - Contact Form */}
           <ContactForm
             ref={contactFormRef}
-            onSubmit={handleSubmit}
-            sx={{
-              padding: { xs: 2, md: '20px' },
-              transform: 'perspective(1000px)',
-              width: { xs: '100%', md: '644px' },
-              mt: { xs: 4, md: 0 },
-            }}>
-            <Typography
-              variant='h6'
-              sx={{
-                color: '#B7B4BF',
-                fontSize: { xs: '14px', md: '16px' },
-                fontWeight: 500,
-                lineHeight: '20px',
-                mb: 1,
-              }}>
-              BOOK A MEETING
-            </Typography>
+            sx={{ p: 4 }}>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <Box sx={{ display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
+                <Controller
+                  name='firstName'
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <StyledTextField
+                      {...field}
+                      placeholder='First Name*'
+                      fullWidth
+                      error={!!fieldState.error}
+                      helperText={fieldState.error?.message ?? ''}
+                    />
+                  )}
+                />
+                <Controller
+                  name='lastName'
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <StyledTextField
+                      {...field}
+                      placeholder='Last Name*'
+                      fullWidth
+                      error={!!fieldState.error}
+                      helperText={fieldState.error?.message ?? ''}
+                    />
+                  )}
+                />
+              </Box>
 
-            {/* Name Fields */}
-            <Box
-              ref={(el: HTMLDivElement | null) => {
-                formFieldsRef.current[0] = el;
-              }}
-              sx={{ display: 'flex', gap: 1, flexDirection: { xs: 'column', sm: 'row' } }}>
-              <StyledTextField
-                placeholder='First Name*'
-                value={formData.firstName}
-                onChange={handleInputChange('firstName')}
-                fullWidth
-                required
-                sx={{ mb: { xs: 1, sm: 0 } }}
+              <Controller
+                name='email'
+                control={control}
+                render={({ field, fieldState }) => (
+                  <StyledTextField
+                    {...field}
+                    placeholder='Corporate email*'
+                    type='email'
+                    fullWidth
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message ?? ''}
+                  />
+                )}
               />
-              <StyledTextField
-                placeholder='Last Name*'
-                value={formData.lastName}
-                onChange={handleInputChange('lastName')}
-                fullWidth
-                required
-                sx={{ mb: { xs: 1, sm: 0 } }}
+
+              <Controller
+                name='phone'
+                control={control}
+                render={({ field, fieldState }) => (
+                  <StyledPhoneInput>
+                    <PhoneInput
+                      country='in'
+                      value={field.value}
+                      onChange={field.onChange}
+                      inputProps={{ required: true }}
+                      containerClass='react-tel-input'
+                      buttonClass='flag-dropdown'
+                      inputClass='form-control'
+                      dropdownClass='country-list'
+                      searchClass='search'
+                    />
+                    {fieldState.error ? (
+                      <Typography
+                        variant='caption'
+                        sx={{ color: 'error.main', mt: 0.5 }}>
+                        {fieldState.error.message}
+                      </Typography>
+                    ) : null}
+                  </StyledPhoneInput>
+                )}
               />
-            </Box>
 
-            {/* Email Field */}
-            <StyledTextField
-              ref={(el) => {
-                formFieldsRef.current[1] = el;
-              }}
-              placeholder='Corporate email *'
-              type='email'
-              value={formData.email}
-              onChange={handleInputChange('email')}
-              fullWidth
-              required
-              sx={{ mb: 1 }}
-            />
+              <Controller
+                name='message'
+                control={control}
+                render={({ field, fieldState }) => (
+                  <MessageTextField
+                    {...field}
+                    placeholder='Type your message...'
+                    multiline
+                    rows={4}
+                    fullWidth
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message ?? ''}
+                  />
+                )}
+              />
 
-            {/* Phone Field */}
-            <PhoneTextField
-              ref={(el) => {
-                formFieldsRef.current[2] = el;
-              }}
-              placeholder='(123) 456 7890'
-              value={formData.phone}
-              onChange={handleInputChange('phone')}
-              fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position='start'>
-                    <USFlag />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{ mb: 1 }}
-            />
-
-            {/* Message Field */}
-            <MessageTextField
-              ref={(el) => {
-                formFieldsRef.current[3] = el;
-              }}
-              placeholder='Type your message...'
-              multiline
-              rows={4}
-              value={formData.message}
-              onChange={handleInputChange('message')}
-              fullWidth
-              sx={{ mb: 1 }}
-            />
-
-            {/* Privacy Policy */}
-            <Box
-              ref={(el: HTMLDivElement | null) => {
-                formFieldsRef.current[4] = el;
-              }}>
-              <Typography
-                variant='caption'
-                sx={{
-                  color: '#96939F',
-                  fontSize: { xs: '11px', md: '12px' },
-                  fontWeight: 400,
-                  lineHeight: '17.931px',
-                }}>
-                By submiting this form, I confirm that I have read and understood Maxis&apos;s Privacy Policy.
-              </Typography>
-            </Box>
-
-            {/* Submit Button */}
-            <Box
-              ref={submitButtonRef}
-              sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
-              <Button
-                type='submit'
-                variant='contained'
-                sx={{
-                  background: '#6F41D2',
-                  border: '1px solid #6F41D2',
-                  borderRadius: '12px',
-                  py: 2,
-                  px: 4,
-                  color: 'white',
-                  fontSize: { xs: '13px', md: '15px' },
-                  fontWeight: 500,
-                  textTransform: 'none',
-                  '&:hover': {
-                    background: '#5A2FA8',
-                  },
-                }}>
-                Submit
-              </Button>
-            </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+                <Box
+                  ref={submitButtonRef}
+                  sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+                  <Button
+                    type='submit'
+                    variant='contained'
+                    sx={{
+                      background: '#6F41D2',
+                      border: '1px solid #6F41D2',
+                      borderRadius: '12px',
+                      py: 2,
+                      px: 4,
+                      color: 'white',
+                      fontSize: { xs: '13px', md: '15px' },
+                      fontWeight: 500,
+                      textTransform: 'none',
+                      '&:hover': {
+                        background: '#5A2FA8',
+                      },
+                    }}>
+                    Submit
+                  </Button>
+                </Box>
+              </Box>
+            </form>
           </ContactForm>
         </Box>
       </Container>

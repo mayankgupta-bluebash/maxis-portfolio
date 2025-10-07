@@ -25,6 +25,7 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.61.1",
     "react-hot-toast": "^2.5.2",
+    "react-phone-input-2": "^2.15.1",
     "zod": "^4.0.14"
   },
   "devDependencies": {

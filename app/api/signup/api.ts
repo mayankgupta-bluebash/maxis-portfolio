@@ -13,6 +13,8 @@ import {
   ResendCodeRequest,
   ResendCodeResponse,
   ValidationResponse,
+  ContactUsRequest,
+  ContactUsResponse,
 } from './types';
 import axios from 'axios';
 
@@ -52,6 +54,19 @@ export const signupApi = {
   // Get plans
   getPlans: async (role: string, interval: 'month' | 'year' = 'year'): Promise<PlansResponse> => {
     const response = await api.get<PlansResponse>(`/public/plans?role=${role}&interval=${interval}`);
+    return response.data;
+  },
+  // contact us
+  contactUs: async (email: string, first_name: string, last_name: string, message: string, phone: number): Promise<ContactUsResponse> => {
+    const requestData: ContactUsRequest = {
+      first_name,
+      last_name,
+      email,
+      message,
+      phone,
+    };
+
+    const response = await api.post<ContactUsResponse>('contact_us', requestData);
     return response.data;
   },
 

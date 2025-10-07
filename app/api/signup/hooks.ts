@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, UseMutationOptions, useQuery } from '@tanstack/react-query';
 import { signupApi, transformApiPlans, validateTenant } from './api';
-import { SignupFormData, Plan, CreateSubscriptionParams } from './types';
+import { SignupFormData, Plan, CreateSubscriptionParams, ContactUsRequest, ContactUsResponse } from './types';
 import { changeToSubdomain } from '@/app/utils/domainutils';
 import { ApiError } from 'next/dist/server/api-utils';
 
@@ -24,7 +24,20 @@ export const useSignupMutation = () => {
 };
 
 // Hook to verify OTP
-export const useVerifyOtpMutation = () => {
+export const useContactUsMutation = (options?: UseMutationOptions<ContactUsResponse, unknown, ContactUsRequest>) => {
+  return useMutation<ContactUsResponse, unknown, ContactUsRequest>({
+    mutationFn: ({ email, first_name, last_name, message, phone }: ContactUsRequest) => signupApi.contactUs(email, first_name, last_name, message, phone),
+    onSuccess: (data) => {
+      console.log('Contact Us submission successful:', data);
+    },
+    onError: (error) => {
+      console.error('Contact Us submission failed:', error);
+    },
+    ...options,
+  });
+};
+
+export const useContactUs = () => {
   return useMutation({
     mutationFn: async ({ email, organizationId, otp }: { email: string; organizationId: string; otp: string }) => {
       return await signupApi.verifyOtp(email, organizationId, otp);
@@ -40,6 +53,21 @@ export const useVerifyOtpMutation = () => {
   });
 };
 
+export const useVerifyOtpMutation = () => {
+  return useMutation({
+    mutationFn: async ({ email, organizationId, otp }: { email: string; organizationId: string; otp: string }) => {
+      return await signupApi.verifyOtp(email, organizationId, otp);
+    },
+    onSuccess: (data) => {
+      console.log('OTP verification successful:', data);
+      // You can add success handling here (redirect, show toast, etc.)
+    },
+    onError: (error) => {
+      console.error('OTP verification failed:', error);
+      // You can add error handling here (show error toast, etc.)
+    },
+  });
+};
 export const useCreateSubscriptionMutation = () => {
   return useMutation({
     mutationFn: async ({ organizationId, planId, role, subdomain }: CreateSubscriptionParams) => {

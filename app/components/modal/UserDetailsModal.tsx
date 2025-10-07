@@ -497,7 +497,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                   flexDirection: { xs: 'column', md: 'row' },
                 }}>
                 {renderTextField('User Name', 'username', true)}
-                {renderTextField('Password', 'password', true, 'Minimum 6 characters', 'password')}
+                {renderTextField('Password', 'password', true, 'Minimum 8 characters', 'password')}
               </Box>
 
               {/* Fourth Row: Sub-Domain */}

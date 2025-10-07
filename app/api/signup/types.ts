@@ -73,7 +73,18 @@ export interface VerifyOtpResponse {
   };
   error?: string;
 }
+export interface ContactUsRequest {
+  phone: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  message: string;
+}
 
+export interface ContactUsResponse {
+  success: boolean;
+  message: string;
+}
 // UI Plan interface
 export interface Plan {
   id: string;
@@ -141,4 +152,11 @@ export interface CreateSubscriptionParams {
   planId: string;
   role: string;
   subdomain: string;
+}
+export interface FormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  message: string;
 }

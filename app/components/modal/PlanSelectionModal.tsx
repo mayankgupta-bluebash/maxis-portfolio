@@ -5,11 +5,10 @@ import React, { useState } from 'react';
 import { Modal, Container, Typography, Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box, Switch } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import CloseIcon from '@mui/icons-material/Close';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIconSmall from '@mui/icons-material/Close';
+import { Close as CloseIcon, Check as CheckIcon, Close as CloseIconSmall } from '@mui/icons-material';
 
 import { Plan } from '@/app/api/signup/types';
+import { useRouter } from 'next/navigation';
 
 interface PlanSelectionModalProps {
   open: boolean;
@@ -390,13 +389,13 @@ export default function PlanSelectionModal({
   organizationId,
   subdomain,
   createSubscriptionMutation,
-}: PlanSelectionModalProps) {
+}: Readonly<PlanSelectionModalProps>) {
   const [processingPlanId, setProcessingPlanId] = useState<string | null>(null);
-
   const handleIntervalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newInterval = event.target.checked ? 'year' : 'month';
     onBillingIntervalChange?.(newInterval);
   };
+  const router = useRouter();
 
   return (
     <StyledModal
@@ -711,9 +710,16 @@ export default function PlanSelectionModal({
                         }}
                       />
 
-                      {/* Button */}
                       <Button
                         onClick={async () => {
+                          // If button text is "Contact Sales", navigate to contact-us
+                          if (plan.buttonText === 'Contact Sales') {
+                            router.push('contact-us');
+                            onClose();
+                            return;
+                          }
+
+                          // Otherwise, handle subscription normally
                           if (organizationId && createSubscriptionMutation && plan.id) {
                             try {
                               setProcessingPlanId(plan.id);
@@ -735,15 +741,12 @@ export default function PlanSelectionModal({
                         fullWidth
                         sx={{
                           borderRadius: '8px',
-                          py: plan.buttonVariant === 'contained' ? 1.5 : 1.75,
-                          px: 1,
-                          fontSize: '16px',
-                          fontWeight: 500,
-                          lineHeight: '169%',
-                          backgroundColor: '#694BC2',
+                          py: plan.buttonVariant === 'contained' ? 1.2 : 1,
+                          background: plan.buttonVariant === 'contained' ? 'linear-gradient(90deg, #8F75DD 0%, #601EF9 100%)' : 'transparent',
                           color: '#FFF',
+                          borderColor: '#8F75DD',
                           '&:hover': {
-                            backgroundColor: '#5940B8',
+                            background: plan.buttonVariant === 'contained' ? 'linear-gradient(90deg, #601EF9 0%, #8F75DD 100%)' : 'rgba(143, 117, 221, 0.2)',
                           },
                         }}>
                         {processingPlanId === plan.id ? 'Processing...' : plan.buttonText}
