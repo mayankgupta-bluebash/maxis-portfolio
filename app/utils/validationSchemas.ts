@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-// User Details Form Schema
+const restrictedDomains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'live.com', 'aol.com', 'icloud.com', 'protonmail.com'];
+
 export const userDetailsSchema = z.object({
   firstName: z
     .string()
@@ -20,7 +21,23 @@ export const userDetailsSchema = z.object({
     .max(20, 'Last name must be 20 characters or less')
     .regex(/^[a-zA-Z\s]+$/, 'Last name can only contain letters and spaces'),
 
-  email: z.string().min(1, 'Email is required').email('Please enter a valid email address').max(100, 'Email must be 100 characters or less'),
+  email: z
+    .string()
+    .min(1, 'Email is required')
+    .email('Please enter a valid email address')
+    .max(100, 'Email must be 100 characters or less')
+    .refine(
+      (value) => {
+        const domain = value.split('@')[1]?.toLowerCase();
+        if (!domain) return false;
+
+        // disallow any domain that *ends with* restricted domains
+        return !restrictedDomains.some((restricted) => domain.endsWith(restricted));
+      },
+      {
+        message: 'Please use your business or organization email (no Gmail, Yahoo, etc.)',
+      }
+    ),
 
   username: z
     .string()
@@ -53,7 +70,6 @@ export const userDetailsSchema = z.object({
   otp: z.string().optional(),
   selectedPlan: z.string().optional(),
 });
-
 // OTP Verification Schema
 export const otpVerificationSchema = z.object({
   otp: z
