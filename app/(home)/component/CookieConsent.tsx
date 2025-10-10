@@ -299,7 +299,7 @@ const CookieConsent: React.FC = () => {
                   gap={2}
                   alignItems='center'>
                   <Typography
-                    fontSize='20x'
+                    fontSize='20px'
                     fontWeight={500}>
                     Essential Cookies
                   </Typography>
@@ -334,7 +334,7 @@ const CookieConsent: React.FC = () => {
               mb={2}>
               <Box>
                 <Typography
-                  fontSize='20x'
+                  fontSize='20px'
                   fontWeight={500}>
                   Analytics Cookies
                 </Typography>
@@ -364,7 +364,7 @@ const CookieConsent: React.FC = () => {
               mb={2}>
               <Box>
                 <Typography
-                  fontSize='20x'
+                  fontSize='20px'
                   fontWeight={500}>
                   Functional Cookies
                 </Typography>
@@ -394,7 +394,7 @@ const CookieConsent: React.FC = () => {
               mb={2}>
               <Box>
                 <Typography
-                  fontSize='20x'
+                  fontSize='20px'
                   fontWeight={500}>
                   Marketing/Advertising Cookies
                 </Typography>
@@ -423,7 +423,7 @@ const CookieConsent: React.FC = () => {
               borderRadius='8px'>
               <Box>
                 <Typography
-                  fontSize='20x'
+                  fontSize='20px'
                   fontWeight={500}>
                   Healthcare Data Cookies
                 </Typography>
