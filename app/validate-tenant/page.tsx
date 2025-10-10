@@ -207,7 +207,7 @@ const ValidateTenantPage = () => {
                 color='#7352d5'
                 component='span'
                 sx={{ cursor: 'pointer' }}
-                onClick={() => router.push('/signup')}>
+                onClick={() => router.push('/')}>
                 Sign Up
               </Typography>
             </Typography>
