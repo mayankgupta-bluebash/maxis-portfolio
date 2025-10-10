@@ -1,12 +1,14 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import { Box, Typography, Container, Button, Grid, Card, TextField, InputAdornment } from '@mui/material';
+import { Box, Typography, Container, Button, Grid, Card } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import AboutCircle from '../assets/images/maxis_circle.webp';
 import Healthcare_AI_Innovation_Framework from '../assets/images/healthcare_AI_innovation_framework.webp';
+import ContactUs from '../components/forms/ContactUs';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const GradientText = styled(Typography)({
@@ -14,7 +16,7 @@ const GradientText = styled(Typography)({
   WebkitBackgroundClip: 'text',
   backgroundClip: 'text',
   color: 'transparent',
-  display: 'inline', // This is correct
+  display: 'inline',
 });
 
 const HeroBadge = styled(Box)({
@@ -72,123 +74,6 @@ const IconContainer = styled(Box)(({ theme }) => ({
     height: 150,
   },
 }));
-
-const ContactForm = styled(Card)({
-  padding: '53px 30px',
-  borderRadius: '18px',
-  background: 'rgba(37, 26, 73, 0.50)',
-  width: '644px',
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '24px',
-});
-
-const StyledTextField = styled(TextField)({
-  '& .MuiOutlinedInput-root': {
-    backgroundColor: 'rgba(37, 26, 73, 0.50)',
-    border: '1px solid #3E3E3E',
-    borderRadius: '4px',
-    color: '#8B8698',
-    fontSize: '14px',
-    height: '60px',
-    '& fieldset': {
-      border: 'none',
-    },
-    '&:hover fieldset': {
-      border: 'none',
-    },
-    '&.Mui-focused fieldset': {
-      border: 'none',
-    },
-  },
-  '& .MuiInputLabel-root': {
-    color: '#8B8698',
-    fontSize: '14px',
-    '&.Mui-focused': {
-      color: '#8B8698',
-    },
-  },
-  '& .MuiOutlinedInput-input': {
-    padding: '20px 16px',
-    color: '#8B8698',
-    fontSize: '14px',
-  },
-});
-
-const MessageTextField = styled(TextField)({
-  '& .MuiOutlinedInput-root': {
-    backgroundColor: 'rgba(37, 26, 73, 0.50)',
-    border: '1px solid #3E3E3E',
-    borderRadius: '4px',
-    color: '#8B8698',
-    fontSize: '14px',
-    minHeight: '132px',
-    alignItems: 'flex-start',
-    '& fieldset': {
-      border: 'none',
-    },
-    '&:hover fieldset': {
-      border: 'none',
-    },
-    '&.Mui-focused fieldset': {
-      border: 'none',
-    },
-  },
-  '& .MuiInputLabel-root': {
-    color: '#8C8698',
-    fontSize: '14px',
-    '&.Mui-focused': {
-      color: '#8C8698',
-    },
-  },
-  '& .MuiOutlinedInput-input': {
-    padding: '16px',
-    color: '#8C8698',
-    fontSize: '14px',
-  },
-});
-
-const PhoneTextField = styled(TextField)({
-  '& .MuiOutlinedInput-root': {
-    backgroundColor: 'rgba(37, 26, 73, 0.50)',
-    border: '1px solid #3E3E3E',
-    borderRadius: '4px',
-    color: '#8C8799',
-    fontSize: '14px',
-    height: '65px',
-    '& fieldset': {
-      border: 'none',
-    },
-    '&:hover fieldset': {
-      border: 'none',
-    },
-    '&.Mui-focused fieldset': {
-      border: 'none',
-    },
-  },
-  '& .MuiInputLabel-root': {
-    color: '#8C8799',
-    fontSize: '14px',
-    '&.Mui-focused': {
-      color: '#8C8799',
-    },
-  },
-  '& .MuiOutlinedInput-input': {
-    padding: '20px 16px',
-    color: '#8C8799',
-    fontSize: '14px',
-  },
-});
-
-const USFlag = () => (
-  <Image
-    src='https://cdn.builder.io/api/v1/image/assets/TEMP/501da89ddb0399fc660c28d11911b3f204cadfd3?width=53'
-    alt='USA Flag'
-    width={27}
-    height={14}
-    style={{ objectFit: 'cover' }}
-  />
-);
 
 const VisionIcon = () => (
   <svg
@@ -257,14 +142,6 @@ const MissionIcon = () => (
 );
 
 const AboutUsPage: React.FC = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    message: '',
-  });
-
   const stats = [
     {
       number: '3300',
@@ -596,18 +473,6 @@ const AboutUsPage: React.FC = () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, [stats]);
-
-  const handleInputChange = (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: event.target.value,
-    }));
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    console.log('Form submitted:', formData);
-  };
 
   return (
     <Box sx={{ background: '#080411', minHeight: '100vh' }}>
@@ -1009,7 +874,7 @@ const AboutUsPage: React.FC = () => {
         </Box>
       </Container>
 
-      {/* Contact Form Section */}
+      {/* Contact Form Section - FIXED */}
       <Container
         maxWidth='xl'
         sx={{ py: { xs: 4, md: 8 } }}>
@@ -1017,14 +882,22 @@ const AboutUsPage: React.FC = () => {
           ref={contactSectionRef}
           sx={{
             display: 'flex',
-            flexDirection: { xs: 'column', md: 'row' },
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: { xs: 4, md: 4 },
+            flexDirection: { xs: 'column', lg: 'row' },
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            gap: { xs: 4, md: 6 },
             maxWidth: '1280px',
             mx: 'auto',
           }}>
-          <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {/* Left Side - Content */}
+          <Box
+            sx={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 4,
+              maxWidth: { xs: '100%', lg: '500px' },
+            }}>
             <HeroBadge>
               <Typography
                 variant='body2'
@@ -1036,15 +909,19 @@ const AboutUsPage: React.FC = () => {
             <Typography
               variant='h2'
               sx={{
+                color: '#FFF',
                 fontSize: { xs: '28px', md: '56px' },
                 fontWeight: 500,
                 lineHeight: { xs: '36px', md: '76.8px' },
-                width: { xs: '100%', md: '595px' },
+                width: '100%',
               }}>
               Curious About What{' '}
               <GradientText
-                fontSize={{ xs: '28px', md: '56px' }}
-                sx={{ fontWeight: 500, lineHeight: { xs: '36px', md: '76.8px' } }}>
+                sx={{
+                  fontSize: 'inherit',
+                  fontWeight: 500,
+                  lineHeight: 'inherit',
+                }}>
                 Maxis
               </GradientText>{' '}
               Can Do for You?
@@ -1057,124 +934,24 @@ const AboutUsPage: React.FC = () => {
                 fontSize: { xs: '15px', md: '20px' },
                 fontWeight: 400,
                 lineHeight: { xs: '22px', md: '28px' },
-                width: { xs: '100%', md: '565px' },
-                height: { xs: 'auto', md: '124px' },
-                display: 'flex',
-                alignItems: 'center',
+                width: '100%',
               }}>
               Have questions? Looking to scale your R&D with AI agents? Our experts are just a message away.
             </Typography>
           </Box>
 
-          {/* Contact Form */}
-          <ContactForm
-            onSubmit={handleSubmit}
-            sx={{ width: { xs: '100%', md: '644px' }, mt: { xs: 4, md: 0 } }}>
-            <Typography
-              variant='h6'
-              sx={{
-                color: '#B7B4BF',
-                fontSize: { xs: '14px', md: '16px' },
-                fontWeight: 500,
-                lineHeight: '20px',
-                mb: 1,
-              }}>
-              BOOK A MEETING
-            </Typography>
-
-            {/* Name Fields */}
-            <Box sx={{ display: 'flex', gap: 1, flexDirection: { xs: 'column', sm: 'row' } }}>
-              <StyledTextField
-                placeholder='First Name*'
-                value={formData.firstName}
-                onChange={handleInputChange('firstName')}
-                fullWidth
-                required
-                sx={{ mb: { xs: 1, sm: 0 } }}
-              />
-              <StyledTextField
-                placeholder='Last Name*'
-                value={formData.lastName}
-                onChange={handleInputChange('lastName')}
-                fullWidth
-                required
-                sx={{ mb: { xs: 1, sm: 0 } }}
-              />
-            </Box>
-
-            {/* Email Field */}
-            <StyledTextField
-              placeholder='Corporate email *'
-              type='email'
-              value={formData.email}
-              onChange={handleInputChange('email')}
-              fullWidth
-              required
-              sx={{ mb: 1 }}
-            />
-
-            {/* Phone Field */}
-            <PhoneTextField
-              placeholder='(123) 456 7890'
-              value={formData.phone}
-              onChange={handleInputChange('phone')}
-              fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position='start'>
-                    <USFlag />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{ mb: 1 }}
-            />
-
-            {/* Message Field */}
-            <MessageTextField
-              placeholder='Type your message...'
-              multiline
-              rows={4}
-              value={formData.message}
-              onChange={handleInputChange('message')}
-              fullWidth
-              sx={{ mb: 1 }}
-            />
-
-            {/* Privacy Policy */}
-            <Typography
-              variant='caption'
-              sx={{
-                color: '#96939F',
-                fontSize: { xs: '11px', md: '12px' },
-                fontWeight: 400,
-                lineHeight: '17.931px',
-              }}>
-              By submiting this form, I confirm that I have read and understood Maxi&apos;s Privacy Policy.
-            </Typography>
-
-            {/* Submit Button */}
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
-              <Button
-                type='submit'
-                variant='contained'
-                sx={{
-                  background: '#6F41D2',
-                  border: '1px solid #6F41D2',
-                  borderRadius: '12px',
-                  py: { xs: 1, md: 2 },
-                  px: { xs: 2, md: 4 },
-                  color: 'white',
-                  fontSize: { xs: '13px', md: '15px' },
-                  fontWeight: 500,
-                  textTransform: 'none',
-                  '&:hover': {
-                    background: '#5A2FA8',
-                  },
-                }}>
-                Submit
-              </Button>
-            </Box>
-          </ContactForm>
+          {/* Right Side - Contact Form */}
+          <Box
+            ref={contactFormRef}
+            sx={{
+              flex: 1,
+              width: '100%',
+              maxWidth: { xs: '100%', lg: '644px' },
+              display: 'flex',
+              justifyContent: 'center',
+            }}>
+            <ContactUs />
+          </Box>
         </Box>
       </Container>
     </Box>
