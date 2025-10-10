@@ -5,6 +5,7 @@ import FeaturesSection from './component/FeaturesSection';
 import HowItWorkSection from './component/HowItWorkSection';
 import WhyChooseUsSection from './component/WhyChooseUsSection';
 import BuilderConsumerSection from './component/BuilderConsumerSection';
+import CookieConsent from './component/CookieConsent';
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
         <BuilderConsumerSection />
         <WhyChooseUsSection />
       </Box>
+      <CookieConsent />
     </Box>
   );
 }

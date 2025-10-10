@@ -22,7 +22,9 @@ import axios from 'axios';
 export const signupApi = {
   // Register user
   register: async (formData: SignupFormData): Promise<SignupResponse> => {
-    // Transform form data to API request format
+    const cookiePreferences = typeof window !== 'undefined' ? localStorage.getItem('cookiePreferences') : null;
+    const cookies = cookiePreferences ? JSON.parse(cookiePreferences) : {};
+
     const requestData: SignupRequest = {
       organization: {
         first_name: formData.firstName,
@@ -32,6 +34,7 @@ export const signupApi = {
         subdomain: formData.subdomain,
         role: formData.role,
         password: formData.password,
+        cookies: cookies,
       },
     };
 

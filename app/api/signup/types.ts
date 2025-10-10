@@ -8,6 +8,7 @@ export interface SignupRequest {
     subdomain: string;
     role: 'builder' | 'consumer';
     password: string;
+    cookies: object;
   };
 }
 
