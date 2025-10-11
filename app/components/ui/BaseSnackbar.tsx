@@ -28,10 +28,9 @@ const BaseSnackbar: React.FC<BaseSnackbarProps> = ({ snackbar, onClose, autoHide
         sx={{
           backgroundColor: '#F1EEFB',
           color: '#302259',
-
           fontWeight: 500,
           borderRadius: '8px',
-          width: '80%',
+          width: '100%',
         }}>
         {snackbar.message}
       </Alert>
