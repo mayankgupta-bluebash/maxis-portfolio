@@ -523,7 +523,49 @@ export default function PlanSelectionModal({
             />
             <BillingToggleLabel>Annually</BillingToggleLabel>
           </BillingToggleContainer>
-
+          <Box
+            display='flex'
+            justifyContent='center'
+            alignItems='center'
+            my={3}>
+            <Box
+              display='inline-flex'
+              alignItems='center'
+              gap={1}
+              px={2.5}
+              py={1}
+              borderRadius='20px'
+              sx={{
+                backdropFilter: 'blur(8px)',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                color: '#fff',
+              }}>
+              <Typography
+                variant='body1'
+                fontSize='16px'>
+                These plans are for
+              </Typography>
+              <Typography
+                fontWeight={700}
+                fontSize='16px'
+                color='#fff'
+                sx={{
+                  background: '#8d31f594',
+                  px: 1.5,
+                  py: 0.5,
+                  borderRadius: '20px',
+                  color: '#ffffff',
+                  textTransform: 'capitalize',
+                }}>
+                {role}
+              </Typography>
+              <Typography
+                variant='body1'
+                fontSize='16px'>
+                Role
+              </Typography>
+            </Box>
+          </Box>
           {/* Plan Cards */}
           <Box sx={{ display: 'flex', gap: 3, mb: 10, flexWrap: 'wrap' }}>
             {plansLoading ? (
