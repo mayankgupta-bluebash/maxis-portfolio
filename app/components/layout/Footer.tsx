@@ -96,6 +96,22 @@ export default function Footer() {
                 sx={{ color: 'white', textDecoration: 'none' }}>
                 <Typography variant='body2'>Contact Us</Typography>
               </Link>
+              <Box
+                component='span'
+                sx={{ borderRight: '1px solid #ffffff' }}></Box>
+              <Link
+                href='/terms-and-conditions'
+                sx={{ color: 'white', textDecoration: 'none' }}>
+                <Typography variant='body2'>Terms and Conditions</Typography>
+              </Link>
+              <Box
+                component='span'
+                sx={{ borderRight: '1px solid #ffffff' }}></Box>
+              <Link
+                href='/privacy-policy'
+                sx={{ color: 'white', textDecoration: 'none' }}>
+                <Typography variant='body2'>Privacy Policy</Typography>
+              </Link>
             </Box>
           </Box>
           <Divider sx={{ backgroundColor: '#3E3E3E' }} />

@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Modal, TextField, Typography, Button } from '@mui/material';
+import { Box, Modal, TextField, Typography, Button, Checkbox, FormControlLabel } from '@mui/material';
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useValidateFieldMutation } from '@/app/api/signup/hooks';
@@ -49,6 +49,8 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
     email?: 'success' | 'error' | 'neutral';
     subdomain?: 'success' | 'error' | 'neutral';
   }>({});
+
+  const [acceptedPrivacyPolicy, setAcceptedPrivacyPolicy] = useState(false);
 
   // Refs to track previous values and prevent infinite loops
   const prevEmailRef = useRef<string>('');
@@ -324,7 +326,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
     const emailValid = validationStates.email !== 'error';
     const subdomainValid = validationStates.subdomain !== 'error';
 
-    return !hasZodErrors && !hasApiErrors && emailValid && subdomainValid;
+    return !hasZodErrors && !hasApiErrors && emailValid && subdomainValid && acceptedPrivacyPolicy;
   };
 
   return (
@@ -631,6 +633,79 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                     </Typography>
                   )}
                 </Box>
+              </Box>
+
+              {/* Privacy Policy Checkbox */}
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  width: '100%',
+                }}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={acceptedPrivacyPolicy}
+                      onChange={(e) => setAcceptedPrivacyPolicy(e.target.checked)}
+                      sx={{
+                        color: 'rgba(255, 255, 255, 0.5)',
+                        '&.Mui-checked': {
+                          color: '#8F75DD',
+                        },
+                      }}
+                    />
+                  }
+                  label={
+                    <Typography
+                      sx={{
+                        color: '#FFF',
+                        fontSize: '14px',
+                        fontFamily: 'Inter',
+                        fontWeight: 400,
+                        lineHeight: '20px',
+                      }}>
+                      I agree to the{' '}
+                      <Box
+                        component='span'
+                        onClick={(e) => {
+                          e.preventDefault();
+                          window.open('/terms-and-conditions');
+                        }}
+                        sx={{
+                          color: '#8F75DD',
+                          textDecoration: 'underline',
+                          cursor: 'pointer',
+                          '&:hover': {
+                            color: '#7A5FD9',
+                          },
+                        }}>
+                        Terms and Conditions
+                      </Box>
+                      {' and '}
+                      <Box
+                        component='span'
+                        onClick={(e) => {
+                          e.preventDefault();
+                          window.open('/privacy-policy');
+                        }}
+                        sx={{
+                          color: '#8F75DD',
+                          textDecoration: 'underline',
+                          cursor: 'pointer',
+                          '&:hover': {
+                            color: '#7A5FD9',
+                          },
+                        }}>
+                        Privacy Policy
+                      </Box>
+                      .
+                    </Typography>
+                  }
+                  sx={{
+                    margin: 0,
+                    alignItems: 'center',
+                  }}
+                />
               </Box>
             </Box>
 
