@@ -39,14 +39,14 @@ const ValidateTenantPage = () => {
     try {
       const response = await handleValidateTenant(data.tenant);
 
-      if (!response?.success) {
-        setSnackbar({
-          open: true,
-          message: response?.message,
-          severity: 'error',
-        });
-        return;
-      }
+      // if (!response?.success) {
+      //   setSnackbar({
+      //     open: true,
+      //     message: response?.message,
+      //     severity: 'error',
+      //   });
+      //   return;
+      // }
 
       setSnackbar({
         open: true,
