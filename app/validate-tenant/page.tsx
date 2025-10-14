@@ -42,7 +42,7 @@ const ValidateTenantPage = () => {
       if (!response?.success) {
         setSnackbar({
           open: true,
-          message: response?.message || 'Something went wrong. Please try again.',
+          message: response?.message,
           severity: 'error',
         });
         return;
