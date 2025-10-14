@@ -25,13 +25,7 @@ export default function TermsAndConditionsPage() {
           Terms & Conditions
         </Typography>
 
-        <Box
-          sx={{
-            bgcolor: 'rgba(37, 26, 73, 0.50)',
-            border: '1px solid #A18BE3',
-            borderRadius: '8px',
-            p: 4,
-          }}>
+        <Box>
           <Typography
             sx={{
               color: '#FFF',
