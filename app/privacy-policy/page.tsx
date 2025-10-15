@@ -124,9 +124,9 @@ export default function PrivacyPolicyPage() {
               mb: 2,
             }}>
             If you visit our website, we may collect some information from you automatically. We collect natures IP addresses to analyze trends, administer the website, track
-            users' movements, and gather broad demographic information for aggregate use. We also use cookies to store and track information with regard to your use of our website.
-            This information is used to analyze trends, track user movements on our website and improve the website and gather demographic information. You do have the choice on
-            your web browser to accept or reject cookies. A user who does not accept cookies from our website may not be able to access certain areas of the website.
+            users&apos; movements, and gather broad demographic information for aggregate use. We also use cookies to store and track information with regard to your use of our
+            website. This information is used to analyze trends, track user movements on our website and improve the website and gather demographic information. You do have the
+            choice on your web browser to accept or reject cookies. A user who does not accept cookies from our website may not be able to access certain areas of the website.
           </Typography>
           <Typography
             sx={{
@@ -183,8 +183,8 @@ export default function PrivacyPolicyPage() {
               fontSize: '14px',
               mb: 3,
             }}>
-            Maastri will not retain your personal information longer than it's necessary to fulfill the purposes for which it was collected or as required by applicable laws or
-            regulations.
+            Maastri will not retain your personal information longer than it&apos;s necessary to fulfill the purposes for which it was collected or as required by applicable laws
+            or regulations.
           </Typography>
 
           <Typography

@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Box, Typography, Container, Button, Grid, Card } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import gsap from 'gsap';
@@ -142,24 +142,27 @@ const MissionIcon = () => (
 );
 
 const AboutUsPage: React.FC = () => {
-  const stats = [
-    {
-      number: '3300',
-      label: 'Clinical Trials in the Cloud',
-    },
-    {
-      number: '22',
-      label: 'Clinical Systems Integrated',
-    },
-    {
-      number: '50%',
-      label: 'Demonstrated cost savings',
-    },
-    {
-      number: '40%',
-      label: 'Demonstrated time savings',
-    },
-  ];
+  const stats = useMemo(
+    () => [
+      {
+        number: '3300',
+        label: 'Clinical Trials in the Cloud',
+      },
+      {
+        number: '22',
+        label: 'Clinical Systems Integrated',
+      },
+      {
+        number: '50%',
+        label: 'Demonstrated cost savings',
+      },
+      {
+        number: '40%',
+        label: 'Demonstrated time savings',
+      },
+    ],
+    []
+  );
 
   // Animation refs
   const heroBadgeRef = useRef<HTMLDivElement>(null);

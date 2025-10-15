@@ -89,8 +89,8 @@ export default function TermsAndConditionsPage() {
                 fontSize: '14px',
                 mb: 1,
               }}>
-              If You are accepting these Terms on behalf of a company, You have the authority to bind such entity to these Terms and, in such event, "You" and "Your" as used in
-              these Terms shall refer to such entity.
+              If You are accepting these Terms on behalf of a company, You have the authority to bind such entity to these Terms and, in such event, &quot;You&quot; and
+              &quot;Your&quot; as used in these Terms shall refer to such entity.
             </Typography>
             <Typography
               component='li'
@@ -99,9 +99,9 @@ export default function TermsAndConditionsPage() {
                 fontSize: '14px',
                 mb: 1,
               }}>
-              If you are a legal entity and are permitting an employee of the legal entity to use the Site through your account as an employee or an user ("Employee") identified
-              through an unique login, you have the authority to bind such employees and users to these Terms and, in such event, "Your" and "Your" as used in these Terms shall
-              refer to such entity and its Employees;
+              If you are a legal entity and are permitting an employee of the legal entity to use the Site through your account as an employee or an user (&quot;Employee&quot;)
+              identified through an unique login, you have the authority to bind such employees and users to these Terms and, in such event, &quot;Your&quot; and &quot;Your&quot;
+              as used in these Terms shall refer to such entity and its Employees;
             </Typography>
           </Box>
 
@@ -124,7 +124,7 @@ export default function TermsAndConditionsPage() {
                 fontSize: '14px',
                 mb: 1,
               }}>
-              The user or employee of such legal entity who uses this system is abiding with all terms specified in the company's acceptable usage policy.
+              The user or employee of such legal entity who uses this system is abiding with all terms specified in the company&apos;s acceptable usage policy.
             </Typography>
             <Typography
               component='li'
@@ -188,7 +188,7 @@ export default function TermsAndConditionsPage() {
               fontSize: '14px',
               mb: 3,
             }}>
-            The user or employee of such legal entity who uses this system is abiding with all terms specified in the company's acceptable usage policy.
+            The user or employee of such legal entity who uses this system is abiding with all terms specified in the company&apos;s acceptable usage policy.
           </Typography>
 
           <Typography
@@ -206,9 +206,9 @@ export default function TermsAndConditionsPage() {
               fontSize: '14px',
               mb: 3,
             }}>
-            Users are responsible for the proper usage of the system. Password shall be secured safely and follow the company's password policy in managing their passwords
+            Users are responsible for the proper usage of the system. Password shall be secured safely and follow the company&apos;s password policy in managing their passwords
             effectively. Revealing your account user information or passwords to others or allowing use of your account or log-in credentials by others is strictly prohibited and
-            may be against to your company's policy.
+            may be against to your company&apos;s policy.
           </Typography>
 
           <Typography
@@ -227,7 +227,7 @@ export default function TermsAndConditionsPage() {
               mb: 3,
             }}>
             Only authorized individuals should log-in to the system, any un-authorized access into the system will be treated as violation against to the given access rights and
-            disciplinary actions may be taken as per your company's policies.
+            disciplinary actions may be taken as per your company&apos;s policies.
           </Typography>
 
           <Typography
@@ -310,8 +310,8 @@ export default function TermsAndConditionsPage() {
                 fontSize: '14px',
                 mb: 1,
               }}>
-              You acknowledge that when you interact with the AI, the data you provide, including prompts and inputs, may be processed and stored to improve the AI's performance.
-              You agree to these data practices.
+              You acknowledge that when you interact with the AI, the data you provide, including prompts and inputs, may be processed and stored to improve the AI&apos;s
+              performance. You agree to these data practices.
             </Typography>
             <Typography
               component='li'
@@ -435,8 +435,8 @@ export default function TermsAndConditionsPage() {
               color: 'rgba(255, 255, 255, 0.8)',
               fontSize: '14px',
             }}>
-            MAXISIT® is the premier contributor worldwide in improving the way's pharmaceutical and life sciences industry companies, and academia are leveraging information and
-            making decisions in how clinical research and development is conducted.
+            MAXISIT® is the premier contributor worldwide in improving the way&apos;s pharmaceutical and life sciences industry companies, and academia are leveraging information
+            and making decisions in how clinical research and development is conducted.
           </Typography>
         </Box>
       </Container>
