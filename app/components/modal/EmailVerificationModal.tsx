@@ -94,12 +94,6 @@ export default function EmailVerificationModal({
     }
   };
 
-  const handleKeyDown = (index: number, e: React.KeyboardEvent) => {
-    if (e.key === 'Backspace' && !otp[index] && index > 0) {
-      otpRefs.current[index - 1]?.focus();
-    }
-  };
-
   const handlePaste = (e: React.ClipboardEvent) => {
     e.preventDefault();
     const pastedData = e.clipboardData.getData('text');
@@ -166,6 +160,17 @@ export default function EmailVerificationModal({
       // Fallback if no API integration
       setValue('otp', otpString);
       onNext();
+    }
+  };
+  const handleKeyDown = (index: number, e: React.KeyboardEvent) => {
+    if (e.key === 'Backspace' && !otp[index] && index > 0) {
+      // Move focus to previous input
+      otpRefs.current[index - 1]?.focus();
+    }
+
+    if (e.key === 'Enter') {
+      // ✅ Trigger OTP verification on Enter
+      handleVerify();
     }
   };
 
