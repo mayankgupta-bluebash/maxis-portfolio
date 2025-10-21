@@ -138,15 +138,15 @@ export const transformApiPlans = (apiPlans: ApiPlan[], interval: 'month' | 'year
 export const getPlanDescription = (planType: string): string => {
   switch (planType) {
     case 'Free':
-      return 'Beginners';
+      return 'Perfect for getting started';
     case 'Individual':
-      return 'Personal Use';
+      return 'For personal projects';
     case 'Starter':
-      return 'Small Business';
+      return 'Great for small businesses';
     case 'Pro':
-      return 'Growing Business';
+      return 'For growing teams';
     case 'Enterprise':
-      return 'Large Organizations';
+      return 'For large organizations';
     default:
       return 'Professional';
   }

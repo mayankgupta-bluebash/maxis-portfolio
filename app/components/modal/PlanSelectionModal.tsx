@@ -6,7 +6,7 @@ import { Modal, Container, Typography, Button, IconButton, Paper, Table, TableBo
 import { styled } from '@mui/material/styles';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Close as CloseIcon, Check as CheckIcon, Close as CloseIconSmall } from '@mui/icons-material';
-
+import StarIcon from '@mui/icons-material/Star';
 import { Plan } from '@/app/api/signup/types';
 import { useRouter } from 'next/navigation';
 
@@ -149,6 +149,7 @@ const FeatureCell = styled(TableCell)({
   fontSize: '13.26px',
   fontWeight: 500,
   lineHeight: '150%',
+  textAlign: 'center',
 });
 
 const StarterHeaderCell = styled(HeaderCell)({
@@ -166,7 +167,6 @@ const CategoryHeader = styled(TableCell)({
   color: '#FFF',
   fontSize: '14.918px',
   fontWeight: 600,
-  lineHeight: '150%',
 });
 
 // Use API plans instead of static plans
@@ -550,7 +550,7 @@ export default function PlanSelectionModal({
                 fontSize='16px'
                 color='#fff'
                 sx={{
-                  background: 'rgba(141, 49, 245, 0.83)',
+                  background: '#713cef',
                   px: 1.5,
                   py: 0.5,
                   borderRadius: '20px',
@@ -595,15 +595,17 @@ export default function PlanSelectionModal({
                           top: '-22px',
                           left: '50%',
                           right: '50%',
-                          width: '50%',
+                          width: '60%',
                           transform: 'translateX(-50%)',
                           height: '40px',
-                          background: 'rgba(141, 49, 245)',
+                          background: '#302259',
                           borderRadius: '8px',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
                         }}>
+                        <StarIcon sx={{ color: '#FFD700', fontSize: 18, mr: 1 }} />
+
                         <Typography sx={{ color: '#F9FAFC', fontSize: '14px' }}>Most Popular</Typography>
                       </Box>
                     )}
@@ -675,6 +677,7 @@ export default function PlanSelectionModal({
                             fontSize: '16px',
                             fontWeight: 500,
                             lineHeight: '73%',
+                            textAlign: 'center',
                             ml: 0.5,
                           }}>
                           {plan.period}
@@ -684,9 +687,10 @@ export default function PlanSelectionModal({
                       <Typography
                         sx={{
                           color: '#DEDEDE',
-                          fontSize: '16px',
-                          lineHeight: '150%',
-                          mb: 3,
+                          fontSize: '14px',
+                          height: '35px',
+                          lineHeight: '130%',
+                          my: 2,
                         }}>
                         {plan.description}
                       </Typography>
