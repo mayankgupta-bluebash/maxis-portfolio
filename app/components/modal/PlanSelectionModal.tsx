@@ -104,7 +104,7 @@ const PlanCard = styled(Paper, {
       left: 0,
       right: 0,
       height: '40px',
-      background: 'rgba(141, 49, 245, 0.20)',
+      // background: 'rgba(141, 49, 245, 0.20)',
       borderRadius: '14px 14px 0 0',
       display: 'flex',
       alignItems: 'center',
@@ -550,7 +550,7 @@ export default function PlanSelectionModal({
                 fontSize='16px'
                 color='#fff'
                 sx={{
-                  background: '#8d31f594',
+                  background: 'rgba(141, 49, 245, 0.83)',
                   px: 1.5,
                   py: 0.5,
                   borderRadius: '20px',
@@ -592,12 +592,14 @@ export default function PlanSelectionModal({
                       <Box
                         sx={{
                           position: 'absolute',
-                          top: 0,
-                          left: 0,
-                          right: 0,
+                          top: '-22px',
+                          left: '50%',
+                          right: '50%',
+                          width: '50%',
+                          transform: 'translateX(-50%)',
                           height: '40px',
-                          background: 'rgba(141, 49, 245, 0.20)',
-                          borderRadius: '14px 14px 0 0',
+                          background: 'rgba(141, 49, 245)',
+                          borderRadius: '8px',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -606,7 +608,7 @@ export default function PlanSelectionModal({
                       </Box>
                     )}
 
-                    <Box sx={{ width: '100%', pt: plan.featured ? 5 : 0 }}>
+                    <Box sx={{ width: '100%', pt: 0 }}>
                       {/* Plan Name */}
                       <Typography
                         sx={{
