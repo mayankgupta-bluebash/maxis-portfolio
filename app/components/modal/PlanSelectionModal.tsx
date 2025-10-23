@@ -381,7 +381,7 @@ export default function PlanSelectionModal({
   onClose,
   onBack,
   role,
-  billingInterval = 'year',
+  billingInterval = 'month',
   onBillingIntervalChange,
   plans = [],
   plansLoading = false,
