@@ -124,7 +124,7 @@ const Header: React.FC = () => {
             </Button>
             <Button
               variant='outlined'
-              onClick={() => window?.open('/validate-tenant', '_blank')}
+              onClick={() => window?.open(`${process.env.NEXT_PUBLIC_BASE_URL}/validate-tenant`, '_blank')}
               sx={{
                 borderRadius: '12px',
                 backgroundColor: '#6F41D2',
