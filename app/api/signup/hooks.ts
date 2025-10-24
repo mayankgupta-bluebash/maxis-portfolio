@@ -123,7 +123,7 @@ export const useValidateFieldMutation = () => {
 };
 
 // Hook to fetch plans
-export const usePlansQuery = (role: string, interval: 'month' | 'year' = 'year', enabled: boolean = false) => {
+export const usePlansQuery = (role: string, interval: 'month' | 'year' = 'month', enabled: boolean = false) => {
   return useQuery({
     queryKey: ['plans', role, interval],
     queryFn: async (): Promise<Plan[]> => {

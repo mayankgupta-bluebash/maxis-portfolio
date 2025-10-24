@@ -55,7 +55,7 @@ export const signupApi = {
   },
 
   // Get plans
-  getPlans: async (role: string, interval: 'month' | 'year' = 'year'): Promise<PlansResponse> => {
+  getPlans: async (role: string, interval: 'month' | 'year' = 'month'): Promise<PlansResponse> => {
     const response = await api.get<PlansResponse>(`/public/plans?role=${role}&interval=${interval}`);
     return response.data;
   },

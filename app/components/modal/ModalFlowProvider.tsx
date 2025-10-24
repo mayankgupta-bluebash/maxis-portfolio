@@ -41,7 +41,7 @@ const ModalFlowContext = createContext<ModalFlowContextType | undefined>(undefin
 const ModalFlowProviderInner = ({ children }: { children: ReactNode }) => {
   const [step, setStep] = useState<ModalStep | null>(null);
   const [selectedRole, setSelectedRole] = useState<UserRole>('builder');
-  const [billingInterval, setBillingInterval] = useState<'month' | 'year'>('year');
+  const [billingInterval, setBillingInterval] = useState<'month' | 'year'>('month');
   const [organizationId, setOrganizationId] = useState<string | null>(null);
   const isOpen = step !== null;
 
