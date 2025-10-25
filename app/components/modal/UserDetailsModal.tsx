@@ -5,7 +5,6 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useValidateFieldMutation } from '@/app/api/signup/hooks';
 import { z } from 'zod';
-import { useRouter } from 'next/navigation';
 
 // Custom hook for debouncing
 const useDebounce = (value: string, delay: number) => {
@@ -45,7 +44,6 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
     email?: string;
     subdomain?: string;
   }>({});
-  const router = useRouter();
   const [validationStates, setValidationStates] = useState<{
     email?: 'success' | 'error' | 'neutral';
     subdomain?: 'success' | 'error' | 'neutral';
@@ -679,7 +677,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                         component='span'
                         onClick={(e) => {
                           e.preventDefault();
-                          router.push('/terms-and-conditions');
+                          window.open('/terms-and-conditions');
                         }}
                         sx={{
                           color: '#8F75DD',
@@ -696,7 +694,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                         component='span'
                         onClick={(e) => {
                           e.preventDefault();
-                          router.push('/privacy-policy');
+                          window.open('/privacy-policy');
                         }}
                         sx={{
                           color: '#8F75DD',

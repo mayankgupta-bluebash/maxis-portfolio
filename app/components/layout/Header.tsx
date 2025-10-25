@@ -16,7 +16,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { usePathname } from 'next/navigation';
-import { useRouter } from 'next/navigation';
 
 const navLinks = [
   { href: '/about-us', label: 'About Us' },
@@ -34,7 +33,7 @@ const Header: React.FC = () => {
     setDrawerOpen((prev) => !prev);
   };
   const pathname = usePathname();
-  const router = useRouter();
+
   return (
     <div>
       <Box
@@ -125,7 +124,7 @@ const Header: React.FC = () => {
             </Button>
             <Button
               variant='outlined'
-              onClick={() => router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/validate-tenant`)}
+              onClick={() => window?.open(`${process.env.NEXT_PUBLIC_BASE_URL}/validate-tenant`, '_blank')}
               sx={{
                 borderRadius: '12px',
                 backgroundColor: '#6F41D2',
@@ -200,7 +199,7 @@ const Header: React.FC = () => {
             <ListItem disablePadding>
               <ListItemButton
                 onClick={() => {
-                  router.push('https://www.maxis-ai.com/');
+                  window?.open('https://www.maxis-ai.com/', '_blank');
                   setDrawerOpen(false);
                 }}>
                 <ListItemText
