@@ -566,6 +566,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                             fontSize: '16px',
                             fontWeight: 500,
                             height: '100%',
+                            width: '100%',
                           }}>
                           {(() => {
                             const rawUrl = process.env.NEXT_PUBLIC_BASE_URL || '';
