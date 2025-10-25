@@ -567,7 +567,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                             fontWeight: 500,
                             height: '100%',
                           }}>
-                          .maxisai.com
+                          {process.env.NEXT_PUBLIC_BASE_URL}
                         </Box>
                       ),
                       sx: {
