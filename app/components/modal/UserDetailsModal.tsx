@@ -567,7 +567,15 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                             fontWeight: 500,
                             height: '100%',
                           }}>
-                          {process.env.NEXT_PUBLIC_BASE_URL}
+                          {(() => {
+                            const rawUrl = process.env.NEXT_PUBLIC_BASE_URL || '';
+                            try {
+                              const hostname = new URL(rawUrl.startsWith('http') ? rawUrl : `http://${rawUrl}`).hostname;
+                              return hostname.replace(/^www\./, '');
+                            } catch {
+                              return rawUrl.replace(/^https?:\/\//, '').replace(/^www\./, '');
+                            }
+                          })()}
                         </Box>
                       ),
                       sx: {
