@@ -5,6 +5,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useValidateFieldMutation } from '@/app/api/signup/hooks';
 import { z } from 'zod';
+import router from 'next/router';
 
 // Custom hook for debouncing
 const useDebounce = (value: string, delay: number) => {
@@ -678,7 +679,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                         component='span'
                         onClick={(e) => {
                           e.preventDefault();
-                          window.open('/terms-and-conditions');
+                          router.push('/terms-and-conditions');
                         }}
                         sx={{
                           color: '#8F75DD',
@@ -695,7 +696,7 @@ export default function UserDetailsModal({ isOpen, handleClose, onPrevious, onNe
                         component='span'
                         onClick={(e) => {
                           e.preventDefault();
-                          window.open('/privacy-policy');
+                          router.push('/privacy-policy');
                         }}
                         sx={{
                           color: '#8F75DD',
