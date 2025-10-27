@@ -172,7 +172,7 @@ const ValidateTenantPage = () => {
                             borderRadius: '0 4px 4px 0',
                             bgcolor: '#F4F4F4',
                           }}>
-                          .maxisai.com
+                          {process.env.NEXT_PUBLIC_HOSTNAME}
                         </InputAdornment>
                       ),
                     }}
