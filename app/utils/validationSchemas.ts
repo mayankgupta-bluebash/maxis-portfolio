@@ -3,23 +3,24 @@ import { z } from 'zod';
 const restrictedDomains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'live.com', 'aol.com', 'icloud.com', 'protonmail.com'];
 
 export const userDetailsSchema = z.object({
-  firstName: z
+  first_name: z
     .string()
-    .min(1, 'First name is required')
-    .max(20, 'First name must be 20 characters or less')
-    .regex(/^[a-zA-Z\s]+$/, 'First name can only contain letters and spaces'),
+    .min(1, 'First Name is required')
+    .max(20, 'First Name cannot exceed 20 characters')
+    .regex(/^[a-zA-Z0-9-]+$/, 'First Name can only contain letters, numbers, and hyphens'),
 
-  middleName: z
+  middle_name: z
     .string()
-    .max(20, 'Middle name must be 20 characters or less')
-    .regex(/^[a-zA-Z\s]*$/, 'Middle name can only contain letters and spaces')
-    .optional(),
+    .max(20, 'Middle Name cannot exceed 20 characters')
+    .regex(/^[a-zA-Z0-9-]*$/, 'Middle Name can only contain letters, numbers, and hyphens')
+    .optional()
+    .or(z.literal('')),
 
-  lastName: z
+  last_name: z
     .string()
-    .min(1, 'Last name is required')
-    .max(20, 'Last name must be 20 characters or less')
-    .regex(/^[a-zA-Z\s]+$/, 'Last name can only contain letters and spaces'),
+    .min(1, 'Last Name is required')
+    .max(20, 'Last Name cannot exceed 20 characters')
+    .regex(/^[a-zA-Z0-9-]+$/, 'Last Name can only contain letters, numbers, and hyphens'),
 
   email: z
     .string()
