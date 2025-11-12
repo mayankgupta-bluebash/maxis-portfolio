@@ -3,20 +3,20 @@ import { z } from 'zod';
 const restrictedDomains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'live.com', 'aol.com', 'icloud.com', 'protonmail.com'];
 
 export const userDetailsSchema = z.object({
-  first_name: z
+  firstName: z
     .string()
     .min(1, 'First Name is required')
     .max(20, 'First Name cannot exceed 20 characters')
     .regex(/^[a-zA-Z0-9-]+$/, 'First Name can only contain letters, numbers, and hyphens'),
 
-  middle_name: z
+  middleName: z
     .string()
     .max(20, 'Middle Name cannot exceed 20 characters')
     .regex(/^[a-zA-Z0-9-]*$/, 'Middle Name can only contain letters, numbers, and hyphens')
     .optional()
     .or(z.literal('')),
 
-  last_name: z
+  lastName: z
     .string()
     .min(1, 'Last Name is required')
     .max(20, 'Last Name cannot exceed 20 characters')
