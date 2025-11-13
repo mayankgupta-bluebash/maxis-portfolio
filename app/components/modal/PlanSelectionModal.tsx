@@ -170,7 +170,6 @@ const CategoryHeader = styled(TableCell)({
 });
 
 // Use API plans instead of static plans
-
 const featureCategories = [
   {
     name: 'Features',
@@ -185,7 +184,7 @@ const featureCategories = [
       },
       {
         name: 'Agentic Asset Verification',
-        values: ['$100', '$100', '$100', '$100', '$100'],
+        values: ['100', '100', '100', '100', '100'],
       },
       {
         name: 'Number of Agents',
@@ -213,19 +212,31 @@ const featureCategories = [
       },
       {
         name: 'Agentic Explainability',
-        values: ['Basic', 'Basic', 'Basic', 'Advanced', 'Advanced'],
+        values: ['Basic', 'Basic', 'Basic', 'Advance', 'Advance'],
       },
       {
         name: 'Agentic Observability',
-        values: ['Basic', 'Basic', 'Basic', 'Advanced', 'Advanced'],
+        values: ['Basic', 'Basic', 'Basic', 'Advance', 'Advance'],
       },
       {
         name: 'Access to Marketplace',
         values: [true, true, true, true, true],
       },
       {
-        name: 'Roles and Privileges',
+        name: 'Roles Management',
         values: [false, false, true, true, true],
+      },
+      {
+        name: 'User and Privilege Management',
+        values: [false, false, true, true, true],
+      },
+      {
+        name: 'Study Management',
+        values: [false, false, true, true, true],
+      },
+      {
+        name: 'Project Management',
+        values: [true, true, true, true, true],
       },
       {
         name: 'Team Collaboration',
@@ -237,8 +248,12 @@ const featureCategories = [
     name: 'Cloud Infrastructure',
     features: [
       {
-        name: 'Cloud Storage',
-        values: ['50 MB', '100 MB', '1 GB', '10 GB', 'On demand'],
+        name: 'Data Integrations?',
+        values: [false, '1', '1', '2', 'Unlimited'],
+      },
+      {
+        name: 'Data storage?',
+        values: ['50 MB', '100 MB', '1 GB', '10 GB', 'On Demand'],
       },
       {
         name: 'GPU Compute?',
@@ -255,11 +270,11 @@ const featureCategories = [
     features: [
       {
         name: 'Open Source LLM support',
-        values: [true, true, true, true, true],
+        values: ['Open Source LLMs', 'Open Source LLMs', 'Open Source LLMs', 'Open Source LLMs', 'Open Source LLMs'],
       },
       {
         name: 'Premium LLM Support',
-        values: ['BYOK', 'BYOK', 'BYOK', 'BYOK', 'BYOK'],
+        values: ['Bring Your Own Key/s', 'Bring Your Own Key/s', 'Bring Your Own Key/s', 'Bring Your Own Key/s', 'Bring Your Own Key/s'],
       },
       {
         name: 'Fine-tuned LLM Support',
@@ -275,19 +290,19 @@ const featureCategories = [
         values: [true, true, true, true, true],
       },
       {
-        name: 'Maxis Ai AI Forum?',
+        name: 'Maxis AI Forum?',
         values: [true, true, true, true, true],
       },
       {
         name: 'Feature Requests Priority?',
-        values: [false, false, 'LOW', 'MEDIUM', 'HIGH'],
+        values: [false, false, 'Low', 'Medium', 'High'],
       },
       {
         name: 'Dedicated Support?',
         values: [false, false, false, true, true],
       },
       {
-        name: 'Embedded Maxis Ai AI Expert?',
+        name: 'Embedded Maxis AI Expert?',
         values: [false, false, false, false, true],
       },
       {
